@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1069536171342",
+    "project_id": "lamartavelpackages",
+    "storage_bucket": "lamartavelpackages.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069536171342:android:8957beb6180f3b518dba1f",
+        "android_client_info": {
+          "package_name": "com.lamartravelpackages"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069536171342-o058kttsaon4nopgrj2935gp8edh7cll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFYk3l4tkfsKrkTZ4W-5EGo1Q3fweC7MA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069536171342-o058kttsaon4nopgrj2935gp8edh7cll.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1069536171342-d1uv588hol7gi9hs6t2n27d60eqgj3q7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lamarTravelPackages"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
