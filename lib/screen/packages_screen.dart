@@ -1089,6 +1089,10 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                                     .packageName);
                                                           }
                                                         },
+
+
+
+
                                                         icon: Icon(
                                                           Icons.share,
                                                           color: Colors.grey,
