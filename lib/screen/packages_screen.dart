@@ -1026,6 +1026,9 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                             : const SizedBox(),
                                                         const SizedBox(height: 3),
                                                         Row(
+
+
+                                                          
                                                           children: [
                                                             packagesList[index].transfer.isNotEmpty
                                                                 ? const Icon(MdiIcons.car, size: 18)
