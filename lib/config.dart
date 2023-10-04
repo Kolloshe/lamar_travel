@@ -50,7 +50,7 @@ Map<PaymentBrands, String> entityId = {
   PaymentBrands.mada: "8acda4cb8a45e016018a4614f7c303e3",
   PaymentBrands.applePay: "8ac7a4ca88bbf0df0188bea4bd050419"
 };
-String appleMerchantId = "merchant.lamartravelMerchant";
+String appleMerchantId = "merchant.lamar-travel-merchant-live";
 
 String gencurrency = 'SAR';
 String genlang = 'EN';
