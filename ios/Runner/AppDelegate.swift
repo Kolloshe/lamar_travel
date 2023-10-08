@@ -13,7 +13,7 @@ import GoogleMaps
       FirebaseApp.configure()
       GMSServices.provideAPIKey("AIzaSyBcDNURPotMs5U9M8frup8v-f2MNueERgQ");
       GeneratedPluginRegistrant.register(with: self)
-      let controller :FlutterViewController = window?.rootViewController as! FlutterViewController
+      let _ :FlutterViewController = window?.rootViewController as! FlutterViewController
      
 //      let paymentChannel = FlutterMethodChannel(name:"com.lamarTravel/paymentMethod",binaryMessenger: controller.binaryMessenger)
 //

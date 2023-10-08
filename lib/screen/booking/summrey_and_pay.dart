@@ -56,7 +56,6 @@ class _SumAndPayState extends State<SumAndPay> {
 
   String checkoutId = '';
 
-
   bool partialAmountWithCredit = false;
 
   PaymentMethod _paymentMethods = PaymentMethod.card;
@@ -169,7 +168,8 @@ class _SumAndPayState extends State<SumAndPay> {
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(48.0),
                   child: Theme(
-                    data: Theme.of(context).copyWith(colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white)),
+                    data: Theme.of(context).copyWith(
+                        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white)),
                     child: Container(
                         padding: const EdgeInsets.all(10),
                         height: 48.0,
@@ -957,7 +957,8 @@ class _SumAndPayState extends State<SumAndPay> {
       width: 100.w,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 1.8.h), backgroundColor: yellowColor,
+          padding: EdgeInsets.symmetric(vertical: 1.8.h),
+          backgroundColor: yellowColor,
         ),
         onPressed: () async {
           try {
@@ -1801,7 +1802,8 @@ class _SumAndPayState extends State<SumAndPay> {
       final result = await AssistantMethods.checkPaymentStatus(checkoutId);
       final isSuccess = result.isEmpty
           ? false
-          : result['status'].toLowerCase().contains("success")
+          : (result['status'].toLowerCase().contains("success") ||
+                  result['status'].toLowerCase().contains("succeeded"))
               ? true
               : false;
 
@@ -2245,8 +2247,8 @@ class _SumAndPayState extends State<SumAndPay> {
                             Navigator.of(context).pop(data);
                           }
                         },
-                        style:
-                            ElevatedButton.styleFrom(backgroundColor: accept ? primaryblue : Colors.grey),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: accept ? primaryblue : Colors.grey),
                         child: Text(AppLocalizations.of(context)?.apply ?? 'Apply'),
                       ),
                     ),

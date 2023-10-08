@@ -1693,9 +1693,7 @@ class AssistantMethods {
 
   /// ? //////////////////  SEARCH FOR DISTNATIONS  ////////////////////
   /// ? //////////////////  SEARCH FOR DISTNATIONS  ////////////////////
-  /// ? //////////////////  SEARCH FOR DISTNATIONS  ////////////////////    
-  
-  
+  /// ? //////////////////  SEARCH FOR DISTNATIONS  ////////////////////
 
   static Future searchDistnationsForTransferAir(BuildContext context, String q, String id) async {
     String url = baseUrl +
@@ -3134,11 +3132,11 @@ class AssistantMethods {
       required Map<String, String> data,
       required String merchantTransactionId,
       required String testMode}) async {
-    //const url = "https://test.oppwa.com/v1/checkouts";
-    const url = "https://oppwa.com/v1/checkouts";
+    const url = "$paymentUrl/checkouts";
+    // const url = "https://oppwa.com/v1/checkouts";
 
     var headers = {
-      'Authorization': 'Bearer OGFjZGE0Y2E4YTJlODc3YTAxOGE0NWJlMjllODUxN2N8emtUUXk3eEFqUg==',
+      'Authorization': 'Bearer $paymentToken',
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
     };
@@ -3148,9 +3146,11 @@ class AssistantMethods {
     Map<String, String> fields = {
       'entityId': entityId[paymentBrand] ?? "",
       'amount': amount,
+
       'currency': 'SAR',
       'paymentType': 'DB',
       'merchantTransactionId': merchantTransactionId,
+      //  'testMode': 'EXTERNAL'
     };
     fields.addAll(data);
     request.bodyFields = fields;
@@ -3159,7 +3159,7 @@ class AssistantMethods {
 
     http.StreamedResponse response = await request.send();
     final jsonString = await response.stream.bytesToString();
-    log(jsonString);
+    print(jsonString);
     if (response.statusCode == 200) {
       return jsonDecode(jsonString)["id"];
     } else {
@@ -3168,12 +3168,11 @@ class AssistantMethods {
   }
 
   static Future<Map<String, dynamic>> checkPaymentStatus(String checkOutID) async {
-    final url =
-        //  "https://test.oppwa.com/v1/checkouts/$checkOutID/payment?entityId=${entityId[paymentBrand]}";
+    final url = "$paymentUrl/checkouts/$checkOutID/payment?entityId=${entityId[paymentBrand]}";
 
-        "https://oppwa.com/v1/checkouts/{id}/payment/$checkOutID/payment?entityId=${entityId[paymentBrand]}";
+    //   "https://oppwa.com/v1/checkouts/{id}/payment/$checkOutID/payment?entityId=${entityId[paymentBrand]}";
     var headers = {
-      'Authorization': 'Bearer OGFjZGE0Y2E4YTJlODc3YTAxOGE0NWJlMjllODUxN2N8emtUUXk3eEFqUg==',
+      'Authorization': 'Bearer $paymentToken',
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json',
       'entityId': entityId[paymentBrand] ?? ''
@@ -3182,6 +3181,7 @@ class AssistantMethods {
     var request = http.Request('GET', Uri.parse(url));
     request.bodyFields = {
       'entityId': entityId[paymentBrand] ?? '',
+      //'testMode': 'EXTERNAL'
     };
 
     request.headers.addAll(headers);
@@ -3189,12 +3189,15 @@ class AssistantMethods {
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
-    log(jsonString);
+    print('checkPaymentStatus');
+    print(entityId[paymentBrand]);
+    print(jsonString);
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(jsonString);
 
       final String status = jsonData["result"]["description"] ?? '';
-      final result = {'id': jsonData['id'], "status": status, "data": jsonData};
+      final statusCode = jsonData["result"]["code"];
+      final result = {'id': jsonData['id'], "status": status, "data": jsonData, "code": statusCode};
       return result;
     } else {
       return {};
@@ -3215,20 +3218,21 @@ class AssistantMethods {
     request.body = jsonEncode(data);
     request.headers.addAll(headers);
 
-    log(request.body.toString());
+    print(request.body.toString());
 
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
 
-    log(">>>>>>>>>" + jsonString.toString());
+    print(">>>>>>>>>" + jsonString.toString());
   }
 
   static Future<String> reversePayment(String paymentId, {required testMode}) async {
-    final url = "https://test.oppwa.com/v1/payments/$paymentId";
+    final url = "$paymentUrl/payments/$paymentId";
+    //"https://oppwa.com/v1/payments/$paymentId";
 
     var headers = {
-      'Authorization': 'Bearer OGFjZGE0Y2E4YTJlODc3YTAxOGE0NWJlMjllODUxN2N8emtUUXk3eEFqUg==',
+      'Authorization': 'Bearer $paymentToken',
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json',
       'entityId': entityId[paymentBrand] ?? ''
@@ -3245,6 +3249,7 @@ class AssistantMethods {
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
+    print(jsonString);
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(jsonString);
       final String status = jsonData["id"] ?? '';

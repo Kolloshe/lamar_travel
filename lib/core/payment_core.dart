@@ -38,20 +38,7 @@ class PaymentCore {
       return paymentResultData;
     }
 
-//   static const platform = MethodChannel('com.lamarTravel/paymentMethod');
 
-//   static Future getPaymentResponse(BuildContext context) async {
-//     try {
-//       String checkOutId = await AssistantMethods.fetchCheckOutId();
-//       if (checkOutId.isEmpty) return;
-//       var result = await platform.invokeMethod(
-//           'getPaymentMethod', <String, dynamic>{'checkoutId': checkOutId, 'brand': "ApplePay"});
-
-//       print(result.toString());
-//     } on PlatformException catch (e) {
-//       print("Faild ro get payment method: ${e.message}");
-//     }
-//   }
   }
 }
 
@@ -69,3 +56,17 @@ class InAppPaymentSetting {
     }
   }
 }
+//   static const platform = MethodChannel('com.lamarTravel/paymentMethod');
+
+//   static Future getPaymentResponse(BuildContext context) async {
+//     try {
+//       String checkOutId = await AssistantMethods.fetchCheckOutId();
+//       if (checkOutId.isEmpty) return;
+//       var result = await platform.invokeMethod(
+//           'getPaymentMethod', <String, dynamic>{'checkoutId': checkOutId, 'brand': "ApplePay"});
+
+//       print(result.toString());
+//     } on PlatformException catch (e) {
+//       print("Faild ro get payment method: ${e.message}");
+//     }
+//   }

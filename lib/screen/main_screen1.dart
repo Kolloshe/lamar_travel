@@ -27,7 +27,6 @@ import 'packages_screen.dart';
 import '../setting/setting.dart';
 import '../widget/errordialog.dart';
 
-
 import '../widget/trending_package.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -218,7 +217,7 @@ class _MainScreenState extends State<MainScreen>
         '',
         '',
         context.read<AppData>().searchMode);
-   if (!mounted) return;
+    if (!mounted) return;
     customizeidFromTrinding =
         Provider.of<AppData>(context, listen: false).mainsarchForPackage.data.packages[0].id;
   }
@@ -342,8 +341,7 @@ class _MainScreenState extends State<MainScreen>
       initDynamicLinks();
     }
 
-    if (SumAndPay.paymentUrlDuration != null) {
-    }
+    if (SumAndPay.paymentUrlDuration != null) {}
 
     super.didChangeAppLifecycleState(state);
   }
@@ -513,7 +511,7 @@ class _MainScreenState extends State<MainScreen>
                       ),
 
                       Container(
-                        padding:const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         width: MediaQuery.of(context).size.width,
                         color: cardcolor,
                         child: Text(
@@ -825,10 +823,10 @@ class _MainScreenState extends State<MainScreen>
                                   final noError = await AssistantMethods.mainSearchFromTrending(
                                       context,
                                       holidaysfotter.data.sectionTwo.data[index].searchUrl);
-   if (!mounted) return;
+                                  if (!mounted) return;
                                   tocode = await AssistantMethods.getPayloadFromLocation(
                                       context, holidaysfotter.data.sectionTwo.data[index].city);
-                                         if (!mounted) return;
+                                  if (!mounted) return;
                                   Provider.of<AppData>(context, listen: false).getpayloadTo(tocode);
                                   PickerDateRange pickerDateRange = PickerDateRange(
                                       DateTime.parse(holidaysfotter.data.packageStart),
@@ -848,7 +846,8 @@ class _MainScreenState extends State<MainScreen>
                                   }
                                 } catch (e) {
                                   Navigator.of(context).pop();
-                                  const Errordislog().error(context, 'No Trending package available now');
+                                  const Errordislog()
+                                      .error(context, 'No Trending package available now');
                                 }
                               },
                               child: Container(
@@ -976,7 +975,6 @@ class _MainScreenState extends State<MainScreen>
         {
           return val;
         }
-     
     }
   }
 
@@ -1035,10 +1033,10 @@ class _MainScreenState extends State<MainScreen>
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        fontFamily:
-                            Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                ? 'Lato'
-                                : 'Bhaijaan'),
+                        fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+                                const Locale('en')
+                            ? 'Lato'
+                            : 'Bhaijaan'),
                     children: <TextSpan>[
                       TextSpan(
                           text: subtitle,
