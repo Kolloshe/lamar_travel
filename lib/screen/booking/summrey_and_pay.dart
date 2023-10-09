@@ -1802,8 +1802,8 @@ class _SumAndPayState extends State<SumAndPay> {
       final result = await AssistantMethods.checkPaymentStatus(checkoutId);
       final isSuccess = result.isEmpty
           ? false
-          : (result['status'].toLowerCase().contains("success") ||
-                  result['status'].toLowerCase().contains("succeeded"))
+          : (result['code'].toString().toLowerCase().contains("000.000.000") ||
+                  result['code'].toString().toLowerCase().contains("000.000.100"))
               ? true
               : false;
 
@@ -1879,7 +1879,10 @@ class _SumAndPayState extends State<SumAndPay> {
             );
           } else {}
         }
-      } else {
+      }
+      
+      else if(result['code'].toString().toLowerCase().contains('')){}
+       else {
         // PAYMENT FAILD OR CANCELED
 
         dialogViewer(
