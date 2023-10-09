@@ -9,7 +9,7 @@ import '../../Datahandler/app_data.dart';
 import '../../screen/newsearch/new_search.dart';
 
 class IndividualProducts extends StatelessWidget {
- // static final facebookAppEvents = FacebookAppEvents();
+  // static final facebookAppEvents = FacebookAppEvents();
 
   const IndividualProducts(
       {Key? key, required this.title, required this.subtitle, required this.image})
@@ -26,7 +26,6 @@ class IndividualProducts extends StatelessWidget {
         // facebookAppEvents.setAutoLogAppEventsEnabled(true);
         // facebookAppEvents.setAdvertiserTracking(enabled: true);
         // facebookAppEvents.logEvent(name: 'search_buttons', parameters: {"Description": this.title});
-
 
         switch (title) {
           case 'Holiday packages':
@@ -140,10 +139,10 @@ class IndividualProducts extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                             color: Colors.white,
-                            fontFamily:
-                                Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                    ? 'Lato'
-                                    : 'Bhaijaan'))),
+                            fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+                                    const Locale('en')
+                                ? 'Lato'
+                                : 'Bhaijaan'))),
                 //   Positioned(bottom: 0, left: 0, right: 0, child: Text(hundelSectionName(this.subtitle,context)))
               ],
             ),
@@ -154,9 +153,10 @@ class IndividualProducts extends StatelessWidget {
           Text(hundelSectionName(title, context),
               style: TextStyle(
                   fontSize: 10.sp,
-                  fontFamily: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                      ? 'Lato'
-                      : 'Bhaijaan'))
+                  fontFamily:
+                      Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                          ? 'Lato'
+                          : 'Bhaijaan'))
         ],
       ),
     );
