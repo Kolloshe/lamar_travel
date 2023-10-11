@@ -44,27 +44,27 @@ String appleMerchantId = "merchant.lamar-travel-merchant-live";
 /////////////////////////////////////        TEST          //////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
- String paymentToken = "OGFjN2E0Y2E4OGJiZjBkZjAxODhiZTllZjRkNzAzZmV8U0s4WFNYWlg1NA==";
+//  String paymentToken = "OGFjN2E0Y2E4OGJiZjBkZjAxODhiZTllZjRkNzAzZmV8U0s4WFNYWlg1NA==";
 
- const String paymentUrl = 'https://test.oppwa.com/v1';
+//  const String paymentUrl = 'https://test.oppwa.com/v1';
 
- Map<PaymentBrands, String> entityId = {
- PaymentBrands.visaMaster: "8ac7a4ca88bbf0df0188be9fb0420403",
- PaymentBrands.mada: "8ac7a4ca88bbf0df0188bea297600410",
- PaymentBrands.applePay: "8ac7a4ca88bbf0df0188bea4bd050419"
- };
+//  Map<PaymentBrands, String> entityId = {
+//  PaymentBrands.visaMaster: "8ac7a4ca88bbf0df0188be9fb0420403",
+//  PaymentBrands.mada: "8ac7a4ca88bbf0df0188bea297600410",
+//  PaymentBrands.applePay: "8ac7a4ca88bbf0df0188bea4bd050419"
+// };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////        LIVE          //////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-// String paymentToken = "OGFjZGE0Y2E4YTJlODc3YTAxOGE0NWJlMjllODUxN2N8emtUUXk3eEFqUg==";
-// const String paymentUrl = 'https://oppwa.com/v1';
-// Map<PaymentBrands, String> entityId = {
-//   PaymentBrands.visaMaster: "8acda4cb8a45e016018a45f7272200f9",
-//   PaymentBrands.mada: "8acda4cb8a45e016018a4614f7c303e3",
-//   PaymentBrands.applePay: "8acda4c78afa8a3f018afedc61101659"
-// };
+ String paymentToken = "OGFjZGE0Y2E4YTJlODc3YTAxOGE0NWJlMjllODUxN2N8emtUUXk3eEFqUg==";
+ const String paymentUrl = 'https://oppwa.com/v1';
+ Map<PaymentBrands, String> entityId = {
+   PaymentBrands.visaMaster: "8acda4cb8a45e016018a45f7272200f9",
+   PaymentBrands.mada: "8acda4cb8a45e016018a4614f7c303e3",
+   PaymentBrands.applePay: "8acda4c78afa8a3f018afedc61101659"
+ };
 
 String gencurrency = 'SAR';
 String genlang = 'EN';
