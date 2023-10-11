@@ -50,9 +50,10 @@ class _CitiesPayloadState extends State<CitiesPayload> with SingleTickerProvider
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-    _animation =
-        Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0)).animate(_animationController);
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _animation = Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
+        .animate(_animationController);
     future = AssistantMethods.searchfrom(citiy, context);
     _holidaysfotter = Provider.of<AppData>(context, listen: false).holidaysfotter;
     Future.delayed(const Duration(), () => SystemChannels.textInput.invokeMethod('TextInput.hide'));
@@ -201,7 +202,8 @@ class _CitiesPayloadState extends State<CitiesPayload> with SingleTickerProvider
                                             child: Row(
                                               children: [
                                                 Container(
-                                                  margin: const EdgeInsets.all(5).copyWith(right: 20),
+                                                  margin:
+                                                      const EdgeInsets.all(5).copyWith(right: 20),
                                                   padding: const EdgeInsets.all(10),
                                                   decoration: BoxDecoration(
                                                       color: primaryblue,
@@ -271,7 +273,8 @@ class _CitiesPayloadState extends State<CitiesPayload> with SingleTickerProvider
                                               child: Row(
                                                 children: [
                                                   Container(
-                                                    margin: const EdgeInsets.all(5).copyWith(right: 20),
+                                                    margin:
+                                                        const EdgeInsets.all(5).copyWith(right: 20),
                                                     padding: const EdgeInsets.all(10),
                                                     decoration: BoxDecoration(
                                                         color: primaryblue,
@@ -326,7 +329,7 @@ class _CitiesPayloadState extends State<CitiesPayload> with SingleTickerProvider
   Widget _buildsuggeitionList(HolidayData holiday) => GestureDetector(
         onTap: () async {
           final tocode = await AssistantMethods.getPayloadFromLocation(context, holiday.city);
-             if (!mounted) return;
+          if (!mounted) return;
           Provider.of<AppData>(context, listen: false).getpayloadTo(tocode);
           widget.onTap();
         },
@@ -482,9 +485,10 @@ class _RechagethefromCitiyState extends State<RechagethefromCitiy>
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-    _animation =
-        Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0)).animate(_animationController);
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _animation = Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
+        .animate(_animationController);
     _showcurrentLocation = true;
     future = AssistantMethods.searchfrom(citiy, context);
     Future.delayed(const Duration(), () {
@@ -638,6 +642,9 @@ class _RechagethefromCitiyState extends State<RechagethefromCitiy>
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    Provider.of<AppData>(context, listen: false).payloadFrom =
+                                        Provider.of<AppData>(context, listen: false)
+                                            .payloadFromlocation;
                                     if (Provider.of<AppData>(context, listen: false)
                                             .payloadFromlocation ==
                                         null) return;
@@ -663,11 +670,7 @@ class _RechagethefromCitiyState extends State<RechagethefromCitiy>
                                                   .payloadFromlocation !=
                                               null
                                           ? Text(
-                                              '${Provider.of<AppData>(context, listen: false)
-                                                      .payloadFromlocation!
-                                                      .cityName} ${Provider.of<AppData>(context, listen: false)
-                                                      .payloadFromlocation!
-                                                      .countryName}',
+                                              '${Provider.of<AppData>(context, listen: false).payloadFromlocation!.cityName} ${Provider.of<AppData>(context, listen: false).payloadFromlocation!.countryName}',
                                               style: TextStyle(
                                                   fontSize: 12.sp, fontWeight: FontWeight.w600),
                                             )
@@ -777,7 +780,8 @@ class _RechagethefromCitiyState extends State<RechagethefromCitiy>
                                                 child: Row(
                                                   children: [
                                                     Container(
-                                                      margin: const EdgeInsets.all(5).copyWith(right: 20),
+                                                      margin: const EdgeInsets.all(5)
+                                                          .copyWith(right: 20),
                                                       padding: const EdgeInsets.all(10),
                                                       decoration: BoxDecoration(
                                                           color: primaryblue,

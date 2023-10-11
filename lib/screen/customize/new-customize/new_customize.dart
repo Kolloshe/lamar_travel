@@ -198,19 +198,19 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                       .packagecustomiz
                                       .result
                                       .customizeId;
-                                  
+
                                   try {
                                     await AssistantMethods.changeflight(customizeId,
                                         _customizpackage.result.flight!.flightClass, context);
-                                                                                if (!mounted) return;
- 
+                                    if (!mounted) return;
+
                                     Navigator.pop(context);
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                           builder: (context) => FlightCustomize(
                                             failedFlightNamed: '',
                                           ),
-                                        ),    
+                                        ),
                                         (route) => false);
                                   } catch (e) {
                                     Navigator.pop(context);
@@ -470,13 +470,13 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                           id: _customizpackage.result.customizeId,
                                           hotelId: _customizpackage.result.hotels[i].id,
                                           hotelIndex: i);
-                                                                                  if (!mounted) return;
+                                      if (!mounted) return;
 
                                       Navigator.pop(context);
                                       setState(() {
                                         loadpackageData();
                                       });
-                                                                              if (!mounted) return;
+                                      if (!mounted) return;
 
                                       displayTostmessage(context, false,
                                           message: AppLocalizations.of(context)!.hotelHasRemoved);
@@ -499,7 +499,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                                     },
                                                     child: Text(
                                                       AppLocalizations.of(context)!.remove,
-                                                      style:const TextStyle(color: Colors.redAccent),
+                                                      style:
+                                                          const TextStyle(color: Colors.redAccent),
                                                     ),
                                                   ),
                                                   TextButton(
@@ -513,7 +514,7 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                                 ],
                                               ));
                                       if (willdelete == false) return;
-                                                                              if (!mounted) return;
+                                      if (!mounted) return;
 
                                       pressIndcatorDialog(context);
                                       String customizeId =
@@ -523,7 +524,7 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                               .customizeId;
 
                                       try {
-                                                                                if (!mounted) return;
+                                        if (!mounted) return;
 
                                         await AssistantMethods.sectionManager(context,
                                             action: 'remove', section: 'hotel', cusID: customizeId);
@@ -540,7 +541,7 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                         });
 
                                         if (!_customizpackage.result.notransfer) {
-                                                                                  if (!mounted) return;
+                                          if (!mounted) return;
 
                                           Navigator.of(context).push(MaterialPageRoute(
                                               builder: (context) => ChangeTransferIfRemoveSection(
@@ -776,7 +777,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                   setState(() {});
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  foregroundColor: greencolor, side: BorderSide(color: greencolor, width: 1),
+                                  foregroundColor: greencolor,
+                                  side: BorderSide(color: greencolor, width: 1),
                                 ),
                                 child: const Text('Add Transfer'),
                               ),
@@ -1948,4 +1950,4 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
 }
 
 Future pressIndcatorDialog(BuildContext context) => showDialog(
-    barrierDismissible: false, context: context, builder: (context) => const PressIndcator());
+    barrierDismissible: true, context: context, builder: (context) => const PressIndcator());

@@ -3145,12 +3145,13 @@ class AssistantMethods {
 
     Map<String, String> fields = {
       'entityId': entityId[paymentBrand] ?? "",
-      'amount': amount,
+      'amount': "1",
+      //amount,
 
       'currency': 'SAR',
       'paymentType': 'DB',
       'merchantTransactionId': merchantTransactionId,
-      //  'testMode': 'EXTERNAL'
+      'testMode': 'EXTERNAL'
     };
     fields.addAll(data);
     request.bodyFields = fields;
@@ -3179,25 +3180,27 @@ class AssistantMethods {
     };
 
     var request = http.Request('GET', Uri.parse(url));
-    request.bodyFields = {
-      'entityId': entityId[paymentBrand] ?? '',
-      //'testMode': 'EXTERNAL'
-    };
+    request.bodyFields = {'entityId': entityId[paymentBrand] ?? '', 'testMode': 'EXTERNAL'};
 
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
-    print('checkPaymentStatus');
-    print(entityId[paymentBrand]);
-    print(jsonString);
+    log(jsonString.toString());
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(jsonString);
 
       final String status = jsonData["result"]["description"] ?? '';
       final statusCode = jsonData["result"]["code"];
-      final result = {'id': jsonData['id'], "status": status, "data": jsonData, "code": statusCode};
+      final result = {
+        'id': jsonData['id'],
+        "status": status,
+        "data": jsonData,
+        "code": statusCode.toString()
+      };
+
+      print(result);
       return result;
     } else {
       return {};
@@ -3242,6 +3245,7 @@ class AssistantMethods {
     request.bodyFields = {
       "entityId": entityId[paymentBrand] ?? "",
       "paymentType": "RV",
+      'testMode': testMode
     };
 
     request.headers.addAll(headers);

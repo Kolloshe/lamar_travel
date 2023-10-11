@@ -1803,7 +1803,8 @@ class _SumAndPayState extends State<SumAndPay> {
       final isSuccess = result.isEmpty
           ? false
           : (result['code'].toString().toLowerCase().contains("000.000.000") ||
-                  result['code'].toString().toLowerCase().contains("000.000.100"))
+                  result['code'].toString().toLowerCase().contains("000.000.100") ||
+                  result['code'].toString().toLowerCase().contains("000.100.112"))
               ? true
               : false;
 
@@ -1854,7 +1855,7 @@ class _SumAndPayState extends State<SumAndPay> {
               Navigator.pop(context);
             },
           );
-          if (!mounted) return;
+          //     if (!mounted) return;
           pressIndcatorDialog(context);
           final refundID = await AssistantMethods.reversePayment(
             result["id"],
@@ -1879,16 +1880,14 @@ class _SumAndPayState extends State<SumAndPay> {
             );
           } else {}
         }
-      }
-      
-      else if(result['code'].toString().toLowerCase().contains('')){}
-       else {
+      } else if (result['code'].toString().toLowerCase().contains('')) {
+      } else {
         // PAYMENT FAILD OR CANCELED
 
         dialogViewer(
             animation: 'assets/images/loading/failed.json',
             title: 'Payment Cancelled',
-            description: data.errorString ?? result[''],
+            description: data.errorString ?? result['status'],
             onPressed: () {
               Navigator.pop(context);
             });
