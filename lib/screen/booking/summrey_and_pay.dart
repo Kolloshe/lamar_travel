@@ -1640,9 +1640,12 @@ class _SumAndPayState extends State<SumAndPay> {
                         isInformation: true);
                   },
             style: ElevatedButton.styleFrom(backgroundColor: accept ? primaryblue : Colors.grey),
-            child: Text(AppLocalizations.of(context)!.payNow),
+            child: Text(_paymentMethods == PaymentMethod.applePay
+                ? AppLocalizations.of(context)!.next
+                : AppLocalizations.of(context)!.payNow),
           ),
         ),
+        
       ],
     );
   }
@@ -1880,14 +1883,13 @@ class _SumAndPayState extends State<SumAndPay> {
             );
           } else {}
         }
-      } else if (result['code'].toString().toLowerCase().contains('')) {
       } else {
         // PAYMENT FAILD OR CANCELED
 
         dialogViewer(
             animation: 'assets/images/loading/failed.json',
             title: 'Payment Cancelled',
-            description: data.errorString ?? result['status'],
+            description: result['status'],
             onPressed: () {
               Navigator.pop(context);
             });

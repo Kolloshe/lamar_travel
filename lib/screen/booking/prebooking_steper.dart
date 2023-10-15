@@ -283,20 +283,42 @@ class _PreBookStepperState extends State<PreBookStepper> with TickerProviderStat
     log(data);
     Provider.of<AppData>(context, listen: false).getPreBookREQData(userInformation);
 
-    final isfaild = await AssistantMethods.newPreBook(data, users.data.token, context);
+    try {
+      final isfaild = await AssistantMethods.newPreBook(data, users.data.token, context);
 
-    if (isfaild == null) {
-      return;
-    } else if (isfaild) {
-      if (!mounted) return;
+      if (isfaild == null) {
+        return;
+      } else if (isfaild) {
+        if (!mounted) return;
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => SumAndPay(
-                isIndv: widget.isFromNavBar,
-              )));
-    } else {
-      if (!mounted) return;
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => SumAndPay(
+                  isIndv: widget.isFromNavBar,
+                )));
+      } else {
+        if (!mounted) return;
 
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => context.read<AppData>().searchMode.isEmpty
+                      ? const PackagesScreen()
+                      : const IndividualPackagesScreen()),
+              (route) => false);
+        }
+        // if (Navigator.of(context).canPop()) {
+        //   Navigator.of(context).pop();
+        // }
+
+        if (fullName != '') {
+          // pressIndcatorDialog(context);
+          // Navigator.of(context).canPop()?Navigator.of(context).pop():null;
+          await Provider.of<AppData>(context, listen: false).hundelPreBookResult(context);
+        }
+      }
+    } catch (e) {
+      displayTostmessage(context, false,
+          isInformation: true, message: "This package is  unavailable at this moment");
       if (Navigator.of(context).canPop()) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
@@ -304,15 +326,6 @@ class _PreBookStepperState extends State<PreBookStepper> with TickerProviderStat
                     ? const PackagesScreen()
                     : const IndividualPackagesScreen()),
             (route) => false);
-      }
-      // if (Navigator.of(context).canPop()) {
-      //   Navigator.of(context).pop();
-      // }
-
-      if (fullName != '') {
-        // pressIndcatorDialog(context);
-        // Navigator.of(context).canPop()?Navigator.of(context).pop():null;
-        await Provider.of<AppData>(context, listen: false).hundelPreBookResult(context);
       }
     }
   }

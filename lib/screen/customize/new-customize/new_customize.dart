@@ -1950,4 +1950,4 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
 }
 
 Future pressIndcatorDialog(BuildContext context) => showDialog(
-    barrierDismissible: true, context: context, builder: (context) => const PressIndcator());
+    barrierDismissible: false, context: context, builder: (context) => const PressIndcator());

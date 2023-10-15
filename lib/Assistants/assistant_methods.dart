@@ -858,7 +858,7 @@ class AssistantMethods {
       headers: headers,
     );
     final result = jsonDecode(response.body);
-    //  log(result.toString());
+    log(result.toString());
     if (response.statusCode == 200) {
       return result["data"]["missing"];
     } else {
@@ -2329,7 +2329,7 @@ class AssistantMethods {
         "${baseUrl.replaceFirst('v1', 'v2')}holiday/prebook?currency=$gencurrency&language=$genlang";
     //String url = baseUrl + "holiday/prebook-mob?currency=$gencurrency&language=$genlang";
     // "?hotelDebug=yes&flightDebug=yes&transferDebug=no&activityDebug=yes";
-
+    log(data);
     // try {
     var headers = {
       'token': token,
@@ -3142,16 +3142,15 @@ class AssistantMethods {
     };
 
     var request = http.Request('POST', Uri.parse(url));
-
+    print(amount);
     Map<String, String> fields = {
       'entityId': entityId[paymentBrand] ?? "",
-      'amount': "1",
-      //amount,
+      'amount': amount,
 
       'currency': 'SAR',
       'paymentType': 'DB',
       'merchantTransactionId': merchantTransactionId,
-      'testMode': 'EXTERNAL'
+      //'testMode': 'EXTERNAL'
     };
     fields.addAll(data);
     request.bodyFields = fields;
@@ -3160,7 +3159,7 @@ class AssistantMethods {
 
     http.StreamedResponse response = await request.send();
     final jsonString = await response.stream.bytesToString();
-    print(jsonString);
+
     if (response.statusCode == 200) {
       return jsonDecode(jsonString)["id"];
     } else {
@@ -3180,14 +3179,17 @@ class AssistantMethods {
     };
 
     var request = http.Request('GET', Uri.parse(url));
-    request.bodyFields = {'entityId': entityId[paymentBrand] ?? '', 'testMode': 'EXTERNAL'};
+    request.bodyFields = {
+      'entityId': entityId[paymentBrand] ?? '',
+      //'testMode': 'EXTERNAL'
+    };
 
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
-    log(jsonString.toString());
+
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(jsonString);
 
@@ -3200,10 +3202,19 @@ class AssistantMethods {
         "code": statusCode.toString()
       };
 
-      print(result);
       return result;
     } else {
-      return {};
+      final jsonData = jsonDecode(jsonString);
+
+      final String status = jsonData["result"]["description"] ?? '';
+      final statusCode = jsonData["result"]["code"];
+      final result = {
+        'id': jsonData['id'],
+        "status": status,
+        "data": jsonData,
+        "code": statusCode.toString()
+      };
+      return result;
     }
   }
 
@@ -3245,7 +3256,7 @@ class AssistantMethods {
     request.bodyFields = {
       "entityId": entityId[paymentBrand] ?? "",
       "paymentType": "RV",
-      'testMode': testMode
+      //'testMode': testMode
     };
 
     request.headers.addAll(headers);

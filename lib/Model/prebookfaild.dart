@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-
-
 PrebookFalid prebookFalidFromJson(String str) => PrebookFalid.fromJson(json.decode(str));
 
 String prebookFalidToJson(PrebookFalid data) => json.encode(data.toJson());
@@ -725,11 +723,7 @@ class PrebookDetails {
 }
 
 class Activites {
-  Activites({
-    required this.prebookSuccess,
-    required this.message,
-    required this.details
-  });
+  Activites({required this.prebookSuccess, required this.message, required this.details});
 
   bool prebookSuccess;
   String message;
@@ -739,7 +733,10 @@ class Activites {
       prebookSuccess: json["prebook_success"],
       message: json["message"],
       details: json["prebook_success"] == false
-          ? List<ActivitesDetail>.from(json["details"].map((x) => ActivitesDetail.fromJson(x)))
+          ? json["details"] is Map
+              ? List<ActivitesDetail>.from(
+                  (json["details"] as Map).values.toList().map((x) => ActivitesDetail.fromJson(x)))
+              : List<ActivitesDetail>.from(json["details"].map((x) => ActivitesDetail.fromJson(x)))
           : []);
 
   Map<String, dynamic> toJson() => {
@@ -1003,7 +1000,6 @@ class Flights {
   FailedReasons? failedReasons;
 
   factory Flights.fromJson(Map<String, dynamic> json) {
-   
     return Flights(
       prebookSuccess: json["prebook_success"],
       message: json["message"],
