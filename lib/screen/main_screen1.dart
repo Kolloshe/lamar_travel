@@ -466,7 +466,7 @@ class _MainScreenState extends State<MainScreen>
 
                       SizedBox(
                         width: 100.w,
-                        height: 20.h,
+                        height: 20.5.h,
                         child: ListView(
                           padding: const EdgeInsets.only(right: 5, left: 5),
                           scrollDirection: Axis.horizontal,

@@ -54,6 +54,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void initState() {
     // initDynamicLinks();
+    print('here');
     startapp();
     super.initState();
   }
@@ -67,6 +68,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     final hasLatestVersion = true;
     //await AssistantMethods.checkVersion(type, buildNumber);
     if (hasLatestVersion) {
+      print(buildNumber + 'ddd');
       await startTimer();
     } else {
       // Dialogs.materialDialog(
@@ -97,17 +99,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       //       ),
       //     ]);
     }
-
-    if (kDebugMode) {
-      print(buildNumber);
-    }
   }
 
   Future<void> ddynamicLink() async {
     final PendingDynamicLinkData? data = await FirebaseDynamicLinks.instance.getInitialLink();
     if (data != null) {
       isFromdeep = true;
-if (!mounted) return;
+      if (!mounted) return;
       await AssistantMethods.customizeingFormDeepLink(data.link, context);
     }
     // FirebaseDynamicLinks.instance.onLink(onSuccess: (data) async {
@@ -125,6 +123,7 @@ if (!mounted) return;
   @override
   void dispose() {
     CheckInternet().cancel();
+    
     super.dispose();
   }
 
@@ -133,7 +132,7 @@ if (!mounted) return;
     return Sizer(
       builder: (BuildContext context, Orientation orientation, DeviceType deviceType) => Scaffold(
         body: Container(
-           color:  const Color.fromARGB(240, 255, 255, 255),
+          color: const Color.fromARGB(240, 255, 255, 255),
           width: 100.w,
           height: 100.h,
           child: Padding(
@@ -212,7 +211,6 @@ if (!mounted) return;
       Currencies? currencies = await AssistantMethods.getCurrency(context);
       if (currencies != null) {
         currencyapi = currencies.currencies!.map((e) => e.code).toList();
-
       } else {
         currencyapi = [
           'AED',
@@ -251,6 +249,7 @@ if (!mounted) return;
 
       await AssistantMethods.getPromotionList(context);
       await ddynamicLink();
+      print("ddd:)");
       if (!isFromdeep) {
         Navigator.pushNamedAndRemoveUntil(context, TabPage.idScreen, (route) => false);
       }
