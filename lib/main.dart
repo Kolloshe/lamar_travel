@@ -171,7 +171,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 class RestartWidget extends StatefulWidget {
-  RestartWidget({this.child});
+  const RestartWidget({Key key, this.child}) : super(key: key);
 
   final Widget child;
 
@@ -180,7 +180,7 @@ class RestartWidget extends StatefulWidget {
   }
 
   @override
-  _RestartWidgetState createState() => _RestartWidgetState();
+   _RestartWidgetState createState() => _RestartWidgetState();
 }
 
 class _RestartWidgetState extends State<RestartWidget> {

@@ -211,10 +211,8 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
                 "language": genlang
               };
 
-      
-
               await AssistantMethods.newChangeRoom(context, selectedRoom);
-                 if (!mounted) return;
+              if (!mounted) return;
               price = context.read<AppData>().packagecustomiz.result.totalAmount;
             }
             setState(() {});
@@ -242,8 +240,8 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
             defaultSelectedRoom[index] = selectedData as IndRoom;
             if (!defaultSelectedRoom.contains(null)) {
               data!.selectedRoom = [...defaultSelectedRoom.map((e) => e!).toList()];
-   if (!mounted) return;
-               await AssistantMethods.customizingPackage(context, widget.id);
+              if (!mounted) return;
+              await AssistantMethods.customizingPackage(context, widget.id);
 
               //Convert Ind selected Room to json
               final x = data!.selectedRoom.map((e) => e.toMap()).toList();
@@ -252,7 +250,7 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
               final d = List<Room>.from(x.map((x) => Room.fromJson(x)));
 
               //Make the Request  Object
-   if (!mounted) return;
+              if (!mounted) return;
               Map<String, dynamic> selectedRoom = {
                 "customizeId": context.read<AppData>().packagecustomiz.result.customizeId,
                 "hotelId": context.read<AppData>().packagecustomiz.result.hotels.first.id,
@@ -264,7 +262,7 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
               log(d.first.boardName);
               log(d.first.amount.toString());
               await AssistantMethods.newChangeRoom(context, selectedRoom);
-                 if (!mounted) return;
+              if (!mounted) return;
               price = context.read<AppData>().packagecustomiz.result.totalAmount;
             }
             setState(() {});
@@ -372,15 +370,13 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
                           SizedBox(
                             child: Column(
                               children: [
-                                _buildRoomDetailsTitle(
-                                    AppLocalizations.of(context)!.name,
+                                _buildRoomDetailsTitle(AppLocalizations.of(context)!.name,
                                     '${data?.rooms[i].name ?? ''} \n${data?.rooms[i].roomTypeText ?? ''}'),
                                 SizedBox(width: 50.w, child: const Divider()),
                                 _buildRoomDetailsTitle(AppLocalizations.of(context)!.type,
                                     data?.rooms[i].boardName ?? ''),
                                 const Divider(),
-                                _buildRoomDetailsTitle(
-                                    AppLocalizations.of(context)!.price,
+                                _buildRoomDetailsTitle(AppLocalizations.of(context)!.price,
                                     '${data?.rooms[i].amount.toString() ?? ''} ${localizeCurrency(data!.rooms[i].sellingCurrency)}'),
                                 Container(
                                   width: 65.w,
@@ -399,7 +395,7 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
                                               rateKey: data!.rooms[i].rateKey);
                                       if (result != null) {
                                       } else {
-                                           if (!mounted) return;
+                                        if (!mounted) return;
                                         displayTostmessage(context, false, message: '');
                                       }
                                     },
@@ -598,8 +594,7 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
   Widget _buildImageView() => Container(
         margin: const EdgeInsets.all(0),
         child: CarouselSlider(
-          items: data!
-              .imgAll
+          items: data!.imgAll
               .map(
                 (e) => CachedNetworkImage(
                   imageUrl: e.src.trimLeft(),
@@ -646,9 +641,10 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
         Navigator.of(context).pop();
       }
       if (isLogin) {
-        if (users.data.phone.isEmpty) {
+        if (users.data.phone == '') {
           displayTostmessage(context, false,
-              message: AppLocalizations.of(context)!.youAccountMissSomeInformation);
+              message: AppLocalizations.of(context)?.youAccountMissSomeInformation ??
+                  "You account miss some information");
           Navigator.of(context)
             ..pop()
             ..push(MaterialPageRoute(

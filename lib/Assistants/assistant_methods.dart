@@ -988,10 +988,10 @@ class AssistantMethods {
     http.StreamedResponse response = await request.send();
 
     String jsonData = await response.stream.bytesToString();
-    log(response.statusCode.toString());
+
     if (response.statusCode == 200) {
       final userlogedin = userFromJson(jsonData);
-
+      log(jsonData.toString());
       Provider.of<AppData>(context, listen: false).getUser(userlogedin);
       await AssistenData.setUserdata(userlogedin.data.token);
       await AssistenData.removeUserMediaLogin();
@@ -3142,7 +3142,6 @@ class AssistantMethods {
     };
 
     var request = http.Request('POST', Uri.parse(url));
-    print(amount);
     Map<String, String> fields = {
       'entityId': entityId[paymentBrand] ?? "",
       'amount': amount,
@@ -3232,13 +3231,11 @@ class AssistantMethods {
     request.body = jsonEncode(data);
     request.headers.addAll(headers);
 
-    print(request.body.toString());
 
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
 
-    print(">>>>>>>>>" + jsonString.toString());
   }
 
   static Future<String> reversePayment(String paymentId, {required testMode}) async {
@@ -3264,7 +3261,6 @@ class AssistantMethods {
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
-    print(jsonString);
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(jsonString);
       final String status = jsonData["id"] ?? '';

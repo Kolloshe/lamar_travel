@@ -1800,7 +1800,8 @@ class _SumAndPayState extends State<SumAndPay> {
     id.isNotEmpty ? checkoutId = id : checkoutId = '';
     if (checkoutId.isNotEmpty & url.isNotEmpty) {
       final data = await PaymentCore.payRequestNowReadyUI(
-          brandsName: getPaymentType(), checkoutId: checkoutId);
+          brandsName: getPaymentType(), checkoutId: checkoutId
+          );
 
       final result = await AssistantMethods.checkPaymentStatus(checkoutId);
       final isSuccess = result.isEmpty

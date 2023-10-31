@@ -51,6 +51,11 @@ class _UserProfileInfomationState extends State<UserProfileInfomation> {
   final _formKey = GlobalKey<FormState>();
 
   getuserInitialData() {
+    if (widget.isFromPreBook) {
+      displayTostmessage(context, false,
+          message: AppLocalizations.of(context)?.youAccountMissSomeInformation ??
+              "You account miss some information");
+    }
     image = Provider.of<AppData>(context, listen: false).image;
 
     fullNameController.text = '${users.data.name} ${users.data.lastName}';

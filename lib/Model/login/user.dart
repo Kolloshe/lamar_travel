@@ -105,7 +105,8 @@ class Data {
       currency: json["currency"],
       mobile: json["mobile"],
       profileImage: json["profile_image"],
-      phoneCountryCode: json.containsKey('phone_country_code') ? json["phone_country_code"] : "",
+      phoneCountryCode:
+          json.containsKey('phone_country_code') ? json["phone_country_code"] ?? "" : "",
       address: json["address"],
       postalCode: json["postal_code"],
       country: json["country"],
