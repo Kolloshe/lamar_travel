@@ -1026,9 +1026,6 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                             : const SizedBox(),
                                                         const SizedBox(height: 3),
                                                         Row(
-
-
-                                                          
                                                           children: [
                                                             packagesList[index].transfer.isNotEmpty
                                                                 ? const Icon(MdiIcons.car, size: 18)
@@ -1092,10 +1089,6 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                                     .packageName);
                                                           }
                                                         },
-
-
-
-
                                                         icon: Icon(
                                                           Icons.share,
                                                           color: Colors.grey,
@@ -2428,7 +2421,8 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                         children,
                         childage,
                         '',
-                        context.read<AppData>().searchMode);
+                        context.read<AppData>().searchMode,
+                        '2');
                     if (!mounted) return;
                     Provider.of<AppData>(context, listen: false).cheakResarh(
                         fday: firstdate,

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lamar_travel_packages/core/payment_core.dart';
 import 'package:lamar_travel_packages/screen/individual_services/ind_packages_screen.dart';
+import 'package:lamar_travel_packages/screen/newsearch/new_search_room_passinger.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:slide_countdown/slide_countdown.dart';
@@ -912,8 +913,9 @@ class _SumAndPayState extends State<SumAndPay> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                          text:
-                              "${AppLocalizations.of(context)!.nightCount(package.result.packageDays - 1)} ",
+                          text: (package.result.packageDays - 1).isNegative
+                              ? ""
+                              : "${AppLocalizations.of(context)!.nightCount(package.result.packageDays - 1)} ",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: subtitleFontSize,
@@ -1072,7 +1074,10 @@ class _SumAndPayState extends State<SumAndPay> {
                                 width: 100.w,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8),
-                                  child: Text(AppLocalizations.of(context)!.roundTrip),
+                                  child: Text(
+                                      context.read<AppData>().flightType == FlightType.roundedFlight
+                                          ? AppLocalizations.of(context)!.roundTrip
+                                          : AppLocalizations.of(context)!.onewayTrip),
                                 ),
                               ),
                               SizedBox(
@@ -1645,7 +1650,6 @@ class _SumAndPayState extends State<SumAndPay> {
                 : AppLocalizations.of(context)!.payNow),
           ),
         ),
-        
       ],
     );
   }
@@ -1800,8 +1804,7 @@ class _SumAndPayState extends State<SumAndPay> {
     id.isNotEmpty ? checkoutId = id : checkoutId = '';
     if (checkoutId.isNotEmpty & url.isNotEmpty) {
       final data = await PaymentCore.payRequestNowReadyUI(
-          brandsName: getPaymentType(), checkoutId: checkoutId
-          );
+          brandsName: getPaymentType(), checkoutId: checkoutId);
 
       final result = await AssistantMethods.checkPaymentStatus(checkoutId);
       final isSuccess = result.isEmpty

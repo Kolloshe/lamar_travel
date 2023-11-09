@@ -601,14 +601,14 @@ class _IndActivityItemsState extends State<IndActivityItems> {
     if (widget.activitys.result.flight != null) {
       int maxAllowedtime = 17;
 
-      int time = int.parse(widget.activitys.result.flight!.to.departureTime.substring(0, 2));
+      int time = int.parse(widget.activitys.result.flight!.to?.departureTime??'00'.substring(0, 2));
       if (time < maxAllowedtime) {
         text =
-            "${AppLocalizations.of(context)!.estimatedDepartureTime} ${widget.activitys.result.flight!.to.departureTime}  Hrs  ${AppLocalizations.of(context)!.wouldYouLikeToBookAnyActivity}  ";
+            "${AppLocalizations.of(context)!.estimatedDepartureTime} ${widget.activitys.result.flight!.to?.departureTime??0}  Hrs  ${AppLocalizations.of(context)!.wouldYouLikeToBookAnyActivity}  ";
         return true;
       } else {
         text =
-            "${AppLocalizations.of(context)!.estimatedDepartureTime}  ${widget.activitys.result.flight!.to.departureTime}   Hrs ${AppLocalizations.of(context)!.youWonBeAbleAnyActivityDay} ";
+            "${AppLocalizations.of(context)!.estimatedDepartureTime}  ${widget.activitys.result.flight!.to?.departureTime??0}   Hrs ${AppLocalizations.of(context)!.youWonBeAbleAnyActivityDay} ";
         return false;
       }
     } else {
@@ -622,7 +622,7 @@ class _IndActivityItemsState extends State<IndActivityItems> {
     if (widget.activitys.result.flight != null) {
       int maxAllowedtime = 16;
 
-      int time = int.parse(widget.activitys.result.flight!.to.departureTime.substring(0, 2));
+      int time = int.parse(widget.activitys.result.flight!.to?.departureTime??"00".substring(0, 2));
       if (time > maxAllowedtime) {
         if (widget.list.last!.name == 'No Avtivity') {
           text =
@@ -631,11 +631,11 @@ class _IndActivityItemsState extends State<IndActivityItems> {
           text = widget.list.last!.name;
         }
         text =
-            "Your estimated departure time is on ${widget.activitys.result.flight!.to.departureTime}  Hrs Would you like to book any activity on that day? ";
+            "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime??"00"}  Hrs Would you like to book any activity on that day? ";
         return text;
       } else {
         text =
-            "Your estimated departure time is on ${widget.activitys.result.flight!.to.departureTime}   Hrs You won't be able to book any activity on that day.";
+            "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime??'0'}   Hrs You won't be able to book any activity on that day.";
         return text;
       }
     } else {

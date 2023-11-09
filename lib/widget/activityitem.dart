@@ -130,14 +130,12 @@ class _ActivityItemsState extends State<ActivityItems> {
                               : widget.index == widget.list.indexOf(widget.list.last)
                                   ? checkLastDay()
                                   : widget.list[widget.index]!.name == 'No Avtivity'
-                                      ? AppLocalizations.of(context)!
-                                          .wouldYouLikeToBookAnyActivity
+                                      ? AppLocalizations.of(context)!.wouldYouLikeToBookAnyActivity
                                       : widget.list[widget.index]!.name,
                           overflow: TextOverflow.ellipsis,
                           softWrap: false,
                           maxLines: 5,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                         ),
                         SizedBox(
                           height: size.height * 0.05,
@@ -168,12 +166,10 @@ class _ActivityItemsState extends State<ActivityItems> {
                                             onPressed: () async {
                                               pressIndcatorDialog(context);
                                               Provider.of<AppData>(context, listen: false)
-                                                  .getActivityDat(
-                                                      widget.list[widget.index]!.day);
+                                                  .getActivityDat(widget.list[widget.index]!.day);
                                               await AssistantMethods.getActivityList(context,
                                                   searchId: widget.activitys.result.searchId,
-                                                  customizeId:
-                                                      widget.activitys.result.customizeId,
+                                                  customizeId: widget.activitys.result.customizeId,
                                                   activityDay: widget.list[widget.index]!.day,
                                                   currency: gencurrency);
                                               Navigator.of(context)
@@ -191,8 +187,7 @@ class _ActivityItemsState extends State<ActivityItems> {
                                           ElevatedButton(
                                             onPressed: () async {
                                               String date = DateFormat('yyyy-MM-dd', genlang)
-                                                  .format(
-                                                      widget.list[widget.index]!.activityDate);
+                                                  .format(widget.list[widget.index]!.activityDate);
 
                                               await AssistantMethods.removeOneActivity(
                                                   context,
@@ -262,7 +257,6 @@ class _ActivityItemsState extends State<ActivityItems> {
                                     children: [
                                       InkWell(
                                         onTap: () {
-
                                           // showDialog(
                                           //   context: context,
                                           //   builder: (context) => Dialog(
@@ -332,8 +326,7 @@ class _ActivityItemsState extends State<ActivityItems> {
 
                                             await AssistantMethods.getActivityList(context,
                                                 searchId: widget.activitys.result.searchId,
-                                                customizeId:
-                                                    widget.activitys.result.customizeId,
+                                                customizeId: widget.activitys.result.customizeId,
                                                 activityDay: widget.list[widget.index]!.day,
                                                 currency: gencurrency);
                                             Navigator.pop(context);
@@ -354,8 +347,7 @@ class _ActivityItemsState extends State<ActivityItems> {
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: yellowColor,
                                         ),
-                                        child: Text(
-                                            AppLocalizations.of(context)!.changeActivity,
+                                        child: Text(AppLocalizations.of(context)!.changeActivity,
                                             style: TextStyle(
                                                 color: Colors.black.withAlpha(195),
                                                 fontWeight: FontWeight.normal)),
@@ -406,8 +398,7 @@ class _ActivityItemsState extends State<ActivityItems> {
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: yellowColor,
                                         ),
-                                        child: Text(
-                                            AppLocalizations.of(context)!.removeActivity,
+                                        child: Text(AppLocalizations.of(context)!.removeActivity,
                                             style: TextStyle(
                                                 color: Colors.black.withAlpha(195),
                                                 fontWeight: FontWeight.normal)),
@@ -428,10 +419,8 @@ class _ActivityItemsState extends State<ActivityItems> {
                                                   Provider.of<AppData>(context, listen: false)
                                                       .getActivityDat(
                                                           widget.list[widget.index]!.day);
-                                                  await AssistantMethods.getActivityList(
-                                                      context,
-                                                      searchId:
-                                                          widget.activitys.result.searchId,
+                                                  await AssistantMethods.getActivityList(context,
+                                                      searchId: widget.activitys.result.searchId,
                                                       customizeId:
                                                           widget.activitys.result.customizeId,
                                                       activityDay: widget.index,
@@ -555,14 +544,15 @@ class _ActivityItemsState extends State<ActivityItems> {
     if (widget.activitys.result.flight != null) {
       int maxAllowedtime = 17;
 
-      int time = int.parse(widget.activitys.result.flight!.to.departureTime.substring(0, 2));
+      int time =
+          int.parse(widget.activitys.result.flight!.to?.departureTime ?? "00".substring(0, 2));
       if (time < maxAllowedtime) {
         text =
-            "${AppLocalizations.of(context)!.estimatedDepartureTime} ${widget.activitys.result.flight!.to.departureTime}  Hrs  ${AppLocalizations.of(context)!.wouldYouLikeToBookAnyActivity}  ";
+            "${AppLocalizations.of(context)!.estimatedDepartureTime} ${widget.activitys.result.flight!.to?.departureTime ?? "00"}  Hrs  ${AppLocalizations.of(context)!.wouldYouLikeToBookAnyActivity}  ";
         return true;
       } else {
         text =
-            "${AppLocalizations.of(context)!.estimatedDepartureTime}  ${widget.activitys.result.flight!.to.departureTime}   Hrs ${AppLocalizations.of(context)!.youWonBeAbleAnyActivityDay} ";
+            "${AppLocalizations.of(context)!.estimatedDepartureTime}  ${widget.activitys.result.flight!.to?.departureTime ?? "00"}   Hrs ${AppLocalizations.of(context)!.youWonBeAbleAnyActivityDay} ";
         return false;
       }
     } else {
@@ -576,11 +566,12 @@ class _ActivityItemsState extends State<ActivityItems> {
     if (widget.activitys.result.flight != null) {
       int maxAllowedtime = 16;
 
-      int time = int.parse(widget.activitys.result.flight!.to.departureTime.substring(0, 2));
+      int time =
+          int.parse(widget.activitys.result.flight!.to?.departureTime ?? "00".substring(0, 2));
       if (time > maxAllowedtime) {
         if (widget.list.last!.name == 'No Avtivity') {
           text =
-              "Your estimated departure time is on ${widget.activitys.result.flight!.to.departureTime}  Hrs Would you like to book any activity on that day? ";
+              "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime ?? "00"}  Hrs Would you like to book any activity on that day? ";
         } else {
           text = widget.list.last!.name;
         }
@@ -588,7 +579,7 @@ class _ActivityItemsState extends State<ActivityItems> {
         return text;
       } else {
         text =
-            "Your estimated departure time is on ${widget.activitys.result.flight!.to.departureTime}   Hrs You won't be able to book any activity on that day.";
+            "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime ?? "00"}   Hrs You won't be able to book any activity on that day.";
         return text;
       }
     } else {

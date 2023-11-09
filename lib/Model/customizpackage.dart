@@ -17,46 +17,45 @@ class Customizpackage {
   Status status;
   Result result;
 
-  factory Customizpackage.fromJson(Map<String, dynamic> json) =>
-      Customizpackage(
+  factory Customizpackage.fromJson(Map<String, dynamic> json) => Customizpackage(
         status: Status.fromJson(json["status"]),
         result: Result.fromJson(json["result"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "status": status.toJson(),
         "result": result.toJson(),
       };
 }
 
 class Result {
-  Result({required this.paxDetails,
-    required this.customizeId,
-    required this.packageId,
-    required this.searchId,
-    required this.packageName,
-    required this.packageDays,
-    required this.packageStart,
-    required this.packageEnd,
-    required this.fromCity,
-    required this.toCity,
-    required this.sellingCurrency,
-    required this.totalAmount,
-    required this.adults,
-    required this.children,
-    required this.totalPassenger,
-    required this.childAge,
-    required this.prebook,
-    required this.hotels,
-    required this.flight,
-    required this.transfer,
-    required this.activities,
-    required this.noActivity,
-    required this.noflight,
-    required this.nohotels,
-    required this.notransfer,
-    required this.sameCitiy});
+  Result(
+      {required this.paxDetails,
+      required this.customizeId,
+      required this.packageId,
+      required this.searchId,
+      required this.packageName,
+      required this.packageDays,
+      required this.packageStart,
+      required this.packageEnd,
+      required this.fromCity,
+      required this.toCity,
+      required this.sellingCurrency,
+      required this.totalAmount,
+      required this.adults,
+      required this.children,
+      required this.totalPassenger,
+      required this.childAge,
+      required this.prebook,
+      required this.hotels,
+      required this.flight,
+      required this.transfer,
+      required this.activities,
+      required this.noActivity,
+      required this.noflight,
+      required this.nohotels,
+      required this.notransfer,
+      required this.sameCitiy});
 
   String paxDetails;
   String customizeId;
@@ -85,8 +84,7 @@ class Result {
   bool notransfer;
   bool sameCitiy;
 
-  factory Result.fromJson(Map<String, dynamic> json) =>
-      Result(
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
         noActivity: json["no_activity"],
         sameCitiy: json['same_city_search'],
         noflight: json["no_flight"],
@@ -116,13 +114,11 @@ class Result {
         transfer: json["transfer"] != null
             ? List<Transfer>.from(json["transfer"].map((x) => Transfer.fromJson(x)))
             : [],
-        activities: Map.from(json["activities"]).map((k, v) =>
-            MapEntry<String, List<Activity>>(
-                k, List<Activity>.from(v.map((x) => Activity.fromJson(x))))),
+        activities: Map.from(json["activities"]).map((k, v) => MapEntry<String, List<Activity>>(
+            k, List<Activity>.from(v.map((x) => Activity.fromJson(x))))),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "paxDetails": paxDetails,
         "customizeId": customizeId,
         "packageId": packageId,
@@ -130,11 +126,9 @@ class Result {
         "package_name": packageName,
         "package_days": packageDays,
         "package_start":
-        "${packageStart.year.toString().padLeft(4, '0')}-${packageStart.month.toString().padLeft(
-            2, '0')}-${packageStart.day.toString().padLeft(2, '0')}",
+            "${packageStart.year.toString().padLeft(4, '0')}-${packageStart.month.toString().padLeft(2, '0')}-${packageStart.day.toString().padLeft(2, '0')}",
         "package_end":
-        "${packageEnd.year.toString().padLeft(4, '0')}-${packageEnd.month.toString().padLeft(
-            2, '0')}-${packageEnd.day.toString().padLeft(2, '0')}",
+            "${packageEnd.year.toString().padLeft(4, '0')}-${packageEnd.month.toString().padLeft(2, '0')}-${packageEnd.day.toString().padLeft(2, '0')}",
         "from_city": fromCity,
         "to_city": toCity,
         "selling_currency": sellingCurrency,
@@ -148,8 +142,7 @@ class Result {
         "flight": flight != null ? flight!.toJson() : '',
         "transfer": List<dynamic>.from(transfer.map((x) => x.toJson())),
         "activities": Map.from(activities).map(
-                (k, v) =>
-                MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x.toJson())))),
+            (k, v) => MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x.toJson())))),
         "no_activity": noActivity,
       };
 }
@@ -201,8 +194,7 @@ class Activity {
   String description;
   dynamic prebook;
 
-  factory Activity.fromJson(Map<String, dynamic> json) =>
-      Activity(
+  factory Activity.fromJson(Map<String, dynamic> json) => Activity(
         name: json["name"],
         searchId: json["searchId"],
         code: json["code"],
@@ -228,8 +220,7 @@ class Activity {
         prebook: json["prebook"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "name": name,
         "searchId": searchId,
         "code": code,
@@ -242,8 +233,7 @@ class Activity {
         "paybleCurency": paybleCurency,
         "modality_amount": modalityAmount,
         "activity_date":
-        "${activityDate.year.toString().padLeft(4, '0')}-${activityDate.month.toString().padLeft(
-            2, '0')}-${activityDate.day.toString().padLeft(2, '0')}",
+            "${activityDate.year.toString().padLeft(4, '0')}-${activityDate.month.toString().padLeft(2, '0')}-${activityDate.day.toString().padLeft(2, '0')}",
         "questions": List<dynamic>.from(questions.map((x) => x)),
         "rateKey": rateKey,
         "images": List<dynamic>.from(images.map((x) => x.toJson())),
@@ -273,8 +263,7 @@ class AmountsFrom {
   double boxOfficeAmount;
   bool mandatoryApplyAmount;
 
-  factory AmountsFrom.fromJson(Map<String, dynamic> json) =>
-      AmountsFrom(
+  factory AmountsFrom.fromJson(Map<String, dynamic> json) => AmountsFrom(
         paxType: json["paxType"],
         ageFrom: json["ageFrom"],
         ageTo: json["ageTo"],
@@ -283,8 +272,7 @@ class AmountsFrom {
         mandatoryApplyAmount: json["mandatoryApplyAmount"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "paxType": paxType,
         "ageFrom": ageFrom,
         "ageTo": ageTo,
@@ -305,15 +293,13 @@ class Imagee {
   String mimeType;
   List<Url> urls;
 
-  factory Imagee.fromJson(Map<String, dynamic> json) =>
-      Imagee(
+  factory Imagee.fromJson(Map<String, dynamic> json) => Imagee(
         visualizationOrder: json["visualizationOrder"],
         mimeType: json["mimeType"],
         urls: List<Url>.from(json["urls"].map((x) => Url.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "visualizationOrder": visualizationOrder,
         "mimeType": mimeType,
         "urls": List<dynamic>.from(urls.map((x) => x.toJson())),
@@ -335,8 +321,7 @@ class Url {
   String resource;
   String sizeType;
 
-  factory Url.fromJson(Map<String, dynamic> json) =>
-      Url(
+  factory Url.fromJson(Map<String, dynamic> json) => Url(
         dpi: json["dpi"],
         height: json["height"],
         width: json["width"],
@@ -344,8 +329,7 @@ class Url {
         sizeType: json["sizeType"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "dpi": dpi,
         "height": height,
         "width": width,
@@ -375,12 +359,11 @@ class Flight {
   Passenger passenger;
   String flightClass;
   From from;
-  From to;
+  From? to;
   String flightId;
   dynamic prebook;
 
-  factory Flight.fromJson(Map<String, dynamic> json) =>
-      Flight(
+  factory Flight.fromJson(Map<String, dynamic> json) => Flight(
         carriers: Carriers.fromJson(json["carriers"]),
         carrier: Carrier.fromJson(json["carrier"]),
         tripStart: json["trip_start"],
@@ -388,13 +371,12 @@ class Flight {
         passenger: Passenger.fromJson(json["passenger"]),
         flightClass: json["flight_class"],
         from: From.fromJson(json["from"]),
-        to: From.fromJson(json["to"]),
+        to: json["to"] == null ? null : From.fromJson(json["to"]),
         flightId: json["flight_id"],
         prebook: json["prebook"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "carriers": carriers.toJson(),
         "carrier": carrier.toJson(),
         "trip_start": tripStart,
@@ -402,7 +384,7 @@ class Flight {
         "passenger": passenger.toJson(),
         "flight_class": flightClass,
         "from": from.toJson(),
-        "to": to.toJson(),
+        "to": to?.toJson(),
         "flight_id": flightId,
         "prebook": prebook,
       };
@@ -419,15 +401,13 @@ class Carrier {
   String name;
   String label;
 
-  factory Carrier.fromJson(Map<String, dynamic> json) =>
-      Carrier(
+  factory Carrier.fromJson(Map<String, dynamic> json) => Carrier(
         code: json["code"],
         name: json["name"],
         label: json["label"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "code": code,
         "name": name,
         "label": label,
@@ -441,13 +421,11 @@ class Carriers {
 
   String? tk;
 
-  factory Carriers.fromJson(Map<String, dynamic> json) =>
-      Carriers(
+  factory Carriers.fromJson(Map<String, dynamic> json) => Carriers(
         tk: json["TK"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "TK": tk,
       };
 }
@@ -485,8 +463,7 @@ class From {
   List<Itinerary> itinerary;
   String? carrierName;
 
-  factory From.fromJson(Map<String, dynamic> json) =>
-      From(
+  factory From.fromJson(Map<String, dynamic> json) => From(
         numstops: json["numstops"],
         stops: List<String>.from(json["stops"].map((x) => x)),
         departure: json["departure"],
@@ -503,21 +480,18 @@ class From {
         carrierName: json["carrier_name"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "numstops": numstops,
         "stops": List<dynamic>.from(stops.map((x) => x)),
         "departure": departure,
         "arrival": arrival,
         "arrival_days": arrivalDays,
         "departure_fdate":
-        "${departureFdate.year.toString().padLeft(4, '0')}-${departureFdate.month.toString()
-            .padLeft(2, '0')}-${departureFdate.day.toString().padLeft(2, '0')}",
+            "${departureFdate.year.toString().padLeft(4, '0')}-${departureFdate.month.toString().padLeft(2, '0')}-${departureFdate.day.toString().padLeft(2, '0')}",
         "departure_date": departureDate,
         "departure_time": departureTime,
         "arrival_fdate":
-        "${arrivalFdate.year.toString().padLeft(4, '0')}-${arrivalFdate.month.toString().padLeft(
-            2, '0')}-${arrivalFdate.day.toString().padLeft(2, '0')}",
+            "${arrivalFdate.year.toString().padLeft(4, '0')}-${arrivalFdate.month.toString().padLeft(2, '0')}-${arrivalFdate.day.toString().padLeft(2, '0')}",
         "arrival_date": arrivalDate,
         "arrival_time": arrivalTime,
         "travel_time": travelTime,
@@ -568,8 +542,7 @@ class Itinerary {
     );
   }
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "company": company.toJson(),
         "flightNo": flightNo,
         "departure": departure.toJson(),
@@ -602,8 +575,7 @@ class Arrival {
   String city;
   bool terminal;
 
-  factory Arrival.fromJson(Map<String, dynamic> json) =>
-      Arrival(
+  factory Arrival.fromJson(Map<String, dynamic> json) => Arrival(
         date: DateTime.parse(json["date"]),
         time: json["time"],
         locationId: json["locationId"],
@@ -613,11 +585,9 @@ class Arrival {
         terminal: json["terminal"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "date":
-        "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day
-            .toString().padLeft(2, '0')}",
+            "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
         "time": time,
         "locationId": locationId,
         "timezone": timezone,
@@ -638,15 +608,13 @@ class Company {
   String operatingCarrier;
   String logo;
 
-  factory Company.fromJson(Map<String, dynamic> json) =>
-      Company(
+  factory Company.fromJson(Map<String, dynamic> json) => Company(
         marketingCarrier: json["marketingCarrier"],
         operatingCarrier: json["operatingCarrier"],
         logo: json["logo"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "marketingCarrier": marketingCarrier,
         "operatingCarrier": operatingCarrier,
         "logo": logo,
@@ -660,13 +628,11 @@ class Passenger {
 
   int adult;
 
-  factory Passenger.fromJson(Map<String, dynamic> json) =>
-      Passenger(
+  factory Passenger.fromJson(Map<String, dynamic> json) => Passenger(
         adult: json["Adult"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "Adult": adult,
       };
 }
@@ -724,8 +690,7 @@ class PackageHotels {
   bool availability;
   dynamic prebook;
 
-  factory PackageHotels.fromJson(Map<String, dynamic> json) =>
-      PackageHotels(
+  factory PackageHotels.fromJson(Map<String, dynamic> json) => PackageHotels(
         id: json["id"],
         searchId: json["searchId"],
         hotelCode: json["hotelCode"],
@@ -755,8 +720,7 @@ class PackageHotels {
         prebook: json["prebook"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "searchId": searchId,
         "hotelCode": hotelCode,
@@ -768,11 +732,9 @@ class PackageHotels {
         "checkInText": checkInText,
         "checkOutText": checkOutText,
         "checkIn":
-        "${checkIn.year.toString().padLeft(4, '0')}-${checkIn.month.toString().padLeft(
-            2, '0')}-${checkIn.day.toString().padLeft(2, '0')}",
+            "${checkIn.year.toString().padLeft(4, '0')}-${checkIn.month.toString().padLeft(2, '0')}-${checkIn.day.toString().padLeft(2, '0')}",
         "checkOut":
-        "${checkOut.year.toString().padLeft(4, '0')}-${checkOut.month.toString().padLeft(
-            2, '0')}-${checkOut.day.toString().padLeft(2, '0')}",
+            "${checkOut.year.toString().padLeft(4, '0')}-${checkOut.month.toString().padLeft(2, '0')}-${checkOut.day.toString().padLeft(2, '0')}",
         "address": address,
         "currency": currency,
         "rateFrom": rateFrom,
@@ -795,31 +757,30 @@ class ImgAll {
 
   String src;
 
-  factory ImgAll.fromJson(Map<String, dynamic> json) =>
-      ImgAll(
+  factory ImgAll.fromJson(Map<String, dynamic> json) => ImgAll(
         src: json["src"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "src": src,
       };
 }
 
 class Room {
-  Room({required this.name,
-    required this.code,
-    required this.allotment,
-    required this.rateKey,
-    required this.rateClass,
-    required this.rateType,
-    required this.boardCode,
-    required this.boardName,
-    required this.sellingCurrency,
-    required this.amount,
-    required this.amountChange,
-    required this.type,
-    required this.roomTypeText});
+  Room(
+      {required this.name,
+      required this.code,
+      required this.allotment,
+      required this.rateKey,
+      required this.rateClass,
+      required this.rateType,
+      required this.boardCode,
+      required this.boardName,
+      required this.sellingCurrency,
+      required this.amount,
+      required this.amountChange,
+      required this.type,
+      required this.roomTypeText});
 
   String name;
   String code;
@@ -835,24 +796,22 @@ class Room {
   int amountChange;
   String type;
 
-  factory Room.fromJson(Map<String, dynamic> json) =>
-      Room(
-          name: json["name"],
-          code: json["code"],
-          allotment: json["allotment"],
-          rateKey: json["rateKey"],
-          rateClass: json["rateClass"],
-          rateType: json["rateType"],
-          boardCode: json["boardCode"],
-          boardName: json["boardName"],
-          sellingCurrency: json["SellingCurrency"],
-          amount: json["amount"],
-          amountChange: json["amountChange"],
-          type: json["type"],
-          roomTypeText: json.containsKey('roomTypeText') ? json['roomTypeText'] : null);
+  factory Room.fromJson(Map<String, dynamic> json) => Room(
+      name: json["name"],
+      code: json["code"],
+      allotment: json["allotment"],
+      rateKey: json["rateKey"],
+      rateClass: json["rateClass"],
+      rateType: json["rateType"],
+      boardCode: json["boardCode"],
+      boardName: json["boardName"],
+      sellingCurrency: json["SellingCurrency"],
+      amount: json["amount"],
+      amountChange: json["amountChange"],
+      type: json["type"],
+      roomTypeText: json.containsKey('roomTypeText') ? json['roomTypeText'] : null);
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "name": name,
         "code": code,
         "allotment": allotment,
@@ -865,7 +824,7 @@ class Room {
         "amount": amount,
         "amountChange": amountChange,
         "type": type,
-        "roomTypeText":roomTypeText,
+        "roomTypeText": roomTypeText,
       };
 }
 
@@ -912,8 +871,7 @@ class Transfer {
   String pickUpLocation;
   String dropOffLocation;
 
-  factory Transfer.fromJson(Map<String, dynamic> json) =>
-      Transfer(
+  factory Transfer.fromJson(Map<String, dynamic> json) => Transfer(
         id: json["_id"],
         searchCode: json["search_code"],
         type: json["type"],
@@ -935,8 +893,7 @@ class Transfer {
         dropOffLocation: json["drop_off_location"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "search_code": searchCode,
         "type": type,
@@ -970,15 +927,13 @@ class Status {
   String message;
   bool error;
 
-  factory Status.fromJson(Map<String, dynamic> json) =>
-      Status(
+  factory Status.fromJson(Map<String, dynamic> json) => Status(
         code: json["code"],
         message: json["message"],
         error: json["error"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "code": code,
         "message": message,
         "error": error,

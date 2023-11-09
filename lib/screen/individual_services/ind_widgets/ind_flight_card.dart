@@ -36,7 +36,10 @@ class IndFlightCard extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                  color: Colors.grey.shade200, offset: const Offset(3, 3), spreadRadius: 2, blurRadius: 5)
+                  color: Colors.grey.shade200,
+                  offset: const Offset(3, 3),
+                  spreadRadius: 2,
+                  blurRadius: 5)
             ]),
         width: 100.w,
         //    height: 25.h,
@@ -96,7 +99,9 @@ class IndFlightCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.grey),
                     ),
                     Text(AppLocalizations.of(context)!.flightStop(
-                        (data.from.numstops.toInt() == 0 && data.to.numstops.toInt() == 0) ? 0 : 1))
+                        (data.from.numstops.toInt() == 0 && (data.to?.numstops ?? 0).toInt() == 0)
+                            ? 0
+                            : 1))
                   ],
                 ),
                 SizedBox(
@@ -227,117 +232,117 @@ class IndFlightCard extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(
-              color: primaryblue.withOpacity(0.3),
-            ),
-
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  width: 20.w,
-                  height: 7.h,
-                  child: CachedNetworkImage(
-                    imageUrl: data.to.itinerary.first.company.logo,
-                    fit: BoxFit.fill,
-                    placeholder: (context, url) => const ImageSpinning(
-                      withOpasity: true,
-                    ),
-                    errorWidget: (context, url, error) => Image.asset('assets/images/image.jpeg'),
-                  ),
-                ),
-                SizedBox(
-                  width: 2.w,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data.to.carrierName,
-                      style: TextStyle(fontWeight: FontWeight.w500, color: blackTextColor),
-                    ),
-                    Text('${data.to.carrierCode}-${data.to.itinerary.first.flightNo}')
-                  ],
-                ),
-              ],
-            ),
-            Text(AppLocalizations.of(context)?.yourArrivalFlight ?? 'Return Flight'),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5.sp),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
+            Divider(color: primaryblue.withOpacity(0.3)),
+            if (data.to != null) ...[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Column(
-                    children: [
-                      Text(
-                        data.to.itinerary.first.departure.time,
-                        style: TextStyle(fontWeight: FontWeight.w500, color: blackTextColor),
+                  Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    width: 20.w,
+                    height: 7.h,
+                    child: CachedNetworkImage(
+                      imageUrl: data.to?.itinerary.first.company.logo ?? '',
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) => const ImageSpinning(
+                        withOpasity: true,
                       ),
-                      Text(data.to.itinerary.first.departure.locationId)
-                    ],
+                      errorWidget: (context, url, error) => Image.asset('assets/images/image.jpeg'),
+                    ),
                   ),
-                  data.to.numstops > 0
-                      ? SizedBox(
-                          width: 50.w,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  indent: 10,
-                                  endIndent: 10,
-                                  height: 1.h,
-                                  color: primaryblue,
-                                ),
-                              ),
-                              for (int i = 1; i < data.to.itinerary.length; i++)
-                                SizedBox(
-                                  width: 10.w,
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        data.to.itinerary[i].departure.time,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500, color: blackTextColor),
-                                      ),
-                                      Text(data.to.itinerary[i].departure.locationId)
-                                    ],
-                                  ),
-                                ),
-                              Expanded(
-                                child: Divider(
-                                  indent: 10,
-                                  endIndent: 10,
-                                  height: 1.h,
-                                  color: primaryblue,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : SizedBox(
-                          width: 50.w,
-                          child: Divider(
-                            indent: 10,
-                            endIndent: 10,
-                            height: 1.h,
-                            color: primaryblue,
-                          ),
-                        ),
+                  SizedBox(
+                    width: 2.w,
+                  ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        data.to.itinerary.last.arrival.time,
+                        data.to?.carrierName ?? '',
                         style: TextStyle(fontWeight: FontWeight.w500, color: blackTextColor),
                       ),
-                      Text(data.to.itinerary.last.arrival.locationId)
+                      Text(
+                          '${data.to?.carrierCode ?? ''}-${(data.to?.itinerary ?? []).first.flightNo}')
                     ],
                   ),
                 ],
               ),
-            ),
+              Text(AppLocalizations.of(context)?.yourArrivalFlight ?? 'Return Flight'),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5.sp),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          (data.to?.itinerary ?? []).first.departure.time,
+                          style: TextStyle(fontWeight: FontWeight.w500, color: blackTextColor),
+                        ),
+                        Text((data.to?.itinerary ?? []).first.departure.locationId)
+                      ],
+                    ),
+                    (data.to?.numstops ?? 0) > 0
+                        ? SizedBox(
+                            width: 50.w,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(
+                                    indent: 10,
+                                    endIndent: 10,
+                                    height: 1.h,
+                                    color: primaryblue,
+                                  ),
+                                ),
+                                for (int i = 1; i < (data.to?.itinerary ?? []).length; i++)
+                                  SizedBox(
+                                    width: 10.w,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          (data.to?.itinerary ?? [])[i].departure.time,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500, color: blackTextColor),
+                                        ),
+                                        Text((data.to?.itinerary ?? [])[i].departure.locationId)
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                  child: Divider(
+                                    indent: 10,
+                                    endIndent: 10,
+                                    height: 1.h,
+                                    color: primaryblue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : SizedBox(
+                            width: 50.w,
+                            child: Divider(
+                              indent: 10,
+                              endIndent: 10,
+                              height: 1.h,
+                              color: primaryblue,
+                            ),
+                          ),
+                    Column(
+                      children: [
+                        Text(
+                          (data.to?.itinerary ?? []).last.arrival.time,
+                          style: TextStyle(fontWeight: FontWeight.w500, color: blackTextColor),
+                        ),
+                        Text((data.to?.itinerary ?? []).last.arrival.locationId)
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
             Container(
               margin: const EdgeInsets.symmetric(vertical: 4),
               padding: const EdgeInsets.all(5),

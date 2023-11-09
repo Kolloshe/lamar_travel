@@ -24,6 +24,8 @@ import '../packages_screen.dart';
 
 enum FlightClass { economy, premiumEconomy, business, firstClass }
 
+enum FlightType { onewayFlight, roundedFlight }
+
 class NewSearchRoomAndPassinger extends StatefulWidget {
   const NewSearchRoomAndPassinger(
       {Key? key, required this.ontap, required this.next, required this.isfromnavbar})
@@ -39,6 +41,7 @@ class NewSearchRoomAndPassinger extends StatefulWidget {
 class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
     with SingleTickerProviderStateMixin {
   FlightClass selectedFlightClass = FlightClass.economy;
+  FlightType selectedFlightType = FlightType.roundedFlight;
 
   int childeringCount = 0;
   int roomcount = 1;
@@ -83,9 +86,10 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
       minCategory = privetJetCategories?.data.first;
     }
 
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-    _animation =
-        Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0)).animate(_animationController);
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _animation = Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
+        .animate(_animationController);
     _animationController.forward();
 
     super.initState();
@@ -195,8 +199,8 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
                                                 CustomNumberPicker(
                                                   w: 7.w,
                                                   valueTextStyle: TextStyle(fontSize: 14.sp),
-                                                  shape:
-                                                      const RoundedRectangleBorder(side: BorderSide.none),
+                                                  shape: const RoundedRectangleBorder(
+                                                      side: BorderSide.none),
                                                   initialValue: 1,
                                                   maxValue: 10,
                                                   minValue: 1,
@@ -214,6 +218,12 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
                                             ),
                                           )
                                         : const SizedBox(),
+                                    searchMode.contains('flight')
+                                        ? _buildFlightType()
+                                        : const SizedBox(),
+                                    Divider(
+                                      color: Colors.black.withOpacity(0.50),
+                                    ),
                                     searchMode.contains('flight')
                                         ? _buildSelectFlightClass()
                                         : const SizedBox(),
@@ -233,7 +243,8 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
                                           CustomNumberPicker(
                                             w: 7.w,
                                             valueTextStyle: TextStyle(fontSize: 14.sp),
-                                            shape: const RoundedRectangleBorder(side: BorderSide.none),
+                                            shape:
+                                                const RoundedRectangleBorder(side: BorderSide.none),
                                             initialValue: 1,
                                             maxValue: 10,
                                             minValue: 1,
@@ -283,8 +294,8 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
                                                 CustomNumberPicker(
                                                   w: 7.w,
                                                   valueTextStyle: TextStyle(fontSize: 14.sp),
-                                                  shape:
-                                                      const RoundedRectangleBorder(side: BorderSide.none),
+                                                  shape: const RoundedRectangleBorder(
+                                                      side: BorderSide.none),
                                                   initialValue: 0,
                                                   maxValue: 10,
                                                   minValue: 0,
@@ -457,10 +468,10 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
                             : _buildPrivetJet(),
                         Container(
                           padding: const EdgeInsets.all(8),
-                          alignment:
-                              Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
+                          alignment: Provider.of<AppData>(context, listen: false).locale ==
+                                  const Locale('en')
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 fixedSize: Size(30.w, 6.h), backgroundColor: primaryblue),
@@ -752,11 +763,11 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
             break;
         }
       }
-
+      context.read<AppData>().flightType = selectedFlightType;
       bool error = await AssistantMethods.mainSearchpackage(
           context,
           firstdate,
-          secdate,
+          selectedFlightType == FlightType.onewayFlight ? firstdate : secdate,
           context.read<AppData>().searchMode.contains('activity')
               ? Provider.of<AppData>(context, listen: false).payloadto.id
               : Provider.of<AppData>(context, listen: false).payloadFrom!.id,
@@ -769,13 +780,14 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
           childeringCount,
           childage,
           '',
-          context.read<AppData>().searchMode);
+          context.read<AppData>().searchMode,
+          selectedFlightType == FlightType.onewayFlight ? "1" : "2");
 
       ///! for research change vlaidation/////
       if (!mounted) return;
       Provider.of<AppData>(context, listen: false).cheakResarh(
           fday: firstdate,
-          secday: secdate,
+          secday: selectedFlightType == FlightType.onewayFlight ? firstdate : secdate,
           fcity: Provider.of<AppData>(context, listen: false).payloadFrom!.cityName,
           secCity: Provider.of<AppData>(context, listen: false).payloadto.cityName,
           room: roomcount.toString(),
@@ -856,6 +868,32 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
     }
   }
 
+  Widget _buildFlightType() {
+    return SizedBox(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Flight Type ',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          Wrap(
+            spacing: 15,
+            runAlignment: WrapAlignment.start,
+            children: [
+              _buildFlightTypeData(FlightType.roundedFlight, 'Rounded flight'),
+              _buildFlightTypeData(FlightType.onewayFlight, 'One way flight'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildSelectFlightClass() {
     return SizedBox(
       child: Column(
@@ -900,6 +938,28 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
             border: Border.all(
                 color: value == selectedFlightClass ? primaryblue : Colors.grey.shade500,
                 width: value == selectedFlightClass ? 3 : 1),
+            borderRadius: BorderRadius.circular(10)),
+        child: Text(title),
+      ),
+    );
+  }
+
+  Widget _buildFlightTypeData(FlightType value, String title) {
+    return GestureDetector(
+      onTap: () {
+        selectedFlightType = value;
+        setState(() {});
+      },
+      child: Container(
+        width: 40.w,
+        height: 5.h,
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(5),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: value == selectedFlightType ? primaryblue : Colors.grey.shade500,
+                width: value == selectedFlightType ? 3 : 1),
             borderRadius: BorderRadius.circular(10)),
         child: Text(title),
       ),

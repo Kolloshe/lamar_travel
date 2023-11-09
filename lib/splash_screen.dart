@@ -123,7 +123,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void dispose() {
     CheckInternet().cancel();
-    
+
     super.dispose();
   }
 
@@ -193,8 +193,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   getaddress() async {
     try {
       await AssistantMethods.getlocationFromApi(context);
-      PayloadElement fromCode = await AssistantMethods.getPayloadFromLocation(context,
-          Provider.of<AppData>(context, listen: false).citinameFormApi.toLowerCase().trim());
+      PayloadElement fromCode = await AssistantMethods.getPayloadFromLocation(
+          context,
+          //Provider.of<AppData>(context, listen: false).citinameFormApi.toLowerCase().trim()
+          "riyadh");
 
       Provider.of<AppData>(context, listen: false).getpayloadFromlocation(fromCode);
       Provider.of<AppData>(context, listen: false).getpayloadFrom(fromCode);

@@ -409,5 +409,7 @@
   "gameDiscount": "  خصم عن طريق اللعبه  ",
   "mada": "مدى",
   "applePay": "Apple pay",
-  "billingInformation":"العنوان"
+  "billingInformation": "العنوان",
+  "returnFlight": "رحله العوده",
+  "onewayTrip": "رحله الذهاب"
 }

@@ -216,7 +216,7 @@ class _MainScreenState extends State<MainScreen>
         0,
         '',
         '',
-        context.read<AppData>().searchMode);
+        context.read<AppData>().searchMode,'2');
     if (!mounted) return;
     customizeidFromTrinding =
         Provider.of<AppData>(context, listen: false).mainsarchForPackage.data.packages[0].id;

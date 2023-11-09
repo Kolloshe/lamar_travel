@@ -269,7 +269,7 @@ class Flight {
         sellingCurrency: json["selling_currency"],
         maxStop: json["max_stop"],
         startDate: json["start_date"],
-        endDate: json["end_date"],
+        endDate: json.containsKey("end_date") ? json["end_date"] : json["start_date"],
         travelData: List<Traveldatum>.from(json["travel_data"].map((x) => Traveldatum.fromJson(x))),
       );
 

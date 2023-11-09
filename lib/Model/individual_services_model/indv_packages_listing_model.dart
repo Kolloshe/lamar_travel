@@ -234,7 +234,7 @@ class FlightDetails {
   Passenger passenger;
   String flightClass;
   From from;
-  From to;
+  From? to;
   String flightId;
   String prebook;
 
@@ -246,7 +246,7 @@ class FlightDetails {
         passenger: Passenger.fromMap(json["passenger"]),
         flightClass: json["flight_class"],
         from: From.fromMap(json["from"]),
-        to: From.fromMap(json["to"]),
+        to: json['to'] == null ? null : From.fromMap(json["to"]),
         flightId: json["flight_id"],
         prebook: json["prebook"],
       );
@@ -259,7 +259,7 @@ class FlightDetails {
         "passenger": passenger.toMap(),
         "flight_class": flightClass,
         "from": from.toMap(),
-        "to": to.toMap(),
+        "to": to?.toMap(),
         "flight_id": flightId,
         "prebook": prebook,
       };

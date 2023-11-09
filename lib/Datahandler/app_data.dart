@@ -25,6 +25,7 @@ import 'package:lamar_travel_packages/screen/booking/newPreBooking/prebook_faile
 import 'package:lamar_travel_packages/screen/customize/filtter_screen.dart';
 
 import 'package:intl/intl.dart';
+import 'package:lamar_travel_packages/screen/newsearch/new_search_room_passinger.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../Assistants/assistant_methods.dart';
 import '../Assistants/assistant_data.dart';
@@ -622,7 +623,6 @@ class AppData extends ChangeNotifier {
 
     if (ismakefilter) {
       filterhundler = mainsarchForPackage.data.packages.where((element) {
-     
         return (element.total.toDouble() <= max! && element.total.toDouble() >= min!);
       }).where((element) {
         if (selectedStars.isNotEmpty) {
@@ -1511,4 +1511,6 @@ class AppData extends ChangeNotifier {
 
     return status;
   }
+
+  FlightType flightType = FlightType.roundedFlight;
 }

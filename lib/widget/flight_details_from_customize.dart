@@ -117,7 +117,7 @@ class _FlightDetialState extends State<FlightDetial> {
                                 height: 10,
                               ),
                               Text(
-                                '${selectedFlight.result.flight!.from.itinerary[0].departure.city}(${selectedFlight.result.flight!.from.departure}) > ${selectedFlight.result.flight!.to.itinerary[0].departure.city} (${selectedFlight.result.flight!.from.arrival})',
+                                '${selectedFlight.result.flight!.from.itinerary[0].departure.city}(${selectedFlight.result.flight!.from.departure}) > ${selectedFlight.result.flight!.to != null ? "${(selectedFlight.result.flight!.to?.itinerary ?? [])[0].departure.city} (${selectedFlight.result.flight!.from.arrival})" : '${selectedFlight.result.flight?.from.itinerary.last.arrival.city} (${selectedFlight.result.flight?.from.itinerary.last.arrival.locationId})'})',
                                 style: TextStyle(
                                   fontSize: subtitleFontSize,
                                 ),
@@ -150,65 +150,74 @@ class _FlightDetialState extends State<FlightDetial> {
                 indent: 5,
               ),
               //++++++++++++++++++++++++++++++++++++++++++++++++++++RETURN CONTANER++++++++++++++++++++++++++++++++++++++++++++++++++++++
-              Container(
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [shadow],
-                    color: Colors.white),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      width: size.width,
-                      color: background,
-                      child: Text(
-                        AppLocalizations.of(context)!.returnInformation,
-                        style: TextStyle(
-                            fontSize: titleFontSize,
-                            color: primaryblue,
-                            fontWeight: FontWeight.bold),
+              if (selectedFlight.result.flight?.to != null) ...[
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [shadow],
+                      color: Colors.white),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: size.width,
+                        color: background,
+                        child: Text(
+                          AppLocalizations.of(context)!.returnInformation,
+                          style: TextStyle(
+                              fontSize: titleFontSize,
+                              color: primaryblue,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${DateFormat('EEEE', genlang).format(selectedFlight.result.flight!.to.departureFdate)}, ${DateFormat('MMMMd', genlang).format(selectedFlight.result.flight!.to.departureFdate)}',
-                            style: TextStyle(fontSize: 10.sp),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '${selectedFlight.result.flight!.to.itinerary.first.departure.city}(${selectedFlight.result.flight!.to.departure}) > ${selectedFlight.result.flight!.to.itinerary.last.arrival.city} (${selectedFlight.result.flight!.to.arrival})',
-                            style: TextStyle(
-                              fontSize: 10.sp,
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            selectedFlight.result.flight!.to == null
+                                ? const SizedBox()
+                                : Text(
+                                    '${DateFormat('EEEE', genlang).format(selectedFlight.result.flight!.to!.departureFdate)}, ${DateFormat('MMMMd', genlang).format(selectedFlight.result.flight!.to!.departureFdate)}',
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                            const SizedBox(
+                              height: 10,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(selectedFlight.result.flight!.to.travelTime),
-                        ],
+                            (selectedFlight.result.flight!.to?.itinerary ?? []).isEmpty
+                                ? const SizedBox()
+                                : Text(
+                                    '${(selectedFlight.result.flight!.to?.itinerary ?? []).isNotEmpty ? (selectedFlight.result.flight!.to?.itinerary ?? []).first.departure.city : ""}(${selectedFlight.result.flight!.to?.departure ?? ""}) > ${selectedFlight.result.flight!.to?.itinerary.last.arrival.city ?? ""} (${selectedFlight.result.flight!.to?.arrival ?? ""})',
+                                    style: TextStyle(
+                                      fontSize: 10.sp,
+                                    ),
+                                  ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(selectedFlight.result.flight!.to?.travelTime ?? ""),
+                          ],
+                        ),
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (var i = 0; i < selectedFlight.result.flight!.to.itinerary.length; i++)
-                          filghtcard(selectedFlight.result.flight!.to,
-                              selectedFlight.result.flight!.to.itinerary[i])
-                      ],
-                    )
-                  ],
+                      if (selectedFlight.result.flight!.to != null) ...[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            for (var i = 0;
+                                i < (selectedFlight.result.flight!.to?.itinerary ?? []).length;
+                                i++)
+                              filghtcard(selectedFlight.result.flight!.to!,
+                                  selectedFlight.result.flight!.to!.itinerary[i])
+                          ],
+                        )
+                      ]
+                    ],
+                  ),
                 ),
-              ),
-
+              ],
               const SizedBox(
                 height: 10,
               ),

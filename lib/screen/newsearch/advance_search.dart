@@ -101,9 +101,10 @@ class _AdvanceSearchOptionState extends State<AdvanceSearchOption>
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-    _animation =
-        Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0)).animate(_animationController);
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _animation = Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
+        .animate(_animationController);
 
     getuserdatafrompref();
     super.initState();
@@ -153,8 +154,7 @@ class _AdvanceSearchOptionState extends State<AdvanceSearchOption>
                       Align(
                         alignment: Alignment.topCenter,
                         child: GestureDetector(
-                          onPanUpdate: (d) {
-                          },
+                          onPanUpdate: (d) {},
                           child: SingleChildScrollView(
                             physics: const ClampingScrollPhysics(),
                             primary: false,
@@ -693,8 +693,8 @@ class _AdvanceSearchOptionState extends State<AdvanceSearchOption>
     }
 
     //  try {
-   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadingWidgetMain()));
-   pressIndcatorDialog(context);
+    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadingWidgetMain()));
+    pressIndcatorDialog(context);
     bool error = await AssistantMethods.mainSearchpackage(
         context,
         firstdate,
@@ -713,8 +713,10 @@ class _AdvanceSearchOptionState extends State<AdvanceSearchOption>
         Provider.of<AppData>(context, listen: false).childrens,
         childage,
         ss,
-        context.read<AppData>().searchMode);
-   if (!mounted) return;
+        context.read<AppData>().searchMode,
+        '2');
+    if (!mounted) return;
+
     ///! for research change vlaidation/////
     Provider.of<AppData>(context, listen: false).cheakResarh(
         fday: firstdate,

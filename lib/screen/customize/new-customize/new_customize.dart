@@ -892,43 +892,45 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                 : const SizedBox(),
             _spacer(0, 1),
             (!_customizpackage.result.sameCitiy)
-                ? _buildTicketContainer(
-                    child: _customizpackage.result.noflight
-                        ? _buildNoSectionText(AppLocalizations.of(context)!.flight)
-                        : _buildFlightSection(
-                            flight: _customizpackage.result.flight!.to, state: 'return'),
-                    child2: _customizpackage.result.noflight
-                        ? _buildAddSection(add: () async {
-                            pressIndcatorDialog(context);
-                            String customizeId = Provider.of<AppData>(context, listen: false)
-                                .packagecustomiz
-                                .result
-                                .customizeId;
+                ? _customizpackage.result.flight!.to != null
+                    ? _buildTicketContainer(
+                        child: _customizpackage.result.noflight
+                            ? _buildNoSectionText(AppLocalizations.of(context)!.flight)
+                            : _buildFlightSection(
+                                flight: _customizpackage.result.flight!.to!, state: 'return'),
+                        child2: _customizpackage.result.noflight
+                            ? _buildAddSection(add: () async {
+                                pressIndcatorDialog(context);
+                                String customizeId = Provider.of<AppData>(context, listen: false)
+                                    .packagecustomiz
+                                    .result
+                                    .customizeId;
 
-                            try {
-                              await AssistantMethods.sectionManager(context,
-                                  action: 'add', section: 'flight', cusID: customizeId);
-                              if (!mounted) return;
-                              Navigator.of(context).pop();
-                              setState(() {
-                                _customizpackage =
-                                    Provider.of<AppData>(context, listen: false).packagecustomiz;
-                              });
-                            } catch (e) {
-                              Navigator.pop(context);
-                              const Errordislog().error(context, e.toString());
-                            }
-                          })
-                        : Container(
-                            width: 100.w,
-                            height: 5.h,
-                            padding: EdgeInsets.all(1.5.h),
-                            child: _buildIcons(
-                                icon: 'assets/images/iconss/tickets.png',
-                                onTap: () {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      FlightDetial.idScreen, (route) => false);
-                                })))
+                                try {
+                                  await AssistantMethods.sectionManager(context,
+                                      action: 'add', section: 'flight', cusID: customizeId);
+                                  if (!mounted) return;
+                                  Navigator.of(context).pop();
+                                  setState(() {
+                                    _customizpackage = Provider.of<AppData>(context, listen: false)
+                                        .packagecustomiz;
+                                  });
+                                } catch (e) {
+                                  Navigator.pop(context);
+                                  const Errordislog().error(context, e.toString());
+                                }
+                              })
+                            : Container(
+                                width: 100.w,
+                                height: 5.h,
+                                padding: EdgeInsets.all(1.5.h),
+                                child: _buildIcons(
+                                    icon: 'assets/images/iconss/tickets.png',
+                                    onTap: () {
+                                      Navigator.of(context).pushNamedAndRemoveUntil(
+                                          FlightDetial.idScreen, (route) => false);
+                                    })))
+                    : _spacer(0, 0)
                 : _spacer(0, 0),
             _spacer(0, 12),
 

@@ -57,6 +57,7 @@ import 'package:lamar_travel_packages/screen/customize/new-customize/new_customi
 import 'package:lamar_travel_packages/screen/customize/new-customize/new_customize.dart';
 import 'package:lamar_travel_packages/screen/individual_services/ind_widgets/ind_activity/ind_activity_list.dart';
 import 'package:lamar_travel_packages/screen/main_screen1.dart';
+import 'package:lamar_travel_packages/screen/newsearch/new_search_room_passinger.dart';
 import 'package:lamar_travel_packages/setting/account_screen.dart';
 import 'package:lamar_travel_packages/widget/errordialog.dart';
 import 'package:lamar_travel_packages/widget/maintnancmode.dart';
@@ -257,25 +258,29 @@ class AssistantMethods {
 //****************************************************************************** */
 
   static Future<bool> mainSearchpackage(
-    BuildContext context,
-    String packageStart,
-    String packageEnd,
-    String departureCode,
-    String arrivalCode,
-    String hotelCode,
-    String flightCode,
-    String flightClass,
-    int rooms,
-    int adults,
-    int children,
-    String childages,
-    String hotelstar,
-    String searchMode,
-  ) async {
+      BuildContext context,
+      String packageStart,
+      String packageEnd,
+      String departureCode,
+      String arrivalCode,
+      String hotelCode,
+      String flightCode,
+      String flightClass,
+      int rooms,
+      int adults,
+      int children,
+      String childages,
+      String hotelstar,
+      String searchMode,
+      String flightType) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    context.read<AppData>().flightType =
+        flightType.trim() == "1" ? FlightType.onewayFlight : FlightType.roundedFlight;
     String url =
         //  'http://192.168.0.222/ibookaholidaynew/api/v1/holiday/list?package_id=6245b5e172a5cf36d60d2d62';
-        '${baseUrl}holiday/search?os=${Platform.isIOS ? 'ios' : 'android'}&app_version=${packageInfo.buildNumber}&package_start=$packageStart&package_end=$packageEnd&departure_code=$departureCode&arrival_code=$arrivalCode&hotelCode=$hotelCode&flightCode=$flightCode&search_Type=1&flightClass=$flightClass&rooms[1]=$rooms&adults[1]=$adults&children[1]=$children&$childages&hotelStar=$hotelstar&currency=$gencurrency&language=$genlang&selling_currency=$gencurrency&searchRequest=1&searchMode=$searchMode';
+        '${baseUrl}holiday/search?os=${Platform.isIOS ? 'ios' : 'android'}&app_version=${packageInfo.buildNumber}&package_start=$packageStart&package_end=$packageEnd&departure_code=$departureCode&arrival_code=$arrivalCode&hotelCode=$hotelCode&flightCode=$flightCode&search_Type=1&flightClass=$flightClass&rooms[1]=$rooms&adults[1]=$adults&children[1]=$children&$childages&hotelStar=$hotelstar&currency=$gencurrency&language=$genlang&selling_currency=$gencurrency&searchRequest=1&flight_trip_type=$flightType&searchMode=$searchMode';
+
+    log(url);
     var headers = {
       'Content-Type': 'application/json',
       'mobile-os': Platform.isIOS ? 'ios' : 'android',
@@ -1473,7 +1478,7 @@ class AssistantMethods {
     String jsondata = await response.stream.bytesToString();
     final data = jsonDecode(jsondata);
     if (response.statusCode == 200) {
-      gencurrency = data["currency_code"];
+      // gencurrency = data["currency_code"];
       Provider.of<AppData>(context, listen: false).getcitiynamefromApi(data['city']);
       return true;
     } else if (response.statusCode == 521) {
@@ -3231,11 +3236,9 @@ class AssistantMethods {
     request.body = jsonEncode(data);
     request.headers.addAll(headers);
 
-
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
-
   }
 
   static Future<String> reversePayment(String paymentId, {required testMode}) async {
