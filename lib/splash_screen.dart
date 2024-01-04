@@ -140,12 +140,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             child: Stack(
               children: [
                 Positioned(
-                  top: 15.h,
+                  top: 25.h,
                   left: 10.w,
                   child: SizedBox(
                     width: 75.w,
                     child: Image.asset(
-                      'assets/images/lamarlogo/logo_with_text.png',
+                      'assets/images/Lamar Travel Logo.png',
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -19,7 +19,7 @@ class CheckInternet {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return AlertDialog(title: const Text(''), content: Text(content), actions: <Widget>[
+              return AlertDialog(title: const Text(''), content: Text(content), actions: <Widget>[
             // TextButton(
             //     onPressed: () {
             //       // print('HERE');

@@ -3,7 +3,7 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
- import 'package:flutter_mrz_scanner/flutter_mrz_scanner.dart';
+import 'package:flutter_mrz_scanner/flutter_mrz_scanner.dart';
 import 'package:lamar_travel_packages/config.dart';
 import 'package:intl/intl.dart';
 
