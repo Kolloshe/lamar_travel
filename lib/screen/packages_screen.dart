@@ -1045,7 +1045,7 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                                 packagesList[index]
                                                                         .transfer
                                                                         .isNotEmpty
-                                                                    ? ' ${packagesList[index].transfer[0].serviceTypeName}'
+                                                                    ? ' ${packagesList[index].transfer[0].content.category.name}'
                                                                     : packagesList[index]
                                                                                 .responseFrom ==
                                                                             'inital_request'
@@ -1112,55 +1112,56 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                         ),
                                                         onPressed: () async {
                                                           resetBucket = false;
-                                                          try {
-                                                            pressIndcatorDialog(context);
+                                                          // try {
+                                                          pressIndcatorDialog(context);
 
-                                                            // Navigator.pushNamed(
-                                                            //     context, MiniLoader.idScreen);
+                                                          // Navigator.pushNamed(
+                                                          //     context, MiniLoader.idScreen);
 
-                                                            Provider.of<AppData>(context,
-                                                                    listen: false)
-                                                                .getselectedpackageid(packages
-                                                                    .data.packages[index].id);
+                                                          Provider.of<AppData>(context,
+                                                                  listen: false)
+                                                              .getselectedpackageid(
+                                                                  packages.data.packages[index].id);
 
-                                                            final x = await AssistantMethods
-                                                                .customizingPackage(context,
-                                                                    packagesList[index].id);
+                                                          final x = await AssistantMethods
+                                                              .customizingPackage(
+                                                                  context, packagesList[index].id);
 
-                                                            if (!mounted) return;
-                                                            //  Navigator.of(context).pop();
-                                                            if (x != null) {
-                                                              Navigator.of(context).popAndPushNamed(
-                                                                  CustomizeSlider.idScreen);
-                                                            } else {
-                                                              displayTostmessage(context, true,
-                                                                  message:
-                                                                      AppLocalizations.of(context)!
-                                                                          .tryAgainLater);
-                                                              if (Navigator.of(context).canPop()) {
-                                                                Navigator.of(context).pop();
-                                                              } else {
-                                                                Navigator.of(context)
-                                                                    .pushAndRemoveUntil(
-                                                                        MaterialPageRoute(
-                                                                            builder: (context) =>
-                                                                                const PackagesScreen()),
-                                                                        (route) => false);
-                                                              }
-                                                            }
-
-                                                            // Navigator.of(context).pushNamed(
-                                                            //     CustomizeSlider.idScreen);
-                                                          } catch (e) {
-                                                            Navigator.of(context)
-                                                                .pushNamedAndRemoveUntil(
-                                                                    PackagesScreen.idScreen,
-                                                                    (route) => false);
+                                                          if (!mounted) return;
+                                                          //  Navigator.of(context).pop();
+                                                          if (x != null) {
+                                                            Navigator.of(context).popAndPushNamed(
+                                                                CustomizeSlider.idScreen);
+                                                          } else {
                                                             displayTostmessage(context, true,
                                                                 message:
                                                                     AppLocalizations.of(context)!
-                                                                        .pleaseSelectOtherOne);
+                                                                        .tryAgainLater);
+                                                            if (Navigator.of(context).canPop()) {
+                                                              Navigator.of(context).pop();
+                                                            } else {
+                                                              Navigator.of(context)
+                                                                  .pushAndRemoveUntil(
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              const PackagesScreen()),
+                                                                      (route) => false);
+                                                            }
                                                           }
+
+                                                          // Navigator.of(context).pushNamed(
+                                                          //     CustomizeSlider.idScreen);
+                                                          //   } catch (e) {
+
+                                                          //     Navigator.of(context)
+                                                          //         .pushNamedAndRemoveUntil(
+                                                          //             PackagesScreen.idScreen,
+                                                          //             (route) => false);
+                                                          //     displayTostmessage(context, true,
+                                                          //         message:
+                                                          //             AppLocalizations.of(context)!
+                                                          //                 .pleaseSelectOtherOne);
+                                                          //   }
                                                         },
                                                       ),
                                                     ],

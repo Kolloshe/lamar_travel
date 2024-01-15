@@ -145,7 +145,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   child: SizedBox(
                     width: 75.w,
                     child: Image.asset(
-                      'assets/images/Lamar Travel Logo.png',
+                      'assets/images/LAMAR2 (3).png',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -179,7 +179,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   Future<void> startTimer() async {
-    Timer(const Duration(milliseconds: 200), () async {
+    Timer(const Duration(milliseconds: 100), () async {
       final loclaFromLocal = AssistenData.getUserLocal();
       if (loclaFromLocal != null) {
         Provider.of<AppData>(context, listen: false).setLocale(Locale(loclaFromLocal));
@@ -210,7 +210,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     if (internet == DataConnectionStatus.connected) {
       await AssistantMethods.getTrendsAndOffers(
           context, Provider.of<AppData>(context, listen: false).citinameFormApi);
+      print('currency start');
       Currencies? currencies = await AssistantMethods.getCurrency(context);
+      print('currency done');
       if (currencies != null) {
         currencyapi = currencies.currencies!.map((e) => e.code).toList();
       } else {
@@ -228,29 +230,34 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       }
 
       await Provider.of<AppData>(context, listen: false).getUserFromPref(context);
+      // print('promo start');
+      // final popUpData = await AssistantMethods.getPromoPopupData();
+      // print('promo end');
 
-      final popUpData = await AssistantMethods.getPromoPopupData();
+      // if (popUpData != null) {
+      //   final oldPromoCodeId = AssistenData.getPromoCodeId();
 
-      if (popUpData != null) {
-        final oldPromoCodeId = AssistenData.getPromoCodeId();
-
-        if (oldPromoCodeId != null) {
-          if (popUpData.data != null &&
-              popUpData.data!.id != null &&
-              oldPromoCodeId != popUpData.data!.id) {
-            context.read<AppData>().promoPopupData = popUpData;
-            AssistenData.setPromoCodeID(popUpData.data!.id!);
-          } else {
-            context.read<AppData>().promoPopupData = null;
-          }
-        } else {
-          context.read<AppData>().promoPopupData = popUpData;
-          await AssistenData.setPromoCodeID(popUpData.data!.id!);
-        }
-      }
+      //   if (oldPromoCodeId != null) {
+      //     if (popUpData.data != null &&
+      //         popUpData.data!.id != null &&
+      //         oldPromoCodeId != popUpData.data!.id) {
+      //       context.read<AppData>().promoPopupData = popUpData;
+      //       AssistenData.setPromoCodeID(popUpData.data!.id!);
+      //     } else {
+      //       context.read<AppData>().promoPopupData = null;
+      //     }
+      //   } else {
+      //     context.read<AppData>().promoPopupData = popUpData;
+      //     await AssistenData.setPromoCodeID(popUpData.data!.id!);
+      //   }
+      // }
+      print('Promotion start');
 
       await AssistantMethods.getPromotionList(context);
+      print('Promotion end');
+      print('dynamic start');
       await ddynamicLink();
+      print('dynamic end');
       print("ddd:)");
       if (!isFromdeep) {
         Navigator.pushNamedAndRemoveUntil(context, TabPage.idScreen, (route) => false);

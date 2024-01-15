@@ -40,7 +40,7 @@ class PromotionWidget extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 child: CachedNetworkImage(
                                   imageUrl: data.image!,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                   placeholder: (context, url) => const Center(
                                       child: ImageSpinning(
                                     withOpasity: true,
@@ -97,8 +97,10 @@ class PromotionWidget extends StatelessWidget {
                 child: ImageSpinning(
               withOpasity: true,
             )),
-            errorWidget: (context, url, error) =>
-                Image.asset('assets/images/image-not-available.png'),
+            errorWidget: (context, url, error) {
+              print(error);
+              return Image.asset('assets/images/image-not-available.png');
+            },
           ),
         ),
       )),

@@ -66,6 +66,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../Model/individual_services_model/indv_packages_listing_model.dart';
+import '../Model/new_transfer_change_model.dart';
 import '../config.dart';
 import '../screen/individual_services/ind_packages_screen.dart';
 import '../screen/packages_screen.dart';
@@ -773,7 +774,7 @@ class AssistantMethods {
 
   static Future<bool> changeTransfer(String id, String type, BuildContext context) async {
     String url =
-        "${baseUrl}holiday/transfer-list-inout?&currency=$gencurrency&language=$genlang&customizeId=$id";
+        "${baseUrl}holiday/change_transfer?type=$type&currency=$gencurrency&language=$genlang&customizeId=$id";
 
     var request = http.Request('GET', Uri.parse(url));
     var headers = {
@@ -785,12 +786,14 @@ class AssistantMethods {
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     final jsonString = await response.stream.bytesToString();
+    log(jsonString);
 
     if (response.statusCode == 200) {
-      ChangeTransfer changeTransfer = changeTransferFromJson(jsonString);
-      Provider.of<AppData>(context, listen: false).getTransferList(changeTransfer);
+      // ChangeTransfer changeTransfer = changeTransferFromJson(jsonString);
+      final newChangeTransfer = newChangeTransferFromJson(jsonString);
+      Provider.of<AppData>(context, listen: false).getTransferList(newChangeTransfer);
 
-      if (changeTransfer.data.dataIn.isEmpty) {
+      if (newChangeTransfer.data.isEmpty) {
         return false;
       } else {
         return true;

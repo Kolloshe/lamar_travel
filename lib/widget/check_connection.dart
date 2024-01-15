@@ -19,7 +19,7 @@ class CheckInternet {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-              return AlertDialog(title: const Text(''), content: Text(content), actions: <Widget>[
+          return AlertDialog(title: const Text(''), content: Text(content), actions: <Widget>[
             // TextButton(
             //     onPressed: () {
             //       // print('HERE');
@@ -34,6 +34,7 @@ class CheckInternet {
         });
   }
 
+  bool isConnected = false;
   Future<DataConnectionStatus> checkConnection(BuildContext context) async {
     print("BEFOR LISTEN :  ");
 
@@ -41,10 +42,17 @@ class CheckInternet {
       print("LISTEN :  ");
       switch (status) {
         case DataConnectionStatus.connected:
-          Navigator.of(context).canPop()
-              ? Navigator.pop(context)
-              : Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const SplashScreen()), (route) => false);
+          if (isConnected) {
+            Navigator.of(context).canPop()
+                ? Navigator.pop(context)
+                : Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const SplashScreen()),
+                    (route) => false);
+            isConnected = false;
+          } else {
+            isConnected = true;
+          }
+
           break;
         case DataConnectionStatus.disconnected:
           internetStatus = "You are disconnected to the Internet. ";

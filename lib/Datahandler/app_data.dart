@@ -43,6 +43,7 @@ import '../Model/login/user.dart';
 
 import '../Model/mainsearch.dart';
 
+import '../Model/new_transfer_change_model.dart';
 import '../Model/payload.dart';
 import '../Model/searchforflight.dart';
 import '../Model/searchforhotel.dart';
@@ -283,9 +284,9 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
-  late ChangeTransfer changeTransfer;
+  late NewChangeTransfer changeTransfer;
 
-  void getTransferList(ChangeTransfer changeTransfers) {
+  void getTransferList(NewChangeTransfer changeTransfers) {
     changeTransfer = changeTransfers;
     notifyListeners();
   }

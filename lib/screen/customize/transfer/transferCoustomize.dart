@@ -19,6 +19,7 @@ import 'package:lamar_travel_packages/widget/image_spinnig.dart';
 
 import 'package:provider/provider.dart';
 
+import '../../../Model/new_transfer_change_model.dart';
 import '../../packages_screen.dart';
 
 class TransferCustomize extends StatefulWidget {
@@ -30,10 +31,9 @@ class TransferCustomize extends StatefulWidget {
 }
 
 class _TransferCustomizeState extends State<TransferCustomize> {
-  late ChangeTransfer _transfer;
+  late NewChangeTransfer _transfer;
 
   Map<String, dynamic> saveddata = {};
-
 
   loadTransfer() {
     _transfer = Provider.of<AppData>(context, listen: false).changeTransfer;
@@ -190,11 +190,11 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           Expanded(
             //  height: size.height * 0.75,
             child: ListView.builder(
-              itemCount: _transfer.data.dataIn.isNotEmpty ? _transfer.data.dataIn.length : 0,
+              itemCount: _transfer.data.first.isNotEmpty ? _transfer.data.first.length : 0,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    inTransID = _transfer.data.dataIn[index].id;
+                    inTransID = _transfer.data.first[index].id;
                     setState(() {
                       inSelectedIndex = index;
                     });
@@ -218,7 +218,12 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CachedNetworkImage(
-                                  imageUrl: _transfer.data.dataIn[index].images,
+                                  imageUrl: _transfer
+                                      .data
+                                      .first[index]
+                                      .content
+                                      .images[_transfer.data.first[index].content.images.length - 1]
+                                      .url,
                                   width: 100,
                                   height: 100,
                                   fit: BoxFit.contain,
@@ -241,7 +246,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    _transfer.data.dataIn[index].name,
+                                    _transfer.data.first[index].category.name +
+                                        _transfer.data.first[index].transferType,
                                     style: TextStyle(
                                       fontSize: subtitleFontSize,
                                       fontWeight: FontWeight.w600,
@@ -266,7 +272,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                         softWrap: false,
                                       ),
                                       Text(
-                                        _transfer.data.dataIn[index].serviceTypeName,
+                                        _transfer.data.first[index].transferType,
                                         style: TextStyle(
                                           fontSize: subtitleFontSize,
                                           fontWeight: FontWeight.w500,
@@ -293,23 +299,27 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                         softWrap: false,
                                       ),
                                       Text(
-                                        _transfer.data.dataIn[index].priceDifference
-                                                    .toString()
-                                                    .substring(0, 1) !=
-                                                '-'
-                                            ? '+ ${_transfer.data.dataIn[index].priceDifference} ${localizeCurrency(
-                                                    _transfer.data.dataIn[index].currency)}'
-                                            : '${_transfer.data.dataIn[index].priceDifference} ${localizeCurrency(
-                                                    _transfer.data.dataIn[index].currency)}',
+                                        _transfer.data.last[index].price.sellingAmount.toString()
+                                        // _transfer.data.dataIn[index].priceDifference
+                                        //             .toString()
+                                        //             .substring(0, 1) !=
+                                        //         '-'
+                                        //     ? '+ ${_transfer.data.dataIn[index].priceDifference} ${localizeCurrency(
+                                        //             _transfer.data.dataIn[index].currency)}'
+                                        //     : '${_transfer.data.dataIn[index].priceDifference} ${localizeCurrency(
+                                        //             _transfer.data.dataIn[index].currency)}'
+                                        ,
                                         style: TextStyle(
-                                          color: _transfer.data.dataIn[index].priceDifference
-                                                      .toString()
-                                                      .substring(0, 1) !=
-                                                  '-'
-                                              ? Colors.red.shade400
-                                              : greencolor,
-                                          fontSize:
-                                              const AdaptiveTextSize().getadaptiveTextSize(context, 22),
+                                          color: greencolor
+                                          //  _transfer.data.dataIn[index].priceDifference
+                                          //             .toString()
+                                          //             .substring(0, 1) !=
+                                          //         '-'
+                                          //     ? Colors.red.shade400
+                                          //     : greencolor
+                                          ,
+                                          fontSize: const AdaptiveTextSize()
+                                              .getadaptiveTextSize(context, 22),
                                           fontWeight: FontWeight.w500,
                                         ),
                                         overflow: TextOverflow.ellipsis,
@@ -456,7 +466,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                     });
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: greencolor, fixedSize: Size(45.w, 4.h),
+                    foregroundColor: greencolor,
+                    fixedSize: Size(45.w, 4.h),
                     side: BorderSide(color: greencolor, width: 1),
                   ),
                   child: Text(AppLocalizations.of(context)!.skip),
@@ -544,7 +555,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           Expanded(
             //  height: size.height * 0.75,
             child: ListView.builder(
-              itemCount: _transfer.data.out.isNotEmpty ? _transfer.data.out.length : 0,
+              itemCount: _transfer.data.last.isNotEmpty ? _transfer.data.last.length : 0,
               itemBuilder: (context, index) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -553,7 +564,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                     GestureDetector(
                       onTap: () async {
                         outSelectionIndex = index;
-                        outTransID = _transfer.data.out[index].id;
+                        outTransID = _transfer.data.last[index].id;
                         setState(() {});
                       },
                       child: Container(
@@ -576,7 +587,13 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   CachedNetworkImage(
-                                      imageUrl: _transfer.data.out[index].images,
+                                      imageUrl: _transfer
+                                          .data
+                                          .last[index]
+                                          .content
+                                          .images[
+                                              _transfer.data.last[index].content.images.length - 1]
+                                          .url,
                                       width: 100,
                                       height: 100,
                                       fit: BoxFit.contain,
@@ -599,7 +616,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        _transfer.data.out[index].name,
+                                        _transfer.data.last[index].vehicle.name,
                                         style: TextStyle(
                                           fontSize: subtitleFontSize,
                                           fontWeight: FontWeight.w600,
@@ -624,7 +641,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                             softWrap: false,
                                           ),
                                           Text(
-                                            _transfer.data.out[index].serviceTypeName,
+                                            _transfer.data.last[index].transferType,
                                             style: TextStyle(
                                               fontSize: subtitleFontSize,
                                               fontWeight: FontWeight.w500,
@@ -651,21 +668,26 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                             softWrap: false,
                                           ),
                                           Text(
-                                            _transfer.data.out[index].priceDifference
-                                                        .toString()
-                                                        .substring(0, 1) !=
-                                                    '-'
-                                                ? '+ ${_transfer.data.out[index].priceDifference} ${localizeCurrency(
-                                                        _transfer.data.out[index].currency)}'
-                                                : '${_transfer.data.out[index].priceDifference} ${localizeCurrency(
-                                                        _transfer.data.out[index].currency)}',
+                                            _transfer.data.last[index].price.sellingAmount
+                                                .toString()
+                                            // _transfer.data.out[index].priceDifference
+                                            //             .toString()
+                                            //             .substring(0, 1) !=
+                                            //         '-'
+                                            //     ? '+ ${_transfer.data.out[index].priceDifference} ${localizeCurrency(
+                                            //             _transfer.data.out[index].currency)}'
+                                            //     : '${_transfer.data.out[index].priceDifference} ${localizeCurrency(
+                                            //             _transfer.data.out[index].currency)}'
+                                            ,
                                             style: TextStyle(
-                                              color: _transfer.data.out[index].priceDifference
-                                                          .toString()
-                                                          .substring(0, 1) !=
-                                                      '-'
-                                                  ? Colors.red.shade400
-                                                  : greencolor,
+                                              color: greencolor
+                                              //  _transfer.data.out[index].priceDifference
+                                              //             .toString()
+                                              //             .substring(0, 1) !=
+                                              //         '-'
+                                              //     ? Colors.red.shade400
+                                              //     :greencolor
+                                              ,
                                               fontSize: subtitleFontSize,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -789,8 +811,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                             displayTostmessage(context, true,
                                 message: AppLocalizations.of(context)!.cantSkipBoth);
                           } else {
-                         //   Navigator.of(context).pushNamed(MiniLoader.idScreen);
-                                  pressIndcatorDialog(context);
+                            //   Navigator.of(context).pushNamed(MiniLoader.idScreen);
+                            pressIndcatorDialog(context);
 
                             final isDone = await AssistantMethods.updateTransfer(
                                 Provider.of<AppData>(context, listen: false)
@@ -832,7 +854,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                           // });
                         },
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: greencolor, fixedSize: Size(45.w, 4.h),
+                          foregroundColor: greencolor,
+                          fixedSize: Size(45.w, 4.h),
                           side: BorderSide(color: greencolor, width: 1),
                         ),
                         child: Text(AppLocalizations.of(context)!.skip),
@@ -844,9 +867,9 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                       displayTostmessage(context, true,
                           message: AppLocalizations.of(context)!.selectOneOrPressSkip);
                     } else {
-                                                        pressIndcatorDialog(context);
+                      pressIndcatorDialog(context);
 
-                  //    Navigator.of(context).pushNamed(MiniLoader.idScreen);
+                      //    Navigator.of(context).pushNamed(MiniLoader.idScreen);
 
                       final isDone = await AssistantMethods.updateTransfer(
                           Provider.of<AppData>(context, listen: false)
@@ -890,4 +913,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           ),
         ],
       );
+
+  Widget _buildTransferContaner() {
+    return Container();
+  }
 }

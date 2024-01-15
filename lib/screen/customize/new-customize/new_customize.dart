@@ -729,17 +729,13 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
 
                           // Navigator.of(context)
                           //     .pushNamed(MiniLoader.idScreen);
-                          // final isTransReady=    await AssistantMethods.changeTransfer(
-                          //     _customizpackage.result.customizeId,
-                          //     'IN',
-                          //     context);
+                          final isTransReady = await AssistantMethods.changeTransfer(
+                              _customizpackage.result.customizeId, 'IN', context);
                           // Navigator.of(context).pop();
-                          // if(isTransReady){ Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (context) =>
-                          //             TransferCustomize()));
-                          //
-                          // }
+                          if (isTransReady) {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) => TransferCustomize()));
+                          }
                           // else{
                           //   displayTostmessage(context, true, messeage: 'They are no alternative transfer available at this moments');
                           // }
@@ -793,28 +789,30 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                   _buildIcons(
                                     icon: 'assets/images/iconss/transfer.png',
                                     onTap: () async {
-                                      pressIndcatorDialog(context);
-                                      try {
-                                        final isTransReady = await AssistantMethods.changeTransfer(
-                                            _customizpackage.result.customizeId, 'IN', context);
+                                      //     pressIndcatorDialog(context);
+                                      //     try {
+                                      final isTransReady = await AssistantMethods.changeTransfer(
+                                          _customizpackage.result.customizeId, 'IN', context);
+                                      if (!mounted) return;
+
+                                      Navigator.of(context).pop();
+                                      print(isTransReady);
+                                      if (isTransReady) {
+                                        Navigator.of(context).pushAndRemoveUntil(
+                                            MaterialPageRoute(
+                                                builder: (context) => const TransferCustomize()),
+                                            (route) => false);
+                                      } else {
                                         if (!mounted) return;
 
-                                        Navigator.of(context).pop();
-                                        if (isTransReady) {
-                                          Navigator.of(context).pushAndRemoveUntil(
-                                              MaterialPageRoute(
-                                                  builder: (context) => const TransferCustomize()),
-                                              (route) => false);
-                                        } else {
-                                          if (!mounted) return;
-
-                                          displayTostmessage(context, true,
-                                              message: AppLocalizations.of(context)!
-                                                  .theyAreNoAlternativeTransfer);
-                                        }
-                                      } catch (e) {
-                                        Navigator.of(context).pop();
+                                        displayTostmessage(context, true,
+                                            message: AppLocalizations.of(context)!
+                                                .theyAreNoAlternativeTransfer);
                                       }
+                                      //   } catch (e) {
+                                      //     print(e);
+                                      //     Navigator.of(context).pop();
+                                      //   }
                                     },
                                   ),
                                   _buildIcons(
@@ -1548,8 +1546,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Transfer',
+                        Text(
+                          AppLocalizations.of(context)!.transfer,
                           style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
                         ),
                         const SizedBox(
@@ -1574,7 +1572,10 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                       Row(
                         children: [
                           CachedNetworkImage(
-                              imageUrl: _customizpackage.result.transfer[0].image,
+                              imageUrl:
+                                  _customizpackage.result.transfer[0].content.images.isNotEmpty
+                                      ? _customizpackage.result.transfer[0].content.images.first.url
+                                      : "",
                               height: 120,
                               width: 120,
                               fit: BoxFit.cover,
@@ -1601,7 +1602,7 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                       fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                                 ),
                                 Text(
-                                  "${_customizpackage.result.transfer[0].serviceTypeName} ${_customizpackage.result.transfer[0].vehicleTypeName}",
+                                  "${_customizpackage.result.transfer[0].transferType} ${_customizpackage.result.transfer[0].content.category.name}",
                                   style: TextStyle(
                                     fontSize: detailsFontSize,
                                   ),
@@ -1615,7 +1616,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                       fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                                 ),
                                 Text(
-                                  _customizpackage.result.transfer[0].date,
+                                  DateFormat('MMM dd ').format(
+                                      _customizpackage.result.transfer[0].pickupInformation.date),
                                   style: TextStyle(
                                     fontSize: detailsFontSize,
                                   ),
@@ -1634,7 +1636,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                   softWrap: false,
                                 ),
                                 Text(
-                                  _customizpackage.result.transfer[0].pickUpLocation,
+                                  _customizpackage
+                                      .result.transfer[0].pickupInformation.from.description,
                                   style: TextStyle(
                                     fontSize: detailsFontSize,
                                   ),
@@ -1653,7 +1656,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                   softWrap: false,
                                 ),
                                 Text(
-                                  _customizpackage.result.transfer[0].dropOffLocation,
+                                  _customizpackage
+                                      .result.transfer[0].pickupInformation.to.description,
                                   style: TextStyle(
                                     fontSize: detailsFontSize,
                                   ),
@@ -1681,7 +1685,13 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CachedNetworkImage(
-                              imageUrl: _customizpackage.result.transfer[1].image,
+                              imageUrl: _customizpackage
+                                  .result
+                                  .transfer[1]
+                                  .content
+                                  .images[
+                                      _customizpackage.result.transfer[1].content.images.length - 1]
+                                  .url,
                               height: 120,
                               width: 120,
                               fit: BoxFit.cover,
@@ -1708,7 +1718,7 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                       fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                                 ),
                                 Text(
-                                  "${_customizpackage.result.transfer[1].serviceTypeName} ${_customizpackage.result.transfer[1].vehicleTypeName}",
+                                  "${_customizpackage.result.transfer[1].transferType} ${_customizpackage.result.transfer[1].content.category.name}",
                                   style: TextStyle(
                                     fontSize: detailsFontSize,
                                   ),
@@ -1722,7 +1732,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                       fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                                 ),
                                 Text(
-                                  _customizpackage.result.transfer[1].date,
+                                  DateFormat('MMM dd').format(
+                                      _customizpackage.result.transfer[1].pickupInformation.date),
                                   style: TextStyle(fontSize: detailsFontSize),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
@@ -1739,7 +1750,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                   softWrap: false,
                                 ),
                                 Text(
-                                  _customizpackage.result.transfer[1].pickUpLocation,
+                                  _customizpackage
+                                      .result.transfer[1].pickupInformation.from.description,
                                   style: TextStyle(
                                     fontSize: detailsFontSize,
                                   ),
@@ -1758,7 +1770,8 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                   softWrap: false,
                                 ),
                                 Text(
-                                  _customizpackage.result.transfer[1].dropOffLocation,
+                                  _customizpackage
+                                      .result.transfer[1].pickupInformation.to.description,
                                   style: TextStyle(
                                     fontSize: detailsFontSize,
                                   ),

@@ -221,9 +221,9 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
                                     searchMode.contains('flight')
                                         ? _buildFlightType()
                                         : const SizedBox(),
-                                    Divider(
-                                      color: Colors.black.withOpacity(0.50),
-                                    ),
+                                    // Divider(
+                                    //   color: Colors.black.withOpacity(0.50),
+                                    // ),
                                     searchMode.contains('flight')
                                         ? _buildSelectFlightClass()
                                         : const SizedBox(),
@@ -742,81 +742,81 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
     }
     Provider.of<AppData>(context, listen: false).getfinalchildrenstext(childage);
 
-    try {
-      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadingWidgetMain()));
-      pressIndcatorDialog(context);
-      String fCLass = '';
+    // try {
+    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadingWidgetMain()));
+    pressIndcatorDialog(context);
+    String fCLass = '';
 
-      if (searchMode.contains('flight')) {
-        switch (selectedFlightClass) {
-          case FlightClass.economy:
-            fCLass = 'Y';
-            break;
-          case FlightClass.premiumEconomy:
-            fCLass = 'W';
-            break;
-          case FlightClass.business:
-            fCLass = 'C';
-            break;
-          case FlightClass.firstClass:
-            fCLass = 'F';
-            break;
-        }
+    if (searchMode.contains('flight')) {
+      switch (selectedFlightClass) {
+        case FlightClass.economy:
+          fCLass = 'Y';
+          break;
+        case FlightClass.premiumEconomy:
+          fCLass = 'W';
+          break;
+        case FlightClass.business:
+          fCLass = 'C';
+          break;
+        case FlightClass.firstClass:
+          fCLass = 'F';
+          break;
       }
-      context.read<AppData>().flightType = selectedFlightType;
-      bool error = await AssistantMethods.mainSearchpackage(
-          context,
-          firstdate,
-          selectedFlightType == FlightType.onewayFlight ? firstdate : secdate,
-          context.read<AppData>().searchMode.contains('activity')
-              ? Provider.of<AppData>(context, listen: false).payloadto.id
-              : Provider.of<AppData>(context, listen: false).payloadFrom!.id,
-          Provider.of<AppData>(context, listen: false).payloadto.id,
-          selectedhotelcode,
-          selectedflightcode,
-          fCLass,
-          roomcount,
-          adultscount,
-          childeringCount,
-          childage,
-          '',
-          context.read<AppData>().searchMode,
-          selectedFlightType == FlightType.onewayFlight ? "1" : "2");
+    }
+    context.read<AppData>().flightType = selectedFlightType;
+    bool error = await AssistantMethods.mainSearchpackage(
+        context,
+        firstdate,
+        selectedFlightType == FlightType.onewayFlight ? firstdate : secdate,
+        context.read<AppData>().searchMode.contains('activity')
+            ? Provider.of<AppData>(context, listen: false).payloadto.id
+            : Provider.of<AppData>(context, listen: false).payloadFrom!.id,
+        Provider.of<AppData>(context, listen: false).payloadto.id,
+        selectedhotelcode,
+        selectedflightcode,
+        fCLass,
+        roomcount,
+        adultscount,
+        childeringCount,
+        childage,
+        '',
+        context.read<AppData>().searchMode,
+        selectedFlightType == FlightType.onewayFlight ? "1" : "2");
 
-      ///! for research change vlaidation/////
-      if (!mounted) return;
-      Provider.of<AppData>(context, listen: false).cheakResarh(
-          fday: firstdate,
-          secday: selectedFlightType == FlightType.onewayFlight ? firstdate : secdate,
-          fcity: Provider.of<AppData>(context, listen: false).payloadFrom!.cityName,
-          secCity: Provider.of<AppData>(context, listen: false).payloadto.cityName,
-          room: roomcount.toString(),
-          child: childeringCount.toString(),
-          adult: adultscount.toString(),
-          fclass: 'Y');
+    ///! for research change vlaidation/////
+    if (!mounted) return;
+    Provider.of<AppData>(context, listen: false).cheakResarh(
+        fday: firstdate,
+        secday: selectedFlightType == FlightType.onewayFlight ? firstdate : secdate,
+        fcity: Provider.of<AppData>(context, listen: false).payloadFrom!.cityName,
+        secCity: Provider.of<AppData>(context, listen: false).payloadto.cityName,
+        room: roomcount.toString(),
+        child: childeringCount.toString(),
+        adult: adultscount.toString(),
+        fclass: 'Y');
 
-      ///! for research change vlaidation end/////
+    ///! for research change vlaidation end/////
 
-      String? mainPackageId = Provider.of<AppData>(context, listen: false).mainpackageId;
+    String? mainPackageId = Provider.of<AppData>(context, listen: false).mainpackageId;
 
-      setState(() {
-        bucket = PageStorageBucket();
-      });
+    setState(() {
+      bucket = PageStorageBucket();
+    });
 
 // await AssistantMethods.getPackages(
 //     context, mainPackageId);
-      if (error == true) {
-        Provider.of<AppData>(context, listen: false).hundletheloading(false);
-      } else {
-        Navigator.pop(context);
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+    if (error == true) {
+      Provider.of<AppData>(context, listen: false).hundletheloading(false);
+    } else {
       Navigator.pop(context);
-      displayTostmessage(context, true, message: AppLocalizations.of(context)!.tryAgain);
     }
+    // } catch (e) {
+    // if (kDebugMode) {
+    //   print(e);
+    // }
+    //   Navigator.pop(context);
+    //   displayTostmessage(context, true, message: AppLocalizations.of(context)!.tryAgain);
+    // }
   }
 
   _sendRequestForPrivetJet() async {}

@@ -76,7 +76,7 @@ class Result {
   int prebook;
   List<PackageHotels> hotels;
   Flight? flight;
-  List<Transfer> transfer;
+  List<NewTransfer> transfer;
   dynamic activities;
   bool noActivity;
   bool noflight;
@@ -112,7 +112,7 @@ class Result {
             : List<PackageHotels>.from(json["hotels"].map((x) => PackageHotels.fromJson(x))),
         flight: json["no_flight"] == true ? null : Flight.fromJson(json["flight"]),
         transfer: json["transfer"] != null
-            ? List<Transfer>.from(json["transfer"].map((x) => Transfer.fromJson(x)))
+            ? List<NewTransfer>.from(json["transfer"].map((x) => NewTransfer.fromJson(x)))
             : [],
         activities: Map.from(json["activities"]).map((k, v) => MapEntry<String, List<Activity>>(
             k, List<Activity>.from(v.map((x) => Activity.fromJson(x))))),
@@ -140,7 +140,7 @@ class Result {
         "prebook": prebook,
         "hotels": List<dynamic>.from(hotels.map((x) => x.toJson())),
         "flight": flight != null ? flight!.toJson() : '',
-        "transfer": List<dynamic>.from(transfer.map((x) => x.toJson())),
+        "transfer":  List<dynamic>.from(transfer.map((x) => x.toJson())),
         "activities": Map.from(activities).map(
             (k, v) => MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x.toJson())))),
         "no_activity": noActivity,
@@ -938,4 +938,384 @@ class Status {
         "message": message,
         "error": error,
       };
+}
+
+class NewTransfer {
+    final String transferId;
+    final String searchId;
+    final String routeId;
+    final PickupInformation pickupInformation;
+    final String direction;
+    final String transferType;
+    final int minPaxCapacity;
+    final int maxPaxCapacity;
+    final Content content;
+    final TransferPrice price;
+    final String rateKey;
+    final List<TransferCancellationPolicy> cancellationPolicies;
+    final String packageSearchCode;
+    final int units;
+
+    NewTransfer({
+        required this.transferId,
+        required this.searchId,
+        required this.routeId,
+        required this.pickupInformation,
+        required this.direction,
+        required this.transferType,
+        required this.minPaxCapacity,
+        required this.maxPaxCapacity,
+        required this.content,
+        required this.price,
+        required this.rateKey,
+        required this.cancellationPolicies,
+        required this.packageSearchCode,
+        required this.units,
+    });
+
+    factory NewTransfer.fromJson(Map<String, dynamic> json) => NewTransfer(
+        transferId: json["transfer_id"],
+        searchId: json["search_id"],
+        routeId: json["route_id"],
+        pickupInformation: PickupInformation.fromJson(json["pickupInformation"]),
+        direction: json["direction"],
+        transferType: json["transferType"],
+        minPaxCapacity: json["minPaxCapacity"],
+        maxPaxCapacity: json["maxPaxCapacity"],
+        content: Content.fromJson(json["content"]),
+        price: TransferPrice.fromJson(json["price"]),
+        rateKey: json["rateKey"],
+        cancellationPolicies: List<TransferCancellationPolicy>.from(json["cancellationPolicies"].map((x) => TransferCancellationPolicy.fromJson(x))),
+        packageSearchCode: json["package_search_code"],
+        units: json["units"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "transfer_id": transferId,
+        "search_id": searchId,
+        "route_id": routeId,
+        "pickupInformation": pickupInformation.toJson(),
+        "direction": direction,
+        "transferType": transferType,
+        "minPaxCapacity": minPaxCapacity,
+        "maxPaxCapacity": maxPaxCapacity,
+        "content": content.toJson(),
+        "price": price.toJson(),
+        "rateKey": rateKey,
+        "cancellationPolicies": List<dynamic>.from(cancellationPolicies.map((x) => x.toJson())),
+        "package_search_code": packageSearchCode,
+        "units": units,
+    };
+}
+
+class TransferCancellationPolicy {
+    final double amount;
+    final DateTime from;
+    final String currencyId;
+    final dynamic isForceMajeure;
+    final int sellingAmount;
+    final String sellingCurrency;
+
+    TransferCancellationPolicy({
+        required this.amount,
+        required this.from,
+        required this.currencyId,
+        required this.isForceMajeure,
+        required this.sellingAmount,
+        required this.sellingCurrency,
+    });
+
+    factory TransferCancellationPolicy.fromJson(Map<String, dynamic> json) => TransferCancellationPolicy(
+        amount: json["amount"]?.toDouble(),
+        from: DateTime.parse(json["from"]),
+        currencyId: json["currencyId"],
+        isForceMajeure: json["isForceMajeure"],
+        sellingAmount: json["selling_amount"],
+        sellingCurrency: json["selling_currency"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "amount": amount,
+        "from": from.toIso8601String(),
+        "currencyId": currencyId,
+        "isForceMajeure": isForceMajeure,
+        "selling_amount": sellingAmount,
+        "selling_currency": sellingCurrency,
+    };
+}
+
+class Content {
+    final TransferCategory vehicle;
+    final TransferCategory category;
+    final List<TransferImage> images;
+    final List<TransferDetailInfo> transferDetailInfo;
+    final List<dynamic> customerTransferTimeInfo;
+    final List<dynamic> supplierTransferTimeInfo;
+
+    Content({
+        required this.vehicle,
+        required this.category,
+        required this.images,
+        required this.transferDetailInfo,
+        required this.customerTransferTimeInfo,
+        required this.supplierTransferTimeInfo,
+    });
+
+    factory Content.fromJson(Map<String, dynamic> json) => Content(
+        vehicle: TransferCategory.fromJson(json["vehicle"]),
+        category: TransferCategory.fromJson(json["category"]),
+        images: List<TransferImage>.from(json["images"].map((x) => TransferImage.fromJson(x))),
+        transferDetailInfo: List<TransferDetailInfo>.from(json["transferDetailInfo"].map((x) => TransferDetailInfo.fromJson(x))),
+        customerTransferTimeInfo: List<dynamic>.from(json["customerTransferTimeInfo"].map((x) => x)),
+        supplierTransferTimeInfo: List<dynamic>.from(json["supplierTransferTimeInfo"].map((x) => x)),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "vehicle": vehicle.toJson(),
+        "category": category.toJson(),
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "transferDetailInfo": List<dynamic>.from(transferDetailInfo.map((x) => x.toJson())),
+        "customerTransferTimeInfo": List<dynamic>.from(customerTransferTimeInfo.map((x) => x)),
+        "supplierTransferTimeInfo": List<dynamic>.from(supplierTransferTimeInfo.map((x) => x)),
+    };
+}
+
+class TransferCategory {
+    final String code;
+    final String name;
+
+    TransferCategory({
+        required this.code,
+        required this.name,
+    });
+
+    factory TransferCategory.fromJson(Map<String, dynamic> json) => TransferCategory(
+        code: json["code"],
+        name: json["name"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "code": code,
+        "name": name,
+    };
+}
+
+class TransferImage {
+    final String url;
+    final String type;
+
+    TransferImage({
+        required this.url,
+        required this.type,
+    });
+
+    factory TransferImage.fromJson(Map<String, dynamic> json) => TransferImage(
+        url: json["url"],
+        type: json["type"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "url": url,
+        "type": type,
+    };
+}
+
+class TransferDetailInfo {
+    final String id;
+    final String name;
+    final String description;
+    final String type;
+
+    TransferDetailInfo({
+        required this.id,
+        required this.name,
+        required this.description,
+        required this.type,
+    });
+
+    factory TransferDetailInfo.fromJson(Map<String, dynamic> json) => TransferDetailInfo(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        type: json["type"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "type": type,
+    };
+}
+
+class PickupInformation {
+    final PickupInformationFrom from;
+    final PickupInformationFrom to;
+    final DateTime date;
+    final String time;
+    final Pickup pickup;
+
+    PickupInformation({
+        required this.from,
+        required this.to,
+        required this.date,
+        required this.time,
+        required this.pickup,
+    });
+
+    factory PickupInformation.fromJson(Map<String, dynamic> json) => PickupInformation(
+        from: PickupInformationFrom.fromJson(json["from"]),
+        to: PickupInformationFrom.fromJson(json["to"]),
+        date: DateTime.parse(json["date"]),
+        time: json["time"],
+        pickup: Pickup.fromJson(json["pickup"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "from": from.toJson(),
+        "to": to.toJson(),
+        "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+        "time": time,
+        "pickup": pickup.toJson(),
+    };
+}
+
+class PickupInformationFrom {
+    final String code;
+    final String description;
+    final String type;
+
+    PickupInformationFrom({
+        required this.code,
+        required this.description,
+        required this.type,
+    });
+
+    factory PickupInformationFrom.fromJson(Map<String, dynamic> json) => PickupInformationFrom(
+        code: json["code"],
+        description: json["description"],
+        type: json["type"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "code": code,
+        "description": description,
+        "type": type,
+    };
+}
+
+class Pickup {
+    final dynamic address;
+    final dynamic number;
+    final dynamic town;
+    final dynamic zip;
+    final String description;
+    final dynamic altitude;
+    final double latitude;
+    final double longitude;
+    final CheckPickup checkPickup;
+    final dynamic pickupId;
+    final dynamic stopName;
+    final dynamic image;
+
+    Pickup({
+        required this.address,
+        required this.number,
+        required this.town,
+        required this.zip,
+        required this.description,
+        required this.altitude,
+        required this.latitude,
+        required this.longitude,
+        required this.checkPickup,
+        required this.pickupId,
+        required this.stopName,
+        required this.image,
+    });
+
+    factory Pickup.fromJson(Map<String, dynamic> json) => Pickup(
+        address: json["address"],
+        number: json["number"],
+        town: json["town"],
+        zip: json["zip"],
+        description: json["description"],
+        altitude: json["altitude"],
+        latitude: json["latitude"]?.toDouble(),
+        longitude: json["longitude"]?.toDouble(),
+        checkPickup: CheckPickup.fromJson(json["checkPickup"]),
+        pickupId: json["pickupId"],
+        stopName: json["stopName"],
+        image: json["image"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "address": address,
+        "number": number,
+        "town": town,
+        "zip": zip,
+        "description": description,
+        "altitude": altitude,
+        "latitude": latitude,
+        "longitude": longitude,
+        "checkPickup": checkPickup.toJson(),
+        "pickupId": pickupId,
+        "stopName": stopName,
+        "image": image,
+    };
+}
+
+class CheckPickup {
+    final bool mustCheckPickupTime;
+    final dynamic url;
+    final dynamic hoursBeforeConsulting;
+
+    CheckPickup({
+        required this.mustCheckPickupTime,
+        required this.url,
+        required this.hoursBeforeConsulting,
+    });
+
+    factory CheckPickup.fromJson(Map<String, dynamic> json) => CheckPickup(
+        mustCheckPickupTime: json["mustCheckPickupTime"],
+        url: json["url"],
+        hoursBeforeConsulting: json["hoursBeforeConsulting"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "mustCheckPickupTime": mustCheckPickupTime,
+        "url": url,
+        "hoursBeforeConsulting": hoursBeforeConsulting,
+    };
+}
+
+class TransferPrice {
+    final double totalAmount;
+    final dynamic netAmount;
+    final String currencyId;
+    final int sellingAmount;
+    final String sellingCurrency;
+
+    TransferPrice({
+        required this.totalAmount,
+        required this.netAmount,
+        required this.currencyId,
+        required this.sellingAmount,
+        required this.sellingCurrency,
+    });
+
+    factory TransferPrice.fromJson(Map<String, dynamic> json) => TransferPrice(
+        totalAmount: json["totalAmount"]?.toDouble(),
+        netAmount: json["netAmount"],
+        currencyId: json["currencyId"],
+        sellingAmount: json["selling_amount"],
+        sellingCurrency: json["selling_currency"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "totalAmount": totalAmount,
+        "netAmount": netAmount,
+        "currencyId": currencyId,
+        "selling_amount": sellingAmount,
+        "selling_currency": sellingCurrency,
+    };
 }

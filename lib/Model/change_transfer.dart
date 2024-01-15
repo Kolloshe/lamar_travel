@@ -25,7 +25,7 @@ class ChangeTransfer {
         code: json["code"],
         error: json["error"],
         message: json["message"],
-        data: Data.fromJson(json["data"]),
+        data:  Data.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {

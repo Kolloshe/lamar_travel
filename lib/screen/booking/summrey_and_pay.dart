@@ -1246,7 +1246,7 @@ class _SumAndPayState extends State<SumAndPay> {
                             width: 80.w,
                             child: Text(
                               package.result.transfer.isNotEmpty
-                                  ? package.result.transfer[0].productTypeName
+                                  ? package.result.transfer[0].content.category.name
                                   : '',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
