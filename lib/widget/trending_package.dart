@@ -197,8 +197,7 @@ class _BudgetTravelpackagesState extends State<BudgetTravelpackages> {
                     withOpasity: true,
                   )),
                   errorWidget: (context, url, error) {
-                    print(error);
-                    return Image.asset('assets/images/image-not-available.png');
+                     return Image.asset('assets/images/image-not-available.png');
                   },
                 ),
               ),

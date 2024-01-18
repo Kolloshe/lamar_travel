@@ -850,8 +850,7 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
     //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadingWidgetMain()));
     pressIndcatorDialog(context);
     final hasError = await AssistantMethods.makeTransferSearch(context, json.encode(req));
-    print(hasError);
-    if (hasError == true) {
+     if (hasError == true) {
       if (!mounted) return;
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const IndividualPackagesScreen()));

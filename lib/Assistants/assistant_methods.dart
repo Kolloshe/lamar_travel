@@ -155,8 +155,7 @@ class AssistantMethods {
 
     http.Response response = await http.get(Uri.parse(url), headers: headers);
 
-    print(response.body);
-    if (response.statusCode != 200) {
+     if (response.statusCode != 200) {
     } else {
       payload = payloadFromJson(response.body);
       //
@@ -1267,8 +1266,7 @@ class AssistantMethods {
   static Future updatePakagewithcurruncy(String id, BuildContext context) async {
     String url =
         '${baseUrl}holiday/list?package_id=$id&selling_currency=$gencurrency&currency=$gencurrency&language=$genlang';
-    print(url);
-    var request = http.Request('GET', Uri.parse(url));
+     var request = http.Request('GET', Uri.parse(url));
     var headers = {
       'Content-Type': 'application/json',
       'mobile-os': Platform.isIOS ? 'ios' : 'android',
