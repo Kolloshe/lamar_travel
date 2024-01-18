@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, library_private_types_in_public_api
+// ignore_for_file: prefer_interpolation_to_compose_strings, library_private_types_in_public_api, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:developer';
@@ -850,12 +850,12 @@ class _SumAndPayState extends State<SumAndPay> {
   Widget _buildHaderImage() {
     return SizedBox(
       width: 100.w,
-      height: 20.h,
+      height: 25.h,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: CachedNetworkImage(
           imageUrl: prebook.data.details.hotel[0].hotelImage,
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
           placeholder: (context, url) => const ImageSpinning(
             withOpasity: true,
           ),
@@ -1246,7 +1246,7 @@ class _SumAndPayState extends State<SumAndPay> {
                             width: 80.w,
                             child: Text(
                               package.result.transfer.isNotEmpty
-                                  ? package.result.transfer[0].content.category.name
+                                  ? package.result.transfer[0].serviceTypeName
                                   : '',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
@@ -1807,6 +1807,7 @@ class _SumAndPayState extends State<SumAndPay> {
           brandsName: getPaymentType(), checkoutId: checkoutId);
 
       final result = await AssistantMethods.checkPaymentStatus(checkoutId);
+      log(result.toString());
       final isSuccess = result.isEmpty
           ? false
           : (result['code'].toString().toLowerCase().contains("000.000.000") ||
@@ -1872,9 +1873,10 @@ class _SumAndPayState extends State<SumAndPay> {
           if (refundID.isNotEmpty) {
             await dialogViewer(
               animation: 'assets/images/loading/refund_animation.json',
-              title: "We have processed your refund",
+              title: AppLocalizations.of(context)?.weHaveProcessedYourRefund ??
+                  'We have processed your refund',
               description:
-                  "The amount will be credited to your account shortly.\nTransaction id: $refundID ",
+                  "${AppLocalizations.of(context)?.theAmountWillBeCredited ?? 'The amount will be credited to your account shortly.'}\n${AppLocalizations.of(context)?.transactionId ?? 'Transaction id:'} $refundID ",
               onPressed: () {
                 Navigator.pop(context);
                 context.read<AppData>().searchMode.isNotEmpty
@@ -1892,7 +1894,7 @@ class _SumAndPayState extends State<SumAndPay> {
 
         dialogViewer(
             animation: 'assets/images/loading/failed.json',
-            title: 'Payment Cancelled',
+            title: AppLocalizations.of(context)?.paymentCancelled ?? 'Payment Cancelled',
             description: result['status'],
             onPressed: () {
               Navigator.pop(context);

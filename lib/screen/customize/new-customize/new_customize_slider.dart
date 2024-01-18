@@ -64,7 +64,6 @@ class _CustomizeSliderState extends State<CustomizeSlider>
 
   CarouselController buttonCarouselController = CarouselController();
 
-
   // void _scrollListener() {
   //   final percent = _controller.position.pixels / MediaQuery.of(context).size.height;
   // }
@@ -163,7 +162,8 @@ class _CustomizeSliderState extends State<CustomizeSlider>
                       await deleteFile(filepath!);
                     },
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: primaryblue, side: BorderSide(color: primaryblue, width: 2),
+                      foregroundColor: primaryblue,
+                      side: BorderSide(color: primaryblue, width: 2),
                     ),
                     child: Text(
                       AppLocalizations.of(context)!.shareYourPackage,
@@ -197,7 +197,6 @@ class _CustomizeSliderState extends State<CustomizeSlider>
                       builder: (percent) {
                         final topPadding = MediaQuery.of(context).padding.top;
                         final bottomPercent = (percent / .6).clamp(0.0, 1.0);
-
                         final topPercent = ((1 - percent) / .9).clamp(0.0, 1.0);
                         return Stack(
                           fit: StackFit.expand,
@@ -208,6 +207,36 @@ class _CustomizeSliderState extends State<CustomizeSlider>
                                 bottomPercent: bottomPercent,
                                 customizpackage: _customizpackage,
                                 buttonCarouselController: buttonCarouselController),
+                            Positioned(
+                              top: topPadding + 10,
+                              left: 80 * (0.2 + (-bottomPercent)),
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                alignment: Alignment.center,
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_left,
+                                    color: cardcolor,
+                                    size: 30,
+                                  ),
+                                  onPressed: () {
+                                    if (Provider.of<AppData>(context, listen: false)
+                                        .isFromdeeplink) {
+                                      Provider.of<AppData>(context, listen: false)
+                                          .isFromDeeplink(false);
+
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context, TabPage.idScreen, (route) => false);
+                                    } else {
+                                      Navigator.of(context).pushNamedAndRemoveUntil(
+                                          PackagesScreen.idScreen, (route) => false);
+                                    }
+                                  },
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                ),
+                              ),
+                            ),
                             Positioned(
                               top: topPadding,
                               left: -60 * (1 - bottomPercent),
@@ -328,8 +357,8 @@ class _CustomizeSliderState extends State<CustomizeSlider>
                   decoration:
                       BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
                   width: 100.w,
-                  child:
-                      Material(borderRadius: BorderRadius.circular(20), child: const NewCustomizePage()),
+                  child: Material(
+                      borderRadius: BorderRadius.circular(20), child: const NewCustomizePage()),
                 ))
               ],
             )
@@ -455,8 +484,7 @@ class _CustomizeSliderState extends State<CustomizeSlider>
   }
 
   @override
-  deniedPermission() {
-  }
+  deniedPermission() {}
 
   @override
   screenshotCallback(String data) async {
@@ -494,7 +522,7 @@ class HeaderWidget extends StatelessWidget {
     required this.bottomPercent,
     required Customizpackage customizpackage,
     required this.buttonCarouselController,
-  })  : super(key: key);
+  }) : super(key: key);
 
   final double w;
   final double topPadding;

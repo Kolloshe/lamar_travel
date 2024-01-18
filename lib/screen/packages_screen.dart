@@ -1045,7 +1045,7 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                                 packagesList[index]
                                                                         .transfer
                                                                         .isNotEmpty
-                                                                    ? ' ${packagesList[index].transfer[0].content.category.name}'
+                                                                    ? ' ${packagesList[index].transfer[0].productTypeName}'
                                                                     : packagesList[index]
                                                                                 .responseFrom ==
                                                                             'inital_request'

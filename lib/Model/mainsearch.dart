@@ -111,7 +111,7 @@ class Package {
   String latitude;
   String longitude;
   List<Activity> activities;
-  List<NewTransfer> transfer;
+  List<Transfer> transfer;
   num total;
   num oldPrice;
   String responseFrom;
@@ -136,7 +136,7 @@ class Package {
       activities: List<Activity>.from(json["activities"].map((x) => Activity.fromJson(x))),
       transfer: json["transfer"] == null
           ? []
-          : List<NewTransfer>.from(json["transfer"].map((x) => NewTransfer.fromJson(x))),
+          : List<Transfer>.from(json["transfer"].map((x) => Transfer.fromJson(x))),
       total: json["total"],
       oldPrice: json["old_price"].toDouble(),
       responseFrom: json['response_from']);

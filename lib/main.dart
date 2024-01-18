@@ -1,5 +1,7 @@
 // @dart=2.9
 
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -59,8 +61,7 @@ class MyApp extends StatefulWidget {
   const MyApp({Key key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _MyAppState createState() => _MyAppState();
+   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -170,33 +171,4 @@ class _MyAppState extends State<MyApp> {
     OneSignal.shared.setNotificationWillShowInForegroundHandler((event) {});
   }
 }
-class RestartWidget extends StatefulWidget {
-  const RestartWidget({Key key, this.child}) : super(key: key);
-
-  final Widget child;
-
-  static void restartApp(BuildContext context) {
-    context.findAncestorStateOfType<_RestartWidgetState>().restartApp();
-  }
-
-  @override
-   _RestartWidgetState createState() => _RestartWidgetState();
-}
-
-class _RestartWidgetState extends State<RestartWidget> {
-  Key key = UniqueKey();
-
-  void restartApp() {
-    setState(() {
-      key = UniqueKey();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return KeyedSubtree(
-      key: key,
-      child: widget.child,
-    );
-  }
-}
+ 

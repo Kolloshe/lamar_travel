@@ -10,7 +10,7 @@ String newChangeTransferToJson(NewChangeTransfer data) => json.encode(data.toJso
 
 class NewChangeTransfer {
   final String message;
-  final List<List<Datum>> data;
+  final List<List<TransferData>> data;
 
   NewChangeTransfer({
     required this.message,
@@ -19,8 +19,8 @@ class NewChangeTransfer {
 
   factory NewChangeTransfer.fromJson(Map<String, dynamic> json) => NewChangeTransfer(
         message: json["message"],
-        data: List<List<Datum>>.from(
-            json["data"].map((x) => List<Datum>.from(x.map((x) => Datum.fromJson(x))))),
+        data: List<List<TransferData>>.from(json["data"]
+            .map((x) => List<TransferData>.from(x.map((x) => TransferData.fromJson(x))))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,7 +29,7 @@ class NewChangeTransfer {
       };
 }
 
-class Datum {
+class TransferData {
   final String id;
   final String searchId;
   final String routeId;
@@ -50,7 +50,7 @@ class Datum {
   final SearchQuery searchQuery;
   final String packageSearchCode;
 
-  Datum({
+  TransferData({
     required this.id,
     required this.searchId,
     required this.routeId,
@@ -72,7 +72,7 @@ class Datum {
     required this.packageSearchCode,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory TransferData.fromJson(Map<String, dynamic> json) => TransferData(
         id: json["_id"],
         searchId: json["search_id"],
         routeId: json["route_id"],

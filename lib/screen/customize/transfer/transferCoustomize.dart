@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: file_names, library_private_types_in_public_api, use_build_context_synchronously, prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, unused_field
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lamar_travel_packages/Assistants/assistant_methods.dart';
@@ -19,7 +19,9 @@ import 'package:lamar_travel_packages/widget/image_spinnig.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../../Model/new_transfer_change_model.dart';
+//import '../../../Model/new_transfer_change_model.dart';
+import '../../../Model/customizpackage.dart';
+import '../../../widget/mini_loader_widget.dart';
 import '../../packages_screen.dart';
 
 class TransferCustomize extends StatefulWidget {
@@ -31,12 +33,15 @@ class TransferCustomize extends StatefulWidget {
 }
 
 class _TransferCustomizeState extends State<TransferCustomize> {
-  late NewChangeTransfer _transfer;
+  late ChangeTransfer _transfer;
 
   Map<String, dynamic> saveddata = {};
 
+  List<Transfer> _oldTransDetails = [];
+
   loadTransfer() {
     _transfer = Provider.of<AppData>(context, listen: false).changeTransfer;
+    _oldTransDetails = Provider.of<AppData>(context, listen: false).packagecustomiz.result.transfer;
   }
 
   bool isInTrans = true;
@@ -69,7 +74,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                              content: const Text('Are you sure to cancel the booking '),
+                              content: Text('Are you sure to cancel the booking '),
                               actions: [
                                 TextButton(
                                     onPressed: () {
@@ -80,7 +85,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                       Provider.of<AppData>(context, listen: false)
                                           .changeTransferCounter(0);
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       'cancel',
                                       style: TextStyle(color: Colors.redAccent),
                                     )),
@@ -88,7 +93,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       'continue',
                                       style: TextStyle(color: Colors.green),
                                     )),
@@ -97,7 +102,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                   }
                 },
                 icon: Icon(
-                  Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                  Provider.of<AppData>(context, listen: false).locale == Locale('en')
                       ? Icons.keyboard_arrow_left
                       : Icons.keyboard_arrow_right,
                   size: 30,
@@ -111,7 +116,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           ),
           backgroundColor: background,
           body: Container(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.all(5),
               width: size.width,
               child: isInTrans ? _buildInTrans() : _buildOutTrans()),
         ),
@@ -140,8 +145,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                         Navigator.of(context).pop();
                       },
                       child: Container(
-                        margin: const EdgeInsets.all(3),
-                        padding: const EdgeInsets.all(10),
+                        margin: EdgeInsets.all(3),
+                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: cardcolor, borderRadius: BorderRadius.circular(15)),
                         child: Text(
@@ -150,12 +155,12 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                         ),
                       ),
                     )
-                  : const SizedBox()
-              : const SizedBox(),
+                  : SizedBox()
+              : SizedBox(),
           Container(
-            margin: const EdgeInsets.all(1),
+            margin: EdgeInsets.all(1),
             child: Container(
-              padding: const EdgeInsets.all(7),
+              padding: EdgeInsets.all(7),
               decoration: BoxDecoration(
                 color: cardcolor,
               ),
@@ -167,7 +172,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                     AppLocalizations.of(context)!.toHotel,
                     style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.w500),
                   ),
-                  const Spacer(),
+                  Spacer(),
                   // Icon(Icons.calendar_today),
                   // SizedBox(
                   //   width: 10,
@@ -184,24 +189,24 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           ),
           Container(
             width: 100.w,
-            margin: const EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
             child: Text('${AppLocalizations.of(context)!.selectTheTransfer}  : '),
           ),
           Expanded(
             //  height: size.height * 0.75,
             child: ListView.builder(
-              itemCount: _transfer.data.first.isNotEmpty ? _transfer.data.first.length : 0,
+              itemCount: _transfer.data.dataIn.isNotEmpty ? _transfer.data.dataIn.length : 0,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    inTransID = _transfer.data.first[index].id;
+                    inTransID = _transfer.data.dataIn[index].id;
                     setState(() {
                       inSelectedIndex = index;
                     });
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(5),
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       color: index == inSelectedIndex ? yellowColor.withOpacity(0.8) : cardcolor,
                       boxShadow: [shadow],
@@ -217,158 +222,153 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              CachedNetworkImage(
-                                  imageUrl: _transfer
-                                      .data
-                                      .first[index]
-                                      .content
-                                      .images[_transfer.data.first[index].content.images.length - 1]
-                                      .url,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.contain,
-                                  placeholder: (context, url) => const Center(
-                                        child: ImageSpinning(
-                                          withOpasity: true,
+                              Container(
+                                child: CachedNetworkImage(
+                                    imageUrl: _transfer.data.dataIn[index].images,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.contain,
+                                    placeholder: (context, url) => Center(
+                                          child: ImageSpinning(
+                                            withOpasity: true,
+                                          ),
                                         ),
-                                      ),
-                                  errorWidget: (context, url, error) => Image.asset(
-                                        'assets/images/image-not-available.png',
-                                        height: 200,
-                                        width: 150,
-                                        fit: BoxFit.cover,
-                                      )),
+                                    errorWidget: (context, url, error) => Image.asset(
+                                          'assets/images/image-not-available.png',
+                                          height: 200,
+                                          width: 150,
+                                          fit: BoxFit.cover,
+                                        )),
+                              ),
                               SizedBox(
                                 width: 4.w,
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    _transfer.data.first[index].category.name +
-                                        _transfer.data.first[index].transferType,
-                                    style: TextStyle(
-                                      fontSize: subtitleFontSize,
-                                      fontWeight: FontWeight.w600,
+                              Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _transfer.data.dataIn[index].name,
+                                      style: TextStyle(
+                                        fontSize: subtitleFontSize,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                      softWrap: false,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 3,
-                                    softWrap: false,
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        '${AppLocalizations.of(context)!.type} : ',
-                                        style: TextStyle(
-                                          fontSize: subtitleFontSize,
-                                          fontWeight: FontWeight.w500,
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '${AppLocalizations.of(context)!.type} : ',
+                                          style: TextStyle(
+                                            fontSize: subtitleFontSize,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                          softWrap: false,
                                         ),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                        softWrap: false,
-                                      ),
-                                      Text(
-                                        _transfer.data.first[index].transferType,
-                                        style: TextStyle(
-                                          fontSize: subtitleFontSize,
-                                          fontWeight: FontWeight.w500,
+                                        Text(
+                                          _transfer.data.dataIn[index].serviceTypeName,
+                                          style: TextStyle(
+                                            fontSize: subtitleFontSize,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                          softWrap: false,
                                         ),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                        softWrap: false,
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        '${AppLocalizations.of(context)!.packagePriceDifference} : ',
-                                        style: TextStyle(
-                                          fontSize: subtitleFontSize,
-                                          fontWeight: FontWeight.w500,
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '${AppLocalizations.of(context)!.packagePriceDifference} : ',
+                                          style: TextStyle(
+                                            fontSize: subtitleFontSize,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                          softWrap: false,
                                         ),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                        softWrap: false,
-                                      ),
-                                      Text(
-                                        _transfer.data.last[index].price.sellingAmount.toString()
-                                        // _transfer.data.dataIn[index].priceDifference
-                                        //             .toString()
-                                        //             .substring(0, 1) !=
-                                        //         '-'
-                                        //     ? '+ ${_transfer.data.dataIn[index].priceDifference} ${localizeCurrency(
-                                        //             _transfer.data.dataIn[index].currency)}'
-                                        //     : '${_transfer.data.dataIn[index].priceDifference} ${localizeCurrency(
-                                        //             _transfer.data.dataIn[index].currency)}'
-                                        ,
-                                        style: TextStyle(
-                                          color: greencolor
-                                          //  _transfer.data.dataIn[index].priceDifference
-                                          //             .toString()
-                                          //             .substring(0, 1) !=
-                                          //         '-'
-                                          //     ? Colors.red.shade400
-                                          //     : greencolor
-                                          ,
-                                          fontSize: const AdaptiveTextSize()
-                                              .getadaptiveTextSize(context, 22),
-                                          fontWeight: FontWeight.w500,
+                                        SizedBox(
+                                          width: 10,
                                         ),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                        softWrap: false,
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  // Row(
-                                  //   children: [
-                                  //     Text(
-                                  //       'Total: ',
-                                  //       style: TextStyle(
-                                  //         fontSize: AdaptiveTextSize()
-                                  //             .getadaptiveTextSize(
-                                  //                 context, 22),
-                                  //         fontWeight: FontWeight.w500,
-                                  //       ),
-                                  //       overflow: TextOverflow.ellipsis,
-                                  //       maxLines: 3,
-                                  //       softWrap: false,
-                                  //     ),
-                                  //     Text(
-                                  //       _transfer.data.dataIn[index]
-                                  //               .totalAmount
-                                  //               .toString() +
-                                  //           ' ' +
-                                  //           _transfer
-                                  //               .data.dataIn[index].currency,
-                                  //       style: TextStyle(
-                                  //         color: greencolor,
-                                  //         fontSize: AdaptiveTextSize()
-                                  //             .getadaptiveTextSize(
-                                  //                 context, 22),
-                                  //         fontWeight: FontWeight.w500,
-                                  //       ),
-                                  //       overflow: TextOverflow.ellipsis,
-                                  //       maxLines: 3,
-                                  //       softWrap: false,
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                ],
+                                        Text(
+                                          _transfer.data.dataIn[index].priceDifference
+                                                      .toString()
+                                                      .substring(0, 1) !=
+                                                  '-'
+                                              ? '+ ${_transfer.data.dataIn[index].priceDifference} ${localizeCurrency(_transfer.data.dataIn[index].currency)}'
+                                              : '${_transfer.data.dataIn[index].priceDifference} ${localizeCurrency(_transfer.data.dataIn[index].currency)}',
+                                          style: TextStyle(
+                                            color: _transfer.data.dataIn[index].priceDifference
+                                                        .toString()
+                                                        .substring(0, 1) !=
+                                                    '-'
+                                                ? Colors.red.shade400
+                                                : greencolor,
+                                            fontSize:
+                                                AdaptiveTextSize().getadaptiveTextSize(context, 22),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                          softWrap: false,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    // Row(
+                                    //   children: [
+                                    //     Text(
+                                    //       'Total: ',
+                                    //       style: TextStyle(
+                                    //         fontSize: AdaptiveTextSize()
+                                    //             .getadaptiveTextSize(
+                                    //                 context, 22),
+                                    //         fontWeight: FontWeight.w500,
+                                    //       ),
+                                    //       overflow: TextOverflow.ellipsis,
+                                    //       maxLines: 3,
+                                    //       softWrap: false,
+                                    //     ),
+                                    //     Text(
+                                    //       _transfer.data.dataIn[index]
+                                    //               .totalAmount
+                                    //               .toString() +
+                                    //           ' ' +
+                                    //           _transfer
+                                    //               .data.dataIn[index].currency,
+                                    //       style: TextStyle(
+                                    //         color: greencolor,
+                                    //         fontSize: AdaptiveTextSize()
+                                    //             .getadaptiveTextSize(
+                                    //                 context, 22),
+                                    //         fontWeight: FontWeight.w500,
+                                    //       ),
+                                    //       overflow: TextOverflow.ellipsis,
+                                    //       maxLines: 3,
+                                    //       softWrap: false,
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                  ],
+                                ),
                               ),
 
                               // Container(
@@ -445,7 +445,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
               ? SizedBox(
                   height: 1.h,
                 )
-              : const SizedBox(),
+              : SizedBox(),
           SizedBox(
             width: 100.w,
             child: Row(
@@ -454,8 +454,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                 OutlinedButton(
                   onPressed: () async {
                     inSelectedIndex = null;
-                    showDialog(context: context, builder: (context) => const PressIndcator());
-                    await Future.delayed(const Duration(seconds: 1), () {
+                    showDialog(context: context, builder: (context) => PressIndcator());
+                    await Future.delayed(Duration(seconds: 1), () {
                       Navigator.of(context).pop();
                     });
 
@@ -478,8 +478,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                       displayTostmessage(context, true,
                           message: AppLocalizations.of(context)!.selectOneOrPressSkip);
                     } else {
-                      showDialog(context: context, builder: (context) => const PressIndcator());
-                      await Future.delayed(const Duration(seconds: 1), () {
+                      showDialog(context: context, builder: (context) => PressIndcator());
+                      await Future.delayed(Duration(seconds: 1), () {
                         Navigator.of(context).pop();
                       });
 
@@ -507,8 +507,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(7),
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(7),
             decoration: BoxDecoration(
               color: cardcolor,
             ),
@@ -517,8 +517,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(AppLocalizations.of(context)!.toAirport),
-                const Spacer(),
-                const SizedBox(
+                Spacer(),
+                SizedBox(
                   width: 10,
                 ),
                 // Text(
@@ -549,13 +549,13 @@ class _TransferCustomizeState extends State<TransferCustomize> {
               ),
             ),
           ),
-          const SizedBox(
+          SizedBox(
             height: 10,
           ),
           Expanded(
             //  height: size.height * 0.75,
             child: ListView.builder(
-              itemCount: _transfer.data.last.isNotEmpty ? _transfer.data.last.length : 0,
+              itemCount: _transfer.data.out.isNotEmpty ? _transfer.data.out.length : 0,
               itemBuilder: (context, index) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -564,12 +564,12 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                     GestureDetector(
                       onTap: () async {
                         outSelectionIndex = index;
-                        outTransID = _transfer.data.last[index].id;
+                        outTransID = _transfer.data.out[index].id;
                         setState(() {});
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.all(5),
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color:
@@ -580,164 +580,155 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            Container(
                               width: 100.w,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  CachedNetworkImage(
-                                      imageUrl: _transfer
-                                          .data
-                                          .last[index]
-                                          .content
-                                          .images[
-                                              _transfer.data.last[index].content.images.length - 1]
-                                          .url,
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.contain,
-                                      placeholder: (context, url) => const Center(
-                                            child: ImageSpinning(
-                                              withOpasity: true,
+                                  Container(
+                                    child: CachedNetworkImage(
+                                        imageUrl: _transfer.data.out[index].images,
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.contain,
+                                        placeholder: (context, url) => Center(
+                                              child: ImageSpinning(
+                                                withOpasity: true,
+                                              ),
                                             ),
-                                          ),
-                                      errorWidget: (context, url, error) => Image.asset(
-                                            'assets/images/image-not-available.png',
-                                            height: 200,
-                                            width: 150,
-                                            fit: BoxFit.cover,
-                                          )),
+                                        errorWidget: (context, url, error) => Image.asset(
+                                              'assets/images/image-not-available.png',
+                                              height: 200,
+                                              width: 150,
+                                              fit: BoxFit.cover,
+                                            )),
+                                  ),
                                   SizedBox(
                                     width: 5.w,
                                   ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        _transfer.data.last[index].vehicle.name,
-                                        style: TextStyle(
-                                          fontSize: subtitleFontSize,
-                                          fontWeight: FontWeight.w600,
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          _transfer.data.out[index].name,
+                                          style: TextStyle(
+                                            fontSize: subtitleFontSize,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                          softWrap: false,
                                         ),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                        softWrap: false,
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '${AppLocalizations.of(context)!.type} : ',
-                                            style: TextStyle(
-                                              fontSize: subtitleFontSize,
-                                              fontWeight: FontWeight.w500,
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '${AppLocalizations.of(context)!.type} : ',
+                                              style: TextStyle(
+                                                fontSize: subtitleFontSize,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 3,
+                                              softWrap: false,
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
-                                            softWrap: false,
-                                          ),
-                                          Text(
-                                            _transfer.data.last[index].transferType,
-                                            style: TextStyle(
-                                              fontSize: subtitleFontSize,
-                                              fontWeight: FontWeight.w500,
+                                            Text(
+                                              _transfer.data.out[index].serviceTypeName,
+                                              style: TextStyle(
+                                                fontSize: subtitleFontSize,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 3,
+                                              softWrap: false,
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
-                                            softWrap: false,
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '${AppLocalizations.of(context)!.packagePriceDifference} : ',
-                                            style: TextStyle(
-                                              fontSize: subtitleFontSize,
-                                              fontWeight: FontWeight.w500,
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '${AppLocalizations.of(context)!.packagePriceDifference} : ',
+                                              style: TextStyle(
+                                                fontSize: subtitleFontSize,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 3,
+                                              softWrap: false,
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
-                                            softWrap: false,
-                                          ),
-                                          Text(
-                                            _transfer.data.last[index].price.sellingAmount
-                                                .toString()
-                                            // _transfer.data.out[index].priceDifference
-                                            //             .toString()
-                                            //             .substring(0, 1) !=
-                                            //         '-'
-                                            //     ? '+ ${_transfer.data.out[index].priceDifference} ${localizeCurrency(
-                                            //             _transfer.data.out[index].currency)}'
-                                            //     : '${_transfer.data.out[index].priceDifference} ${localizeCurrency(
-                                            //             _transfer.data.out[index].currency)}'
-                                            ,
-                                            style: TextStyle(
-                                              color: greencolor
-                                              //  _transfer.data.out[index].priceDifference
-                                              //             .toString()
-                                              //             .substring(0, 1) !=
-                                              //         '-'
-                                              //     ? Colors.red.shade400
-                                              //     :greencolor
-                                              ,
-                                              fontSize: subtitleFontSize,
-                                              fontWeight: FontWeight.w500,
+                                            Text(
+                                              _transfer.data.out[index].priceDifference
+                                                          .toString()
+                                                          .substring(0, 1) !=
+                                                      '-'
+                                                  ? '+ ${_transfer.data.out[index].priceDifference} ${localizeCurrency(_transfer.data.out[index].currency)}'
+                                                  : '${_transfer.data.out[index].priceDifference} ${localizeCurrency(_transfer.data.out[index].currency)}',
+                                              style: TextStyle(
+                                                color: _transfer.data.out[index].priceDifference
+                                                            .toString()
+                                                            .substring(0, 1) !=
+                                                        '-'
+                                                    ? Colors.red.shade400
+                                                    : greencolor,
+                                                fontSize: subtitleFontSize,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 3,
+                                              softWrap: false,
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
-                                            softWrap: false,
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      // Row(
-                                      //   children: [
-                                      //     Text(
-                                      //       'Total: ',
-                                      //       style: TextStyle(
-                                      //         fontSize: AdaptiveTextSize()
-                                      //             .getadaptiveTextSize(
-                                      //                 context, 22),
-                                      //         fontWeight: FontWeight.w500,
-                                      //       ),
-                                      //       overflow: TextOverflow.ellipsis,
-                                      //       maxLines: 3,
-                                      //       softWrap: false,
-                                      //     ),
-                                      //     Text(
-                                      //       _transfer
-                                      //               .data.out[index].totalAmount
-                                      //               .toString() +
-                                      //           ' ' +
-                                      //           _transfer
-                                      //               .data.out[index].currency,
-                                      //       style: TextStyle(
-                                      //         color: greencolor,
-                                      //         fontSize: AdaptiveTextSize()
-                                      //             .getadaptiveTextSize(
-                                      //                 context, 22),
-                                      //         fontWeight: FontWeight.w500,
-                                      //       ),
-                                      //       overflow: TextOverflow.ellipsis,
-                                      //       maxLines: 3,
-                                      //       softWrap: false,
-                                      //     ),
-                                      //   ],
-                                      // ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        // Row(
+                                        //   children: [
+                                        //     Text(
+                                        //       'Total: ',
+                                        //       style: TextStyle(
+                                        //         fontSize: AdaptiveTextSize()
+                                        //             .getadaptiveTextSize(
+                                        //                 context, 22),
+                                        //         fontWeight: FontWeight.w500,
+                                        //       ),
+                                        //       overflow: TextOverflow.ellipsis,
+                                        //       maxLines: 3,
+                                        //       softWrap: false,
+                                        //     ),
+                                        //     Text(
+                                        //       _transfer
+                                        //               .data.out[index].totalAmount
+                                        //               .toString() +
+                                        //           ' ' +
+                                        //           _transfer
+                                        //               .data.out[index].currency,
+                                        //       style: TextStyle(
+                                        //         color: greencolor,
+                                        //         fontSize: AdaptiveTextSize()
+                                        //             .getadaptiveTextSize(
+                                        //                 context, 22),
+                                        //         fontWeight: FontWeight.w500,
+                                        //       ),
+                                        //       overflow: TextOverflow.ellipsis,
+                                        //       maxLines: 3,
+                                        //       softWrap: false,
+                                        //     ),
+                                        //   ],
+                                        // ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   //
                                   // Container(
@@ -804,15 +795,14 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                   inTransID == null ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
               children: [
                 inTransID == null
-                    ? const SizedBox()
+                    ? SizedBox()
                     : OutlinedButton(
                         onPressed: () async {
                           if (outTransID == null && inTransID == null) {
                             displayTostmessage(context, true,
                                 message: AppLocalizations.of(context)!.cantSkipBoth);
                           } else {
-                            //   Navigator.of(context).pushNamed(MiniLoader.idScreen);
-                            pressIndcatorDialog(context);
+                            Navigator.of(context).pushNamed(MiniLoader.idScreen);
 
                             final isDone = await AssistantMethods.updateTransfer(
                                 Provider.of<AppData>(context, listen: false)
@@ -854,53 +844,50 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                           // });
                         },
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: greencolor,
-                          fixedSize: Size(45.w, 4.h),
+                          foregroundColor: greencolor, fixedSize: Size(45.w, 4.h),
                           side: BorderSide(color: greencolor, width: 1),
                         ),
                         child: Text(AppLocalizations.of(context)!.skip),
                       ),
                 ElevatedButton(
                   onPressed: () async {
-                    // try {
-                    if (outTransID == null) {
-                      displayTostmessage(context, true,
-                          message: AppLocalizations.of(context)!.selectOneOrPressSkip);
-                    } else {
-                      pressIndcatorDialog(context);
-
-                      //    Navigator.of(context).pushNamed(MiniLoader.idScreen);
-
-                      final isDone = await AssistantMethods.updateTransfer(
-                          Provider.of<AppData>(context, listen: false)
-                              .packagecustomiz
-                              .result
-                              .customizeId,
-                          inTransID,
-                          outTransID,
-                          context);
-
-                      if (isDone) {
-                        if (Provider.of<AppData>(context, listen: false).isPreBookFailed) {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                        } else {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              CustomizeSlider.idScreen, (Route<dynamic> route) => false);
-                          displayTostmessage(context, false,
-                              message: AppLocalizations.of(context)!.transferHasBeenAdded);
-                        }
-                      } else {
-                        Navigator.of(context).pop();
+                    try {
+                      if (outTransID == null) {
                         displayTostmessage(context, true,
                             message: AppLocalizations.of(context)!.selectOneOrPressSkip);
+                      } else {
+                        Navigator.of(context).pushNamed(MiniLoader.idScreen);
+
+                        final isDone = await AssistantMethods.updateTransfer(
+                            Provider.of<AppData>(context, listen: false)
+                                .packagecustomiz
+                                .result
+                                .customizeId,
+                            inTransID,
+                            outTransID,
+                            context);
+
+                        if (isDone) {
+                          if (Provider.of<AppData>(context, listen: false).isPreBookFailed) {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          } else {
+                            displayTostmessage(context, false,
+                                message: AppLocalizations.of(context)!.transferHasBeenAdded);
+
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                CustomizeSlider.idScreen, (Route<dynamic> route) => false);
+                          }
+                        } else {
+                          Navigator.of(context).pop();
+                          displayTostmessage(context, true,
+                              message: AppLocalizations.of(context)!.selectOneOrPressSkip);
+                        }
                       }
+                    } catch (e) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          CustomizeSlider.idScreen, (Route<dynamic> route) => false);
                     }
-                    //} catch (e) {
-                    //   print(e);
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        CustomizeSlider.idScreen, (Route<dynamic> route) => false);
-                    //     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: yellowColor,
@@ -913,8 +900,71 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           ),
         ],
       );
-
-  Widget _buildTransferContaner() {
-    return Container();
-  }
 }
+
+  // Widget _buildTransferContainer(TransferData data, String direction) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       if (selectedTransfer.containsValue(data)) {
+  //         selectedTransfer.remove(direction);
+  //       } else {
+  //         selectedTransfer[direction] = data;
+  //       }
+  //       setState(() {});
+  //     },
+  //     child: Container(
+  //       margin: const EdgeInsets.symmetric(vertical: 5),
+  //       padding: const EdgeInsets.all(10),
+  //       decoration: BoxDecoration(
+  //           color: cardcolor,
+  //           borderRadius: BorderRadius.circular(10),
+  //           boxShadow: [shadow],
+  //           border: Border.all(
+  //               width: 1.2,
+  //               color: selectedTransfer.containsValue(data) ? greencolor : Colors.transparent)),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           CachedNetworkImage(
+  //             imageUrl: data.content.images[getRightImageIndex(data.content.images)].url,
+  //             fit: BoxFit.cover,
+  //           ),
+  //           SizedBox(height: 2.h),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Text(
+  //                 "${data.content.category.name} ${data.content.vehicle.name}",
+  //                 style: TextStyle(fontSize: subtitleFontSize.sp - 1, fontWeight: FontWeight.w600),
+  //               ),
+  //               Text(data.transferType),
+  //             ],
+  //           ),
+  //           SizedBox(height: 1.h),
+  //           for (var content in data.content.transferDetailInfo)
+  //             Text(
+  //               content.name,
+  //               style: TextStyle(color: inCardColor),
+  //             ),
+  //           SizedBox(height: 1.h),
+  //           Align(
+  //             alignment: Alignment.centerRight,
+  //             child: Text(
+  //               "${data.price.sellingAmount} ${data.price.sellingCurrency}",
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.w700,
+  //                   color: greencolor,
+  //                   fontSize: subtitleFontSize.sp - 2),
+  //             ),
+  //           ),
+  //           SizedBox(height: 1.h)
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // int getRightImageIndex(List<TransferImage> list) {
+  //   return list.length - 1;
+  // }

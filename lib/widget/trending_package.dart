@@ -44,26 +44,33 @@ class Trending extends StatelessWidget {
                       child: ImageSpinning(
                     withOpasity: true,
                   )),
-                  errorWidget: (context, url, error) =>
-                      Image.asset('assets/images/image-not-available.png'),
+                  errorWidget: (context, url, error) {
+                    return Image.asset('assets/images/image-not-available.png');
+                  },
                 ),
               ),
             ),
             Positioned(
-              left: Provider.of<AppData>(context, listen: false).locale == const Locale('en') ? 0 : null,
-              right: Provider.of<AppData>(context, listen: false).locale == const Locale('en') ? null : 0,
+              left: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                  ? 0
+                  : null,
+              right: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                  ? null
+                  : 0,
               top: 1.0,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 decoration: BoxDecoration(
                     color: Colors.black26,
                     borderRadius: BorderRadius.only(
-                      topLeft: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                          ? const Radius.circular(16)
-                          : const Radius.circular(0),
-                      topRight: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                          ? const Radius.circular(0)
-                          : const Radius.circular(16),
+                      topLeft:
+                          Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                              ? const Radius.circular(16)
+                              : const Radius.circular(0),
+                      topRight:
+                          Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                              ? const Radius.circular(0)
+                              : const Radius.circular(16),
                     )),
                 child: RichText(
                   text: TextSpan(
@@ -99,10 +106,10 @@ class Trending extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 5),
                       child: Align(
-                        alignment:
-                            Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                ? Alignment.centerLeft
-                                : Alignment.centerRight,
+                        alignment: Provider.of<AppData>(context, listen: false).locale ==
+                                const Locale('en')
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
                         child: Text(
                           '${AppLocalizations.of(context)!.nightCount(3)} | ${AppLocalizations.of(context)!.dayCount(4)}',
                           style: TextStyle(
@@ -116,10 +123,10 @@ class Trending extends StatelessWidget {
                     SizedBox(
                       width: size.width * 0.55,
                       child: Align(
-                        alignment:
-                            Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                ? Alignment.centerLeft
-                                : Alignment.centerRight,
+                        alignment: Provider.of<AppData>(context, listen: false).locale ==
+                                const Locale('en')
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
                         child: Text(
                           Provider.of<AppData>(context, listen: false).locale == const Locale('en')
                               ? 'Holiday packages in $label'
@@ -145,7 +152,8 @@ class Trending extends StatelessWidget {
 }
 
 class BudgetTravelpackages extends StatefulWidget {
-  const BudgetTravelpackages({Key? key, required this.label, required this.image, required this.cityName})
+  const BudgetTravelpackages(
+      {Key? key, required this.label, required this.image, required this.cityName})
       : super(key: key);
   final String label;
   final String image;
@@ -188,26 +196,34 @@ class _BudgetTravelpackagesState extends State<BudgetTravelpackages> {
                       child: ImageSpinning(
                     withOpasity: true,
                   )),
-                  errorWidget: (context, url, error) =>
-                      Image.asset('assets/images/image-not-available.png'),
+                  errorWidget: (context, url, error) {
+                    print(error);
+                    return Image.asset('assets/images/image-not-available.png');
+                  },
                 ),
               ),
             ),
             Positioned(
-              left: Provider.of<AppData>(context, listen: false).locale == const Locale('en') ? 0 : null,
-              right: Provider.of<AppData>(context, listen: false).locale == const Locale('en') ? null : 0,
+              left: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                  ? 0
+                  : null,
+              right: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                  ? null
+                  : 0,
               top: 0.0,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.black26,
                   borderRadius: BorderRadius.only(
-                      topLeft: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                          ? const Radius.circular(15)
-                          : const Radius.circular(0),
-                      topRight: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                          ? const Radius.circular(0)
-                          : const Radius.circular(15)),
+                      topLeft:
+                          Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                              ? const Radius.circular(15)
+                              : const Radius.circular(0),
+                      topRight:
+                          Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                              ? const Radius.circular(0)
+                              : const Radius.circular(15)),
                 ),
                 child: RichText(
                   text: TextSpan(
@@ -245,10 +261,10 @@ class _BudgetTravelpackagesState extends State<BudgetTravelpackages> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 5),
                       child: Align(
-                        alignment:
-                            Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                ? Alignment.centerLeft
-                                : Alignment.centerRight,
+                        alignment: Provider.of<AppData>(context, listen: false).locale ==
+                                const Locale('en')
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
                         child: Text(
                           "${AppLocalizations.of(context)!.nightCount(3)} | ${AppLocalizations.of(context)!.dayCount(4)}",
                           style: TextStyle(
@@ -259,9 +275,10 @@ class _BudgetTravelpackagesState extends State<BudgetTravelpackages> {
                       ),
                     ),
                     Align(
-                      alignment: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                          ? Alignment.centerLeft
-                          : Alignment.centerRight,
+                      alignment:
+                          Provider.of<AppData>(context, listen: false).locale == const Locale('en')
+                              ? Alignment.centerLeft
+                              : Alignment.centerRight,
                       child: Text(
                         Provider.of<AppData>(context, listen: false).locale == const Locale('en')
                             ? 'Holiday packages in ${widget.cityName}'

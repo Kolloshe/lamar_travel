@@ -78,14 +78,14 @@ class Datum {
     );
 
     Map<String, dynamic> toJson() => {
-        "transfer_id": transferId,
-        "search_code": searchCode,
+        "transfer_id":       transferId,
+        "search_code":       searchCode,
         "service_type_code": serviceTypeCode,
         "service_type_name": serviceTypeName,
         "product_type_name": productTypeName,
-        "vehicle_type_name": vehicleTypeName,
-        "general_info_list": List<dynamic>.from(generalInfoList.map((x) => x)),
-        "waiting_time_info_list": List<dynamic>.from(waitingTimeInfoList.map((x) => x.toJson())),
+        "vehicle_type_name":       vehicleTypeName,
+        "general_info_list":        List<dynamic>.from(generalInfoList.map((x) => x)),
+        "waiting_time_info_list":   List<dynamic>.from(waitingTimeInfoList.map((x) => x.toJson())),
         "image": image,
         "total_amount": totalAmount,
         "currency": currency,

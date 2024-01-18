@@ -290,14 +290,14 @@ class _FlightDetialsState extends State<FlightDetials> {
                                 .packagecustomiz
                                 .result
                                 .customizeId);
-                                                if (!mounted) return;
+                        if (!mounted) return;
 
                         await AssistantMethods.updateHotelCheckIn(
                             Provider.of<AppData>(context, listen: false)
                                 .packagecustomiz
                                 .result
                                 .customizeId);
-                                                        if (!mounted) return;
+                        if (!mounted) return;
 
                         await AssistantMethods.updateHotelDetails(
                             Provider.of<AppData>(context, listen: false)
@@ -308,9 +308,21 @@ class _FlightDetialsState extends State<FlightDetials> {
                         if (!mounted) return;
 
                         if (Provider.of<AppData>(context, listen: false).isPreBookFailed) {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pop();
+                          if (Navigator.of(context).canPop()) {
+                            Navigator.of(context).pop();
+                          }
+                          if (Navigator.of(context).canPop()) {
+                            Navigator.of(context).pop();
+                          } else {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                CustomizeSlider.idScreen, (route) => false);
+                          }
+                          if (Navigator.of(context).canPop()) {
+                            Navigator.of(context).pop();
+                          } else {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                CustomizeSlider.idScreen, (route) => false);
+                          }
                           displayTostmessage(context, false,
                               message: AppLocalizations.of(context)!.flightHasBeenChange);
                         } else {
@@ -349,163 +361,163 @@ class _FlightDetialsState extends State<FlightDetials> {
   Widget filghtcard(From from, Itinerary itinerary) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-  itinerary.layover > 0
-      ? Container(
-          height: size.height * 0.1,
-          width: size.width,
-          color: background,
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${AppLocalizations.of(context)!.changeIn} ${itinerary.departure.city} , (${itinerary.departure.locationId})',
-                style: TextStyle(
-                  fontSize: subtitleFontSize,
-                ),
-              ),
-              Text(
-                '${AppLocalizations.of(context)!.waitingTime} - ${durationToString(itinerary.layover)}',
-                style: TextStyle(
-                  fontSize: subtitleFontSize,
-                ),
-              ),
-            ],
-          ),
-        )
-      : const SizedBox(),
-  Divider(
-    color: Colors.black.withOpacity(0.25),
-    indent: 5,
-    endIndent: 5,
-  ),
-  Container(
-    padding: const EdgeInsets.all(10),
-    child: Row(
-      children: [
-        CachedNetworkImage(
-          imageUrl: itinerary.company.logo,
-          width: 50,
-          height: 50,
-          placeholder: (context, url) => const Center(
-              child: ImageSpinning(
-            withOpasity: true,
-          )),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
-        ),
-        Text(
-          '  ${_selectedFlight.carrier.name} - ${itinerary.company.operatingCarrier} ${itinerary.flightNo}',
-          style: TextStyle(fontSize: subtitleFontSize, fontWeight: FontWeight.bold),
-        ),
-      ],
-    ),
-  ),
-  Container(
-    padding: const EdgeInsets.symmetric(horizontal: 5),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width * 0.25,
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${DateFormat('MMMM d ', genlang).format(itinerary.departure.date)} ${itinerary.departure.time}',
-                style: TextStyle(
-                  fontSize: detailsFontSize,
-                ),
-              ),
-              Text(
-                '${itinerary.departure.city} (${itinerary.departure.locationId})',
-                style: TextStyle(
-                  fontSize: detailsFontSize,
-                ),
-              ),
-              Text(
-                itinerary.departure.airport,
-                style: TextStyle(
-                  fontSize: detailsFontSize,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.25,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                DateFormat('MMMM d ', genlang).format(itinerary.arrival.date) +
-                    itinerary.arrival.time,
-                style: TextStyle(
-                  fontSize: detailsFontSize,
-                ),
-              ),
-              Text(
-                '${itinerary.arrival.city} (${itinerary.arrival.locationId})',
-                style: TextStyle(
-                  fontSize: detailsFontSize,
-                ),
-              ),
-              SizedBox(
-                width: size.width * 0.35,
-                child: Text(
-                  itinerary.arrival.airport,
-                  style: TextStyle(
-                    fontSize: detailsFontSize,
+          itinerary.layover > 0
+              ? Container(
+                  height: size.height * 0.1,
+                  width: size.width,
+                  color: background,
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${AppLocalizations.of(context)!.changeIn} ${itinerary.departure.city} , (${itinerary.departure.locationId})',
+                        style: TextStyle(
+                          fontSize: subtitleFontSize,
+                        ),
+                      ),
+                      Text(
+                        '${AppLocalizations.of(context)!.waitingTime} - ${durationToString(itinerary.layover)}',
+                        style: TextStyle(
+                          fontSize: subtitleFontSize,
+                        ),
+                      ),
+                    ],
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  softWrap: false,
-                ),
-              ),
-            ],
+                )
+              : const SizedBox(),
+          Divider(
+            color: Colors.black.withOpacity(0.25),
+            indent: 5,
+            endIndent: 5,
           ),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.25,
-          child: Column(
-            children: [
-              Text(
-                minutesToTimeOfDay(itinerary.flightTime).toString(),
-                style: TextStyle(
-                  fontSize: detailsFontSize,
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                CachedNetworkImage(
+                  imageUrl: itinerary.company.logo,
+                  width: 50,
+                  height: 50,
+                  placeholder: (context, url) => const Center(
+                      child: ImageSpinning(
+                    withOpasity: true,
+                  )),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-              ),
-              Text(
-                itinerary.cabinClass == 'C'
-                    ? AppLocalizations.of(context)!.business
-                    : AppLocalizations.of(context)!.economic,
-                style: TextStyle(
-                  fontSize: detailsFontSize,
+                Text(
+                  '  ${_selectedFlight.carrier.name} - ${itinerary.company.operatingCarrier} ${itinerary.flightNo}',
+                  style: TextStyle(fontSize: subtitleFontSize, fontWeight: FontWeight.bold),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  ),
-  const SizedBox(
-    height: 5,
-  ),
-  Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: itinerary.baggageInfo.isNotEmpty
-        ? Text(
-            '${AppLocalizations.of(context)!.baggageDetails} : ${itinerary.baggageInfo.join(',')}',
-            style: TextStyle(color: primaryblue, fontSize: detailsFontSize),
-          )
-        : const SizedBox(),
-  ),
-  const SizedBox(
-    height: 5,
-  ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${DateFormat('MMMM d ', genlang).format(itinerary.departure.date)} ${itinerary.departure.time}',
+                        style: TextStyle(
+                          fontSize: detailsFontSize,
+                        ),
+                      ),
+                      Text(
+                        '${itinerary.departure.city} (${itinerary.departure.locationId})',
+                        style: TextStyle(
+                          fontSize: detailsFontSize,
+                        ),
+                      ),
+                      Text(
+                        itinerary.departure.airport,
+                        style: TextStyle(
+                          fontSize: detailsFontSize,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        DateFormat('MMMM d ', genlang).format(itinerary.arrival.date) +
+                            itinerary.arrival.time,
+                        style: TextStyle(
+                          fontSize: detailsFontSize,
+                        ),
+                      ),
+                      Text(
+                        '${itinerary.arrival.city} (${itinerary.arrival.locationId})',
+                        style: TextStyle(
+                          fontSize: detailsFontSize,
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.35,
+                        child: Text(
+                          itinerary.arrival.airport,
+                          style: TextStyle(
+                            fontSize: detailsFontSize,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          softWrap: false,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: Column(
+                    children: [
+                      Text(
+                        minutesToTimeOfDay(itinerary.flightTime).toString(),
+                        style: TextStyle(
+                          fontSize: detailsFontSize,
+                        ),
+                      ),
+                      Text(
+                        itinerary.cabinClass == 'C'
+                            ? AppLocalizations.of(context)!.business
+                            : AppLocalizations.of(context)!.economic,
+                        style: TextStyle(
+                          fontSize: detailsFontSize,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: itinerary.baggageInfo.isNotEmpty
+                ? Text(
+                    '${AppLocalizations.of(context)!.baggageDetails} : ${itinerary.baggageInfo.join(',')}',
+                    style: TextStyle(color: primaryblue, fontSize: detailsFontSize),
+                  )
+                : const SizedBox(),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
         ],
       );
 

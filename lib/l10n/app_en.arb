@@ -1726,5 +1726,29 @@
   "onewayTrip": "One way trip",
   "@onewayTrip": {
     "description": "The current Language"
+  },
+  "wouldYouLikeToBookAny": "Hrs Would you like to book any activity on that day?",
+  "@wouldYouLikeToBookAny": {
+    "description": "The current Language"
+  },
+  "wonBeAbleToBookAnyActivity": "Hrs You won't be able to book any activity on that day.",
+  "@wonBeAbleToBookAnyActivity": {
+    "description": "The current Language"
+  },
+  "theAmountWillBeCredited": "The amount will be credited to your account shortly.",
+  "@theAmountWillBeCredited": {
+    "description": "The current Language"
+  },
+  "transactionId":"Transaction id",
+  "@transactionId":{
+    "description":"The current Language"
+  },
+  "weHaveProcessedYourRefund":"We have processed your refund",
+  "@weHaveProcessedYourRefund":{
+    "description":"The current Language"
+  },
+  "paymentCancelled":"Payment canceled",
+  "@paymentCancelled":{
+    "description":"The current Language"
   }
 }

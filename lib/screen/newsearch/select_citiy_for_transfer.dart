@@ -47,9 +47,10 @@ class _SelectCityForTransferState extends State<SelectCityForTransfer>
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-    _animation =
-        Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0)).animate(_animationController);
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _animation = Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
+        .animate(_animationController);
     _showcurrentLocation = true;
     future = AssistantMethods.searchfrom(citiy, context);
     Future.delayed(const Duration(), () {
@@ -213,11 +214,7 @@ class _SelectCityForTransferState extends State<SelectCityForTransfer>
                                                   .payloadFromlocation !=
                                               null
                                           ? Text(
-                                              '${Provider.of<AppData>(context, listen: false)
-                                                      .payloadFromlocation!
-                                                      .cityName} ${Provider.of<AppData>(context, listen: false)
-                                                      .payloadFromlocation!
-                                                      .countryName}',
+                                              '${Provider.of<AppData>(context, listen: false).payloadFromlocation!.cityName} ${Provider.of<AppData>(context, listen: false).payloadFromlocation!.countryName}',
                                               style: TextStyle(
                                                   fontSize: 12.sp, fontWeight: FontWeight.w600),
                                             )
@@ -289,7 +286,9 @@ class _SelectCityForTransferState extends State<SelectCityForTransfer>
                                               Text(
                                                 citiyList![index].cityName,
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.w500, fontSize: 12.sp),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 12.sp,
+                                                ),
                                               ),
                                               Text(
                                                 citiyList![index].countryName,

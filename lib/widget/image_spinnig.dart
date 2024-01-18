@@ -34,32 +34,32 @@ class _ImageSpinningState extends State<ImageSpinning> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:   const Color.fromARGB(240, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(240, 255, 255, 255),
         body: Center(
-      child: Container(
-        color: const Color.fromARGB(240, 255, 255, 255),
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (_, child) {
-            return Transform.rotate(
-              angle: _controller.value * 5 * math.pi,
-              child: Opacity(
-                  opacity: widget.withOpasity ? 0.5 : 1,
-                  child: Image.asset(
-                    'assets/images/lamarlogo/spininglogo.png',
-                    width: 15.w,
-                  )),
-            );
-          },
           child: Container(
-        color:  const Color.fromARGB(240, 255, 255, 255),
-            child: Image.asset(
-              'assets/images/lamarlogo/spininglogo.png',
-              width: 15.w,
+            color: const Color.fromARGB(240, 255, 255, 255),
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (_, child) {
+                return Transform.rotate(
+                  angle: _controller.value * 4 * math.pi,
+                  child: Opacity(
+                      opacity: widget.withOpasity ? 0.5 : 1,
+                      child: Image.asset(
+                        'assets/images/lamarlogo/spininglogo.png',
+                        width: 15.w,
+                      )),
+                );
+              },
+              child: Container(
+                color: const Color.fromARGB(240, 255, 255, 255),
+                child: Image.asset(
+                  'assets/images/lamarlogo/spininglogo.png',
+                  width: 15.w,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }

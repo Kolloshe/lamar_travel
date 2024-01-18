@@ -411,5 +411,11 @@
   "applePay": "Apple pay",
   "billingInformation": "العنوان",
   "returnFlight": "رحله العوده",
-  "onewayTrip": "رحله الذهاب"
+  "onewayTrip": "رحله الذهاب",
+  "wouldYouLikeToBookAny": "هل تود حجز نشاط في هذا اليوم ؟",
+  "wonBeAbleToBookAnyActivity": "فأنت لاتسطتيع حجز نشاط في هذا اليوم.",
+  "theAmountWillBeCredited": "سيتم إضافة المبلغ إلى حسابك قريبا.",
+  "transactionId": "رقم المعاملة",
+  "weHaveProcessedYourRefund": "لقد قمنا بعمليه استرداد أموالك",
+  "paymentCancelled": "تم إلغاء عمليه الدفع"
 }

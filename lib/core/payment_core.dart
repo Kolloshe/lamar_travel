@@ -11,7 +11,7 @@ class PaymentCore {
   static init() {
     flutterHyperPay = FlutterHyperPay(
       shopperResultUrl: InAppPaymentSetting.shopperResultUrl, // return back to app
-      paymentMode: PaymentMode.live, // test or live
+      paymentMode: PaymentMode.test, // test or live
       lang: InAppPaymentSetting.getLang(),
     );
   }

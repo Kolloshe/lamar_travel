@@ -30,7 +30,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../Assistants/assistant_methods.dart';
 import '../Assistants/assistant_data.dart';
 import '../Model/activity_list.dart';
-import '../Model/change_transfer.dart';
+ import '../Model/change_transfer.dart';
 import '../Model/changeflight.dart';
 import '../Model/changehotel.dart';
 import '../Model/changehotel.dart' as rom;
@@ -43,7 +43,6 @@ import '../Model/login/user.dart';
 
 import '../Model/mainsearch.dart';
 
-import '../Model/new_transfer_change_model.dart';
 import '../Model/payload.dart';
 import '../Model/searchforflight.dart';
 import '../Model/searchforhotel.dart';
@@ -284,9 +283,9 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
-  late NewChangeTransfer changeTransfer;
+  late ChangeTransfer changeTransfer;
 
-  void getTransferList(NewChangeTransfer changeTransfers) {
+  void getTransferList(ChangeTransfer changeTransfers) {
     changeTransfer = changeTransfers;
     notifyListeners();
   }

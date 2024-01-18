@@ -306,6 +306,9 @@ class _PreBookStepperState extends State<PreBookStepper> with TickerProviderStat
                       : const IndividualPackagesScreen()),
               (route) => false);
         }
+        else{
+          
+        }
         // if (Navigator.of(context).canPop()) {
         //   Navigator.of(context).pop();
         // }
@@ -317,6 +320,7 @@ class _PreBookStepperState extends State<PreBookStepper> with TickerProviderStat
         }
       }
     } catch (e) {
+     
       displayTostmessage(context, false,
           isInformation: true, message: "This package is  unavailable at this moment");
       if (Navigator.of(context).canPop()) {

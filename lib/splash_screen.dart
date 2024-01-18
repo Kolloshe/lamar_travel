@@ -1,12 +1,11 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, library_private_types_in_public_api, unused_local_variable, prefer_const_declarations, dead_code, use_build_context_synchronously
+// ignore_for_file: import_of_legacy_library_into_null_safe, library_private_types_in_public_api, unused_local_variable, prefer_const_declarations, dead_code, use_build_context_synchronously, avoid_print, prefer_interpolation_to_compose_strings
 
 import 'dart:async';
 import 'dart:io';
 
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:lamar_travel_packages/tab_screen_controller.dart';
 import 'package:lamar_travel_packages/widget/check_connection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -54,8 +53,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void initState() {
     // initDynamicLinks();
-    print('here');
-    startapp();
+     startapp();
     super.initState();
   }
 
@@ -258,7 +256,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       print('dynamic start');
       await ddynamicLink();
       print('dynamic end');
-      print("ddd:)");
+    
       if (!isFromdeep) {
         Navigator.pushNamedAndRemoveUntil(context, TabPage.idScreen, (route) => false);
       }

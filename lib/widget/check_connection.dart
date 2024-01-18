@@ -1,14 +1,12 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: import_of_legacy_library_into_null_safe, avoid_print
 
 import 'dart:async';
-import 'dart:io';
-
+ 
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:lamar_travel_packages/splash_screen.dart';
 
-import '../main.dart';
-
+ 
 class CheckInternet {
   StreamSubscription<DataConnectionStatus>? listener;
   var internetStatus = "Unknown";
@@ -19,7 +17,7 @@ class CheckInternet {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return AlertDialog(title: const Text(''), content: Text(content), actions: <Widget>[
+          return AlertDialog(title: const Text(''), content: Text(content), actions: const[
             // TextButton(
             //     onPressed: () {
             //       // print('HERE');

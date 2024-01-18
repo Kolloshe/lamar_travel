@@ -19,7 +19,6 @@ import 'package:lamar_travel_packages/Model/cancel_booking_model.dart';
 import 'package:lamar_travel_packages/Model/cancelation_model.dart';
 import 'package:lamar_travel_packages/Model/cancelation_resones.dart';
 import 'package:lamar_travel_packages/Model/change_transfer_distnation_if_remove_model.dart';
-import 'package:lamar_travel_packages/Model/change_transfer.dart';
 import 'package:lamar_travel_packages/Model/changeflight.dart';
 import 'package:lamar_travel_packages/Model/changehotel.dart';
 import 'package:lamar_travel_packages/Model/countries.dart';
@@ -65,8 +64,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:provider/provider.dart';
 
+import '../Model/change_transfer.dart';
 import '../Model/individual_services_model/indv_packages_listing_model.dart';
-import '../Model/new_transfer_change_model.dart';
 import '../config.dart';
 import '../screen/individual_services/ind_packages_screen.dart';
 import '../screen/packages_screen.dart';
@@ -155,6 +154,8 @@ class AssistantMethods {
     };
 
     http.Response response = await http.get(Uri.parse(url), headers: headers);
+
+    print(response.body);
     if (response.statusCode != 200) {
     } else {
       payload = payloadFromJson(response.body);
@@ -294,11 +295,9 @@ class AssistantMethods {
     request.headers.addAll(headers);
 
     http.StreamedResponse respons = await request.send();
-
+    String data = await respons.stream.bytesToString();
+    log(data);
     if (respons.statusCode == 200) {
-      String data = await respons.stream.bytesToString();
-      log(data);
-
       if (searchMode == '') {
         MainSarchForPackage mainSarchFor = mainSarchForPackageFromJson(data);
         Provider.of<AppData>(context, listen: false).getmainpakcages(mainSarchFor, false);
@@ -370,6 +369,7 @@ class AssistantMethods {
   static Future<bool> mainSearchFromTrending(BuildContext context, String url) async {
     url = url +
         '?os=${Platform.isIOS ? 'ios' : 'android'}&app_version=${packageInfo!.buildNumber}&selling_currency=$gencurrency';
+
     var headers = {
       'Content-Type': 'application/json',
       'mobile-os': Platform.isIOS ? 'ios' : 'android',
@@ -655,6 +655,7 @@ class AssistantMethods {
       'app_version': packageInfo!.buildNumber
     };
     http.Response response = await http.get(Uri.parse(url), headers: headers);
+    log("updateThePackage =>" + response.body);
   }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -669,7 +670,7 @@ class AssistantMethods {
     };
 
     http.Response response = await http.get(Uri.parse(url), headers: headers);
-    log('customize' + response.body);
+    log('updateHotelDetails ====>>>' + response.body);
     if (response.statusCode == 200) {
       Customizpackage customizePackage = customizpackageFromJson(response.body);
 
@@ -774,7 +775,7 @@ class AssistantMethods {
 
   static Future<bool> changeTransfer(String id, String type, BuildContext context) async {
     String url =
-        "${baseUrl}holiday/change_transfer?type=$type&currency=$gencurrency&language=$genlang&customizeId=$id";
+        "${baseUrl}holiday/transfer-list-inout?&currency=$gencurrency&language=$genlang&customizeId=$id";
 
     var request = http.Request('GET', Uri.parse(url));
     var headers = {
@@ -789,11 +790,11 @@ class AssistantMethods {
     log(jsonString);
 
     if (response.statusCode == 200) {
-      // ChangeTransfer changeTransfer = changeTransferFromJson(jsonString);
-      final newChangeTransfer = newChangeTransferFromJson(jsonString);
-      Provider.of<AppData>(context, listen: false).getTransferList(newChangeTransfer);
+      ChangeTransfer changeTransfer = changeTransferFromJson(jsonString);
+      //  final newChangeTransfer = newChangeTransferFromJson(jsonString);
+      Provider.of<AppData>(context, listen: false).getTransferList(changeTransfer);
 
-      if (newChangeTransfer.data.isEmpty) {
+      if (changeTransfer.data.dataIn.isEmpty) {
         return false;
       } else {
         return true;
@@ -880,7 +881,6 @@ class AssistantMethods {
       String id, String? inTrans, String? outTrans, BuildContext context) async {
     String url = baseUrl +
         'holiday/transfer-update-inout?currency=$gencurrency&customizeId=$id&in=$inTrans&out=$outTrans&language=$genlang';
-
     var request = http.Request('PUT', Uri.parse(url));
 
     var headers = {
@@ -894,11 +894,41 @@ class AssistantMethods {
     http.StreamedResponse response = await request.send();
 
     final jsonString = await response.stream.bytesToString();
+    log(jsonString);
 
     if (response.statusCode == 200) {
       Customizpackage customizePackage = customizpackageFromJson(jsonString);
 
       Provider.of<AppData>(context, listen: false).getPackageIdforcustomiz(customizePackage);
+      return true;
+    } else {
+      return false;
+    }
+  }
+  // NEW UPDATE TRANSFER
+
+  static Future<bool> newUpdateTransfer(data, BuildContext context) async {
+    String url = baseUrl + 'holiday/update_transfer?&language=$genlang';
+
+    var request = http.Request('POST', Uri.parse(url));
+    request.body = jsonEncode(data);
+    var headers = {
+      'Content-Type': 'application/json',
+      'mobile-os': Platform.isIOS ? 'ios' : 'android',
+      'app_version': packageInfo!.buildNumber
+    };
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    final jsonString = await response.stream.bytesToString();
+    log(jsonString);
+    if (response.statusCode == 200) {
+      updateHotelDetails(data['customize_id'], context);
+      // Customizpackage customizePackage = customizpackageFromJson(jsonString);
+
+      // Provider.of<AppData>(context, listen: false).getPackageIdforcustomiz(customizePackage);
       return true;
     } else {
       return false;
@@ -1179,16 +1209,15 @@ class AssistantMethods {
     }
   }
 
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  // ? //////////// Trends And offers //////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
+  ///////////////// Trends And offers /////////////////
+  /////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
 
   static Future getTrendsAndOffers(BuildContext context, String city) async {
     String url = baseUrl +
         'global/app-home-links/$genlang/$gencurrency?city=$city&currency=$gencurrency&language=$genlang';
-
     var request = http.Request('GET', Uri.parse(url));
 
     var headers = {
@@ -1238,7 +1267,7 @@ class AssistantMethods {
   static Future updatePakagewithcurruncy(String id, BuildContext context) async {
     String url =
         '${baseUrl}holiday/list?package_id=$id&selling_currency=$gencurrency&currency=$gencurrency&language=$genlang';
-
+    print(url);
     var request = http.Request('GET', Uri.parse(url));
     var headers = {
       'Content-Type': 'application/json',
@@ -1417,7 +1446,7 @@ class AssistantMethods {
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     final jsondata = await response.stream.bytesToString();
-
+    log(jsondata);
     if (response.statusCode == 200) {
       Customizpackage customizePackage = customizpackageFromJson(jsondata);
       if (action == 'add') {
@@ -1776,6 +1805,7 @@ class AssistantMethods {
 
     http.StreamedResponse response = await request.send();
     final jsonString = await response.stream.bytesToString();
+    log(jsonString);
     if (response.statusCode == 200) {
       final customizpackage = customizpackageFromJson(jsonString);
       Provider.of<AppData>(context, listen: false).getPackageIdforcustomiz(customizpackage);
@@ -2249,7 +2279,8 @@ class AssistantMethods {
         return true;
       } else {
         final error = jsonDecode(jsonString);
-        displayTostmessage(context, true, message: error["status"]["message"]);
+
+        displayTostmessage(context, true, message: error["message"]);
         return false;
       }
     } catch (e) {
@@ -2684,11 +2715,11 @@ class AssistantMethods {
     var request = http.Request('POST', Uri.parse(url));
     request.body = data;
     request.headers.addAll(headers);
-    log(data);
+    log(request.body);
 
     http.StreamedResponse response = await request.send();
     final jsonString = await response.stream.bytesToString();
-
+    log(jsonString);
     if (response.statusCode == 200) {
       final indvPackagesModel = indvPackagesModelFromMap(jsonString);
       context.read<AppData>().setIndvPackages(indvPackagesModel);
@@ -2713,6 +2744,7 @@ class AssistantMethods {
 
     http.StreamedResponse response = await request.send();
     final jsonString = await response.stream.bytesToString();
+    log(jsonString);
     if (response.statusCode == 200) {
       final indTransferCustomizeModel = indTransferCustomizeModelFromMap(jsonString);
       return indTransferCustomizeModel;
@@ -2927,7 +2959,7 @@ class AssistantMethods {
       final roomCancellationPolicy = roomCancellationPolicyFromMap(jsonString);
 
       showDialog(
-          barrierDismissible: true,
+          barrierDismissible: false,
           context: context,
           builder: (context) => Dialog(
                 child: Container(
@@ -3153,11 +3185,10 @@ class AssistantMethods {
     Map<String, String> fields = {
       'entityId': entityId[paymentBrand] ?? "",
       'amount': amount,
-
       'currency': 'SAR',
       'paymentType': 'DB',
       'merchantTransactionId': merchantTransactionId,
-      //'testMode': 'EXTERNAL'
+      'testMode': 'EXTERNAL'
     };
     fields.addAll(data);
     request.bodyFields = fields;
@@ -3186,10 +3217,7 @@ class AssistantMethods {
     };
 
     var request = http.Request('GET', Uri.parse(url));
-    request.bodyFields = {
-      'entityId': entityId[paymentBrand] ?? '',
-      //'testMode': 'EXTERNAL'
-    };
+    request.bodyFields = {'entityId': entityId[paymentBrand] ?? '', 'testMode': 'EXTERNAL'};
 
     request.headers.addAll(headers);
 
@@ -3259,7 +3287,7 @@ class AssistantMethods {
     request.bodyFields = {
       "entityId": entityId[paymentBrand] ?? "",
       "paymentType": "RV",
-      //'testMode': testMode
+      'testMode': testMode
     };
 
     request.headers.addAll(headers);

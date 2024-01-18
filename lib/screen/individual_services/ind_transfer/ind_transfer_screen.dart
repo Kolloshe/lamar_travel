@@ -29,7 +29,7 @@ class _IndTransferScreenState extends State<IndTransferScreen> {
       onTap: () async {
         final result = await AssistantMethods.indTransferCustomize(widget.id);
         if (result != null) {
-             if (!mounted) return;
+          if (!mounted) return;
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => IndTransferCustomizeScreen(
                     customize: result,
@@ -86,7 +86,7 @@ class _IndTransferScreenState extends State<IndTransferScreen> {
                           maxLines: 3,
                           softWrap: false),
                       Text(
-                        AppLocalizations.of(context)!.dates,
+                        AppLocalizations.of(context)?.dates ?? "",
                         style: TextStyle(fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                       ),
                       Text(DateFormat('dd MMM EEEE').format(transfer[i].date),

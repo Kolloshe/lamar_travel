@@ -111,10 +111,10 @@ class RoomCard extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: subtitleFontSize,
-                          fontFamily:
-                              Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                  ? 'Lato'
-                                  : 'Bhaijaan'),
+                          fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+                                  const Locale('en')
+                              ? 'Lato'
+                              : 'Bhaijaan'),
                       children: <TextSpan>[
                         TextSpan(
                             text: hotel.name,
@@ -138,13 +138,14 @@ class RoomCard extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: subtitleFontSize,
-                          fontFamily:
-                              Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                  ? 'Lato'
-                                  : 'Bhaijaan'),
+                          fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+                                  const Locale('en')
+                              ? 'Lato'
+                              : 'Bhaijaan'),
                       children: <TextSpan>[
                         TextSpan(
-                            text: "${hotel.selectedRoom[index].name}\n${hotel.selectedRoom[index].roomTypeText ?? ''}",
+                            text:
+                                "${hotel.selectedRoom[index].name}\n${hotel.selectedRoom[index].roomTypeText ?? ''}",
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: subtitleFontSize,
@@ -160,15 +161,15 @@ class RoomCard extends StatelessWidget {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: '${AppLocalizations.of(context)!.roomCategory} :',
+                      text: '${AppLocalizations.of(context)!.roomCategory} ',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: subtitleFontSize,
-                          fontFamily:
-                              Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                  ? 'Lato'
-                                  : 'Bhaijaan'),
+                          fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+                                  const Locale('en')
+                              ? 'Lato'
+                              : 'Bhaijaan'),
                       children: <TextSpan>[
                         TextSpan(
                             text: hotel.selectedRoom[index].boardName,
@@ -194,10 +195,10 @@ class RoomCard extends StatelessWidget {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontFamily:
-                                Provider.of<AppData>(context, listen: false).locale == const Locale('en')
-                                    ? 'Lato'
-                                    : 'Bhaijaan'),
+                            fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+                                    const Locale('en')
+                                ? 'Lato'
+                                : 'Bhaijaan'),
                       ),
                       for (var i = 0; i < hotel.facilities.length; i++)
                         Padding(
@@ -220,7 +221,7 @@ class RoomCard extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                       onTap: () async {
-                         await AssistantMethods.getCancellationPolicyForRoom(context,
+                        await AssistantMethods.getCancellationPolicyForRoom(context,
                             cusID: context.read<AppData>().packagecustomiz.result.customizeId,
                             currency: gencurrency,
                             rateKey: hotel.selectedRoom[index].rateKey);

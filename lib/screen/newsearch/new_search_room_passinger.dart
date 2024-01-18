@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_number_picker/flutter_number_picker.dart';
 import 'package:lamar_travel_packages/Assistants/assistant_methods.dart';
@@ -249,7 +248,8 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
                                             maxValue: 10,
                                             minValue: 1,
                                             step: 1,
-                                            onValue: (step) {
+                                            onValue: (dynamic step) {
+                                            
                                               int x = int.parse(step.toString());
                                               adultscount = x;
                                             },
@@ -826,46 +826,47 @@ class _NewSearchRoomAndPassingerState extends State<NewSearchRoomAndPassinger>
   }
 
   void searchForTransfer() async {
-    try {
-      final preData = context.read<AppData>();
-      Map req = {
-        "selling_currency": gencurrency,
-        "transfer_type": preData.transferTimeAndDate["transfer_type"],
-        "pickup_code": preData.transferPointsData['from']?.code,
-        "pickup_mode": preData.transferPointsData['from']?.category,
-        "dropoff_code": preData.transferPointsData['to']?.code,
-        "dropoff_mode": preData.transferPointsData['to']?.category,
-        "pax": {
-          "adults": adultscount,
-          "children": childeringCount,
-          "children_age": childAgeMap,
-        },
-        "pickup": preData.transferTimeAndDate["departure"],
-        "return": preData.transferTimeAndDate["return"],
-        "country": {
-          "pickup": preData.transferPointsData['from']?.country,
-          "dropoff": preData.transferPointsData['to']?.country
-        },
-      };
-      //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadingWidgetMain()));
-      pressIndcatorDialog(context);
-      final hasError = await AssistantMethods.makeTransferSearch(context, json.encode(req));
-      if (hasError == true) {
-        if (!mounted) return;
-        Navigator.of(context)
-          ..pop()
-          ..push(MaterialPageRoute(builder: (context) => const IndividualPackagesScreen()));
-      } else {
-        if (!mounted) return;
-        displayTostmessage(context, false,
-            isInformation: true, message: 'They are no transfer to this location');
-        Navigator.of(context).pop();
-      }
-    } catch (e) {
+    //try {
+    final preData = context.read<AppData>();
+    Map req = {
+      "selling_currency": gencurrency,
+      "transfer_type": preData.transferTimeAndDate["transfer_type"],
+      "pickup_code": preData.transferPointsData['from']?.code,
+      "pickup_mode": preData.transferPointsData['from']?.category,
+      "dropoff_code": preData.transferPointsData['to']?.code,
+      "dropoff_mode": preData.transferPointsData['to']?.category,
+      "pax": {
+        "adults": adultscount,
+        "children": childeringCount,
+        "children_age": childAgeMap,
+      },
+      "pickup": preData.transferTimeAndDate["departure"],
+      "return": preData.transferTimeAndDate["return"],
+      "country": {
+        "pickup": preData.transferPointsData['from']?.country,
+        "dropoff": preData.transferPointsData['to']?.country
+      },
+    };
+    //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadingWidgetMain()));
+    pressIndcatorDialog(context);
+    final hasError = await AssistantMethods.makeTransferSearch(context, json.encode(req));
+    print(hasError);
+    if (hasError == true) {
+      if (!mounted) return;
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const IndividualPackagesScreen()));
+    } else {
+      if (!mounted) return;
       displayTostmessage(context, false,
           isInformation: true, message: 'They are no transfer to this location');
       Navigator.of(context).pop();
     }
+    // } catch (e) {
+
+    //   displayTostmessage(context, false,
+    //       isInformation: true, message: 'They are no transfer to this location');
+    //   Navigator.of(context).pop();
+    // }
   }
 
   Widget _buildFlightType() {

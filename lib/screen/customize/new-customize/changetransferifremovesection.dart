@@ -720,7 +720,6 @@ class _ChangeTransferIfRemoveSectionState extends State<ChangeTransferIfRemoveSe
     );
   }
 
-
   Widget _buildSpacer(double w, double h) => SizedBox(
         width: w.w,
         height: h.h,
@@ -786,7 +785,8 @@ class _ChangeTransferIfRemoveSectionState extends State<ChangeTransferIfRemoveSe
   }
 
   collectuserData() async {
-    showDialog(context: context, barrierDismissible: false, builder: (context) => const PressIndcator());
+    showDialog(
+        context: context, barrierDismissible: false, builder: (context) => const PressIndcator());
     if (selectedData == null) {
       displayTostmessage(context, true,
           message:
@@ -872,7 +872,7 @@ class _ChangeTransferIfRemoveSectionState extends State<ChangeTransferIfRemoveSe
   }
 
   void getSelectedTransfer(int i) async {
-    if (_transferListing != null) {
+     if (_transferListing != null) {
       final selectedtransfer = _transferListing!.data[i];
 
       Map<String, dynamic> req = {

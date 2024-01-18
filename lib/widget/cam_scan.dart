@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:lamar_travel_packages/config.dart';
 import 'package:intl/intl.dart';
 
-import '../Assistants/assistant_methods.dart';
-import '../screen/booking/InfomationModel.dart';
-import '../screen/main_screen1.dart'; 
+ 
 
 enum Sex { none, male, female }
 

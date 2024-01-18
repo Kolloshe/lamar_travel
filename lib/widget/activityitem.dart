@@ -545,7 +545,7 @@ class _ActivityItemsState extends State<ActivityItems> {
       int maxAllowedtime = 17;
 
       int time =
-          int.parse(widget.activitys.result.flight!.to?.departureTime ?? "00".substring(0, 2));
+          int.parse((widget.activitys.result.flight!.to?.departureTime ?? "00").substring(0, 2));
       if (time < maxAllowedtime) {
         text =
             "${AppLocalizations.of(context)!.estimatedDepartureTime} ${widget.activitys.result.flight!.to?.departureTime ?? "00"}  Hrs  ${AppLocalizations.of(context)!.wouldYouLikeToBookAnyActivity}  ";
@@ -565,13 +565,12 @@ class _ActivityItemsState extends State<ActivityItems> {
   String checkLastDay() {
     if (widget.activitys.result.flight != null) {
       int maxAllowedtime = 16;
-
       int time =
-          int.parse(widget.activitys.result.flight!.to?.departureTime ?? "00".substring(0, 2));
+          int.parse((widget.activitys.result.flight!.to?.departureTime ?? "00").substring(0, 1));
       if (time > maxAllowedtime) {
         if (widget.list.last!.name == 'No Avtivity') {
           text =
-              "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime ?? "00"}  Hrs Would you like to book any activity on that day? ";
+              "${AppLocalizations.of(context)?.estimatedDepartureTime ?? 'Your estimated departure time is on'} ${widget.activitys.result.flight!.to?.departureTime ?? "00"}  ${AppLocalizations.of(context)?.wouldYouLikeToBookAny ?? 'Hrs Would you like to book any activity on that day?'} ";
         } else {
           text = widget.list.last!.name;
         }
@@ -579,7 +578,7 @@ class _ActivityItemsState extends State<ActivityItems> {
         return text;
       } else {
         text =
-            "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime ?? "00"}   Hrs You won't be able to book any activity on that day.";
+            "${AppLocalizations.of(context)?.estimatedDepartureTime ?? 'Your estimated departure time is on'} ${widget.activitys.result.flight!.to?.departureTime ?? "00"}   ${AppLocalizations.of(context)?.wonBeAbleToBookAnyActivity ?? "Hrs You won't be able to book any activity on that day."}";
         return text;
       }
     } else {
