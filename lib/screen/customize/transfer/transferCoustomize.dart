@@ -449,29 +449,28 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           SizedBox(
             width: 100.w,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                OutlinedButton(
-                  onPressed: () async {
-                    inSelectedIndex = null;
-                    showDialog(context: context, builder: (context) => PressIndcator());
-                    await Future.delayed(Duration(seconds: 1), () {
-                      Navigator.of(context).pop();
-                    });
+                // OutlinedButton(
+                //   onPressed: () async {
+                //     inSelectedIndex = null;
+                //     showDialog(context: context, builder: (context) => PressIndcator());
+                //     await Future.delayed(Duration(seconds: 1), () {
+                //       Navigator.of(context).pop();
+                //     });
+                //     inTransID = null;
+                //     setState(() {
+                //       isInTrans = !isInTrans;
+                //     });
+                //   },
+                //   style: OutlinedButton.styleFrom(
+                //     foregroundColor: greencolor,
+                //     fixedSize: Size(45.w, 4.h),
+                //     side: BorderSide(color: greencolor, width: 1),
+                //   ),
+                //   child: Text(AppLocalizations.of(context)!.skip),
+                // ),
 
-                    inTransID = null;
-
-                    setState(() {
-                      isInTrans = !isInTrans;
-                    });
-                  },
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: greencolor,
-                    fixedSize: Size(45.w, 4.h),
-                    side: BorderSide(color: greencolor, width: 1),
-                  ),
-                  child: Text(AppLocalizations.of(context)!.skip),
-                ),
                 ElevatedButton(
                   onPressed: () async {
                     if (inTransID == null) {
@@ -490,7 +489,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: yellowColor,
-                    fixedSize: Size(45.w, 4.h),
+                    fixedSize: Size(95.w, 4.h),
                   ),
                   child: Text(AppLocalizations.of(context)!.next),
                 ),
@@ -649,9 +648,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
+                                        SizedBox(height: 5),
                                         Row(
                                           children: [
                                             Text(
@@ -791,64 +788,63 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           SizedBox(
             width: 100.w,
             child: Row(
-              mainAxisAlignment:
-                  inTransID == null ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                inTransID == null
-                    ? SizedBox()
-                    : OutlinedButton(
-                        onPressed: () async {
-                          if (outTransID == null && inTransID == null) {
-                            displayTostmessage(context, true,
-                                message: AppLocalizations.of(context)!.cantSkipBoth);
-                          } else {
-                            Navigator.of(context).pushNamed(MiniLoader.idScreen);
+                // inTransID == null
+                //     ? SizedBox()
+                //     : OutlinedButton(
+                //         onPressed: () async {
+                //           if (outTransID == null && inTransID == null) {
+                //             displayTostmessage(context, true,
+                //                 message: AppLocalizations.of(context)!.cantSkipBoth);
+                //           } else {
+                //             Navigator.of(context).pushNamed(MiniLoader.idScreen);
 
-                            final isDone = await AssistantMethods.updateTransfer(
-                                Provider.of<AppData>(context, listen: false)
-                                    .packagecustomiz
-                                    .result
-                                    .customizeId,
-                                inTransID,
-                                outTransID,
-                                context);
+                //             final isDone = await AssistantMethods.updateTransfer(
+                //                 Provider.of<AppData>(context, listen: false)
+                //                     .packagecustomiz
+                //                     .result
+                //                     .customizeId,
+                //                 inTransID,
+                //                 outTransID,
+                //                 context);
 
-                            if (isDone) {
-                              if (Provider.of<AppData>(context, listen: false).isPreBookFailed) {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                              } else {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    CustomizeSlider.idScreen, (Route<dynamic> route) => false);
-                                displayTostmessage(context, false,
-                                    message: AppLocalizations.of(context)!.transferHasBeenAdded);
-                              }
-                            } else {
-                              Navigator.of(context).pop();
-                              displayTostmessage(context, true,
-                                  message: AppLocalizations.of(context)!.cantAddTransferFor);
-                            }
-                          }
+                //             if (isDone) {
+                //               if (Provider.of<AppData>(context, listen: false).isPreBookFailed) {
+                //                 Navigator.of(context).pop();
+                //                 Navigator.of(context).pop();
+                //               } else {
+                //                 Navigator.of(context).pushNamedAndRemoveUntil(
+                //                     CustomizeSlider.idScreen, (Route<dynamic> route) => false);
+                //                 displayTostmessage(context, false,
+                //                     message: AppLocalizations.of(context)!.transferHasBeenAdded);
+                //               }
+                //             } else {
+                //               Navigator.of(context).pop();
+                //               displayTostmessage(context, true,
+                //                   message: AppLocalizations.of(context)!.cantAddTransferFor);
+                //             }
+                //           }
 
-                          // showDialog(
-                          //     context: context,
-                          //     builder: (context) => PressIndcator());
-                          // await Future.delayed(Duration(seconds: 1), () {
-                          //   Navigator.of(context).pop();
-                          // });
-                          //
-                          // inTransID = null;
-                          //
-                          // setState(() {
-                          //   isInTrans = !isInTrans;
-                          // });
-                        },
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: greencolor, fixedSize: Size(45.w, 4.h),
-                          side: BorderSide(color: greencolor, width: 1),
-                        ),
-                        child: Text(AppLocalizations.of(context)!.skip),
-                      ),
+                //           // showDialog(
+                //           //     context: context,
+                //           //     builder: (context) => PressIndcator());
+                //           // await Future.delayed(Duration(seconds: 1), () {
+                //           //   Navigator.of(context).pop();
+                //           // });
+                //           //
+                //           // inTransID = null;
+                //           //
+                //           // setState(() {
+                //           //   isInTrans = !isInTrans;
+                //           // });
+                //         },
+                //         style: OutlinedButton.styleFrom(
+                //           foregroundColor: greencolor, fixedSize: Size(45.w, 4.h),
+                //           side: BorderSide(color: greencolor, width: 1),
+                //         ),
+                //         child: Text(AppLocalizations.of(context)!.skip),
+                //       ),
                 ElevatedButton(
                   onPressed: () async {
                     try {
@@ -891,7 +887,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: yellowColor,
-                    fixedSize: Size(inTransID == null ? 90.w : 45.w, 4.h),
+                    fixedSize: Size(95.w, 4.h),
                   ),
                   child: Text(AppLocalizations.of(context)!.select),
                 ),

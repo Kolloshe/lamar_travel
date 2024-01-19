@@ -20,13 +20,13 @@ Color orange = const Color.fromARGB(255, 241, 100, 55);
 PackageInfo? packageInfo;
 
 const baseUrl =
-"https://mapi2.ibookholiday.com/api/v1/";
+//"https://mapi2.ibookholiday.com/api/v1/";
 //"https://mapi.ibookholiday.com/api/v1/"
 //    "https://staging.ibookholiday.com/api/v1/";
 //"http://192.168.0.180/ibookholiday/api/v1/";
 
 //HAFEES
-//  'http://192.168.0.152/ibh-mob/api/v1/';
+  'http://192.168.0.152/ibh-mob/api/v1/';
 
 const onSignalAppId = "8e20d763-be21-4463-bf1f-b7f019c9959d";
 
