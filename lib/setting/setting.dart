@@ -154,7 +154,7 @@ class _SettingState extends State<Setting> {
                                 pressIndcatorDialog(context);
                                 await AssistantMethods.changeCurranceylanguage(
                                     context, {"currency": gencurrency}, 'currency');
-                                    if (!mounted) return;
+                                if (!mounted) return;
                                 Navigator.of(context).pop();
                                 setState(() {
                                   seclectedcurrncy = i;
@@ -166,15 +166,15 @@ class _SettingState extends State<Setting> {
                               }
                               if (Provider.of<AppData>(context, listen: false)
                                   .resarchWhenChangecrruncy) {
-                               // Navigator.of(context).pushNamed(LoadingWidgetMain.idScreen);
-                           pressIndcatorDialog(context);
+                                // Navigator.of(context).pushNamed(LoadingWidgetMain.idScreen);
+                                pressIndcatorDialog(context);
                                 await AssistantMethods.updatePakagewithcurruncy(
                                     Provider.of<AppData>(context, listen: false)
                                         .mainsarchForPackage
                                         .data
                                         .packageId,
                                     context);
-                                    if (!mounted) return;
+                                if (!mounted) return;
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     PackagesScreen.idScreen, (route) => false);
                               } else {
@@ -188,7 +188,8 @@ class _SettingState extends State<Setting> {
                             horizontalTitleGap: 0,
                             minVerticalPadding: 0,
                             title: Text(localizeCurrency(currencyapi[i])),
-                            leading: seclectedcurrncy == i ? const Icon(Icons.check) : const SizedBox(),
+                            leading:
+                                seclectedcurrncy == i ? const Icon(Icons.check) : const SizedBox(),
                           )),
                 )
               ],
@@ -304,7 +305,7 @@ class _SettingState extends State<Setting> {
                                 pressIndcatorDialog(context);
                                 await AssistantMethods.changeCurranceylanguage(context,
                                     {"currency": gencurrency, "language": genlang}, 'language');
-                                    if (!mounted) return;
+                                if (!mounted) return;
                                 Navigator.of(context).pop();
                                 setState(() {
                                   selectedLang = i;
@@ -314,7 +315,7 @@ class _SettingState extends State<Setting> {
                               if (widget.pageid == true) {
                                 return;
                               }
-if (!mounted) return;
+                              if (!mounted) return;
                               Navigator.of(context).pop();
                               setState(() {
                                 seclectedcurrncy = i;
@@ -325,7 +326,7 @@ if (!mounted) return;
                             horizontalTitleGap: 0,
                             minVerticalPadding: 0,
                             title: Text(localizelung(Setting.laung[i])),
-                            leading: selectedLang == i ? const Icon(Icons.check) :const SizedBox(),
+                            leading: selectedLang == i ? const Icon(Icons.check) : const SizedBox(),
                           )),
                 )
               ],
@@ -337,7 +338,7 @@ if (!mounted) return;
   Widget _buildUserBalance() => fullName == ''
       ? const SizedBox()
       : Container(
-          padding:const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -355,14 +356,14 @@ if (!mounted) return;
         onTap: () async {
           await showModalBottomSheet(
               context: context,
-              shape:const RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(15), topLeft: Radius.circular(15))),
               builder: (_) => buidChangeCurrncy());
           setState(() {});
         },
         child: Container(
-            padding:const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             width: 100.w,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -500,7 +501,7 @@ if (!mounted) return;
           child: Icon(
             Icons.security,
             color: Colors.white,
-            size: 4.w,
+            size: 6.w,
           ),
         ),
         onTap: () {
@@ -524,7 +525,7 @@ if (!mounted) return;
             ),
             child: Image.asset(
               'assets/images/terms-1.png',
-              width: 4.w,
+              width: 6.w,
               color: cardcolor,
             )),
         //IconWidget(icon: Icons., color: Colors.green),
@@ -542,13 +543,13 @@ if (!mounted) return;
         subtitle: '',
         leading: Container(
             padding: const EdgeInsets.all(7),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: greencolor,
+              color: Color.fromRGBO(22, 208, 90, 1),
             ),
             child: Image.asset(
               'assets/images/whatsapp_PNG95182.png',
-              width: 4.w,
+              width: 6.w,
               color: cardcolor,
             )),
         //IconWidget(icon: Icons., color: Colors.green),

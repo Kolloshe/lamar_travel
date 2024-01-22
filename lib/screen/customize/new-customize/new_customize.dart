@@ -905,7 +905,6 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                                     .packagecustomiz
                                     .result
                                     .customizeId;
-
                                 try {
                                   await AssistantMethods.sectionManager(context,
                                       action: 'add', section: 'flight', cusID: customizeId);
@@ -1325,7 +1324,7 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                       child: ImageSpinning(
                     withOpasity: true,
                   )),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => Image.asset('assets/images/image.jpeg'),
                 ),
                 _spacer(3, 0),
                 Column(
@@ -1550,7 +1549,7 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                       children: [
                         Text(
                           AppLocalizations.of(context)!.transfer,
-                          style:const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+                          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
                         ),
                         const SizedBox(
                           height: 10,

@@ -233,6 +233,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
                             bookingList[i].transfer!.isNotEmpty
                                 ? Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       const Icon(MdiIcons.car),
                                       SizedBox(
@@ -241,6 +242,8 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
                                       SizedBox(
                                         width: 80.w,
                                         child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             for (var k = 0;
                                                 k < bookingList[i].transfer!.length;

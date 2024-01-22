@@ -118,7 +118,25 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           body: Container(
               padding: EdgeInsets.all(5),
               width: size.width,
-              child: isInTrans ? _buildInTrans() : _buildOutTrans()),
+              child:
+                  //  Expanded(
+                  //   child: ListView(
+                  //     padding: EdgeInsets.only(bottom: kBottomNavigationBarHeight),
+                  //     children: [
+                  //       for (var data in _transfer.data.dataIn) _buildTransferContainer(data, 'IN')
+                  //     ],
+                  //   ),
+                  // )
+                  isInTrans ? _buildInTrans() : _buildOutTrans()),
+          // bottomNavigationBar: Container(
+          //   color: cardcolor,
+          //   padding: EdgeInsets.symmetric(horizontal: 5),
+          //   child: ElevatedButton(
+          //     onPressed: () {},
+          //     style: ElevatedButton.styleFrom(backgroundColor: primaryblue),
+          //     child: Text('Select'),
+          //   ),
+          // ),
         ),
       ),
     );
@@ -300,9 +318,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                           maxLines: 3,
                                           softWrap: false,
                                         ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
+                                        SizedBox(width: 10),
                                         Text(
                                           _transfer.data.dataIn[index].priceDifference
                                                       .toString()
@@ -324,12 +340,10 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 3,
                                           softWrap: false,
-                                        ),
+                                        )
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
+                                    SizedBox(height: 5),
                                     // Row(
                                     //   children: [
                                     //     Text(
@@ -364,9 +378,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                     //     ),
                                     //   ],
                                     // ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
+                                    SizedBox(height: 5),
                                   ],
                                 ),
                               ),
@@ -675,7 +687,8 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                                                         '-'
                                                     ? Colors.red.shade400
                                                     : greencolor,
-                                                fontSize: subtitleFontSize,
+                                                fontSize: AdaptiveTextSize()
+                                                    .getadaptiveTextSize(context, 22),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               overflow: TextOverflow.ellipsis,
@@ -896,71 +909,84 @@ class _TransferCustomizeState extends State<TransferCustomize> {
           ),
         ],
       );
+
+  Map<String, In> selectedTransfer = {};
+  Widget _buildTransferContainer(In data, String direction) {
+    return GestureDetector(
+      onTap: () {
+        if (selectedTransfer.containsValue(data)) {
+          selectedTransfer.remove(direction);
+        } else {
+          selectedTransfer[direction] = data;
+        }
+        setState(() {});
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: cardcolor,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [shadow],
+            border: Border.all(
+                width: 1.2,
+                color: selectedTransfer.containsValue(data) ? greencolor : Colors.transparent)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CachedNetworkImage(
+              imageUrl: data.images,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 2.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "${data.name} ${data.serviceTypeName}",
+                  style: TextStyle(fontSize: subtitleFontSize.sp - 1, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+            SizedBox(height: 1.h),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                data.priceDifference.toString().substring(0, 1) != '-'
+                    ? '+ ${data.priceDifference} ${localizeCurrency(data.currency)}'
+                    : '${data.priceDifference} ${localizeCurrency(data.currency)}',
+                style: TextStyle(
+                  color: data.priceDifference.toString().substring(0, 1) != '-'
+                      ? Colors.red.shade400
+                      : greencolor,
+                  fontSize: subtitleFontSize,
+                  fontWeight: FontWeight.w500,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                softWrap: false,
+              ),
+            ),
+            SizedBox(height: 1.h),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "${data.totalAmount} ${data.currency}",
+                style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: greencolor,
+                    fontSize: subtitleFontSize.sp - 2),
+              ),
+            ),
+            SizedBox(height: 1.h)
+          ],
+        ),
+      ),
+    );
+  }
+
+  int getRightImageIndex(List<TransferImage> list) {
+    return list.length - 1;
+  }
 }
-
-  // Widget _buildTransferContainer(TransferData data, String direction) {
-  //   return GestureDetector(
-  //     onTap: () {
-  //       if (selectedTransfer.containsValue(data)) {
-  //         selectedTransfer.remove(direction);
-  //       } else {
-  //         selectedTransfer[direction] = data;
-  //       }
-  //       setState(() {});
-  //     },
-  //     child: Container(
-  //       margin: const EdgeInsets.symmetric(vertical: 5),
-  //       padding: const EdgeInsets.all(10),
-  //       decoration: BoxDecoration(
-  //           color: cardcolor,
-  //           borderRadius: BorderRadius.circular(10),
-  //           boxShadow: [shadow],
-  //           border: Border.all(
-  //               width: 1.2,
-  //               color: selectedTransfer.containsValue(data) ? greencolor : Colors.transparent)),
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.start,
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           CachedNetworkImage(
-  //             imageUrl: data.content.images[getRightImageIndex(data.content.images)].url,
-  //             fit: BoxFit.cover,
-  //           ),
-  //           SizedBox(height: 2.h),
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: [
-  //               Text(
-  //                 "${data.content.category.name} ${data.content.vehicle.name}",
-  //                 style: TextStyle(fontSize: subtitleFontSize.sp - 1, fontWeight: FontWeight.w600),
-  //               ),
-  //               Text(data.transferType),
-  //             ],
-  //           ),
-  //           SizedBox(height: 1.h),
-  //           for (var content in data.content.transferDetailInfo)
-  //             Text(
-  //               content.name,
-  //               style: TextStyle(color: inCardColor),
-  //             ),
-  //           SizedBox(height: 1.h),
-  //           Align(
-  //             alignment: Alignment.centerRight,
-  //             child: Text(
-  //               "${data.price.sellingAmount} ${data.price.sellingCurrency}",
-  //               style: TextStyle(
-  //                   fontWeight: FontWeight.w700,
-  //                   color: greencolor,
-  //                   fontSize: subtitleFontSize.sp - 2),
-  //             ),
-  //           ),
-  //           SizedBox(height: 1.h)
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // int getRightImageIndex(List<TransferImage> list) {
-  //   return list.length - 1;
-  // }
