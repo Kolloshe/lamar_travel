@@ -36,10 +36,9 @@ class _FlightDetialState extends State<FlightDetial> {
     super.initState();
   }
 
-  late Size size;
+  late Size size = MediaQuery.of(context).size;
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.1,
