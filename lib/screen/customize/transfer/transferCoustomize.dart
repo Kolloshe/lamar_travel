@@ -910,83 +910,83 @@ class _TransferCustomizeState extends State<TransferCustomize> {
         ],
       );
 
-  Map<String, In> selectedTransfer = {};
-  Widget _buildTransferContainer(In data, String direction) {
-    return GestureDetector(
-      onTap: () {
-        if (selectedTransfer.containsValue(data)) {
-          selectedTransfer.remove(direction);
-        } else {
-          selectedTransfer[direction] = data;
-        }
-        setState(() {});
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: cardcolor,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [shadow],
-            border: Border.all(
-                width: 1.2,
-                color: selectedTransfer.containsValue(data) ? greencolor : Colors.transparent)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CachedNetworkImage(
-              imageUrl: data.images,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(height: 2.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "${data.name} ${data.serviceTypeName}",
-                  style: TextStyle(fontSize: subtitleFontSize.sp - 1, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-            SizedBox(height: 1.h),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                data.priceDifference.toString().substring(0, 1) != '-'
-                    ? '+ ${data.priceDifference} ${localizeCurrency(data.currency)}'
-                    : '${data.priceDifference} ${localizeCurrency(data.currency)}',
-                style: TextStyle(
-                  color: data.priceDifference.toString().substring(0, 1) != '-'
-                      ? Colors.red.shade400
-                      : greencolor,
-                  fontSize: subtitleFontSize,
-                  fontWeight: FontWeight.w500,
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-                softWrap: false,
-              ),
-            ),
-            SizedBox(height: 1.h),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                "${data.totalAmount} ${data.currency}",
-                style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: greencolor,
-                    fontSize: subtitleFontSize.sp - 2),
-              ),
-            ),
-            SizedBox(height: 1.h)
-          ],
-        ),
-      ),
-    );
-  }
+  // Map<String, In> selectedTransfer = {};
+  // Widget _buildTransferContainer(In data, String direction) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       if (selectedTransfer.containsValue(data)) {
+  //         selectedTransfer.remove(direction);
+  //       } else {
+  //         selectedTransfer[direction] = data;
+  //       }
+  //       setState(() {});
+  //     },
+  //     child: Container(
+  //       margin: const EdgeInsets.symmetric(vertical: 5),
+  //       padding: const EdgeInsets.all(10),
+  //       decoration: BoxDecoration(
+  //           color: cardcolor,
+  //           borderRadius: BorderRadius.circular(10),
+  //           boxShadow: [shadow],
+  //           border: Border.all(
+  //               width: 1.2,
+  //               color: selectedTransfer.containsValue(data) ? greencolor : Colors.transparent)),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           CachedNetworkImage(
+  //             imageUrl: data.images,
+  //             fit: BoxFit.cover,
+  //           ),
+  //           SizedBox(height: 2.h),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Text(
+  //                 "${data.name} ${data.serviceTypeName}",
+  //                 style: TextStyle(fontSize: subtitleFontSize.sp - 1, fontWeight: FontWeight.w600),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 1.h),
+  //           Align(
+  //             alignment: Alignment.centerRight,
+  //             child: Text(
+  //               data.priceDifference.toString().substring(0, 1) != '-'
+  //                   ? '+ ${data.priceDifference} ${localizeCurrency(data.currency)}'
+  //                   : '${data.priceDifference} ${localizeCurrency(data.currency)}',
+  //               style: TextStyle(
+  //                 color: data.priceDifference.toString().substring(0, 1) != '-'
+  //                     ? Colors.red.shade400
+  //                     : greencolor,
+  //                 fontSize: subtitleFontSize,
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //               overflow: TextOverflow.ellipsis,
+  //               maxLines: 3,
+  //               softWrap: false,
+  //             ),
+  //           ),
+  //           SizedBox(height: 1.h),
+  //           Align(
+  //             alignment: Alignment.centerRight,
+  //             child: Text(
+  //               "${data.totalAmount} ${data.currency}",
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.w700,
+  //                   color: greencolor,
+  //                   fontSize: subtitleFontSize.sp - 2),
+  //             ),
+  //           ),
+  //           SizedBox(height: 1.h)
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  int getRightImageIndex(List<TransferImage> list) {
-    return list.length - 1;
-  }
+  // int getRightImageIndex(List<TransferImage> list) {
+  //   return list.length - 1;
+  // }
 }
