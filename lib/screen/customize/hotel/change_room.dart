@@ -136,7 +136,9 @@ class _ChangeRoomState extends State<ChangeRoom> {
                                                         alignment: Alignment.centerRight,
                                                         child: Row(
                                                           crossAxisAlignment:
-                                                              CrossAxisAlignment.start,
+                                                              CrossAxisAlignment.center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment.start,
                                                           children: [
                                                             Text(
                                                               '${AppLocalizations.of(context)!.packagePriceDifference}     ',
@@ -145,7 +147,7 @@ class _ChangeRoomState extends State<ChangeRoom> {
                                                                   color: Colors.grey,
                                                                   fontWeight: FontWeight.w600),
                                                             ),
-                                                            SizedBox(width: 1.w),
+                                                            SizedBox(width: 2.w),
                                                             Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment.end,
@@ -247,7 +249,6 @@ class _ChangeRoomState extends State<ChangeRoom> {
                                                                     CustomizeSlider.idScreen,
                                                                     (route) => false);
                                                           } catch (e) {
-
                                                             Navigator.of(context)
                                                                 .pushNamedAndRemoveUntil(
                                                                     CustomizeSlider.idScreen,
@@ -320,7 +321,8 @@ class _ChangeRoomState extends State<ChangeRoom> {
                                                           //   // );
                                                         },
                                                         style: ElevatedButton.styleFrom(
-                                                            fixedSize: Size(100.w, 3.h), backgroundColor: yellowColor),
+                                                            fixedSize: Size(100.w, 3.h),
+                                                            backgroundColor: yellowColor),
                                                         child: Text(
                                                           AppLocalizations.of(context)!.select,
                                                           style: TextStyle(
