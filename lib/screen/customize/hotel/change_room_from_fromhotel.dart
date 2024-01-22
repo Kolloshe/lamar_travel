@@ -1,4 +1,3 @@
-
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -46,7 +45,7 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
               Navigator.of(context).pop();
             },
             icon: Icon(
-              Provider.of<AppData>(context, listen: false).locale ==const Locale('en')
+              Provider.of<AppData>(context, listen: false).locale == const Locale('en')
                   ? Icons.keyboard_arrow_left
                   : Icons.keyboard_arrow_right,
               color: primaryblue,
@@ -54,7 +53,7 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
             )),
       ),
       body: Padding(
-        padding:const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: SizedBox(
           width: 100.w,
           height: 100.h,
@@ -79,7 +78,7 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                     borderRadius: BorderRadius.circular(15),
                                     color: cardcolor,
                                   ),
-                                  margin:const EdgeInsets.only(bottom: 1),
+                                  margin: const EdgeInsets.only(bottom: 1),
                                   //    height: size.height*0.10,
                                   alignment: Alignment.topLeft,
                                   child: Row(
@@ -87,22 +86,23 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         CachedNetworkImage(
-                                            imageUrl: widget.hotel.image,
-                                            height: 230.sp,
-                                            width: 40.w,
+                                          imageUrl: widget.hotel.image,
+                                          height: 230.sp,
+                                          width: 40.w,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) => const ImageSpinning(
+                                            withOpasity: true,
+                                          ),
+                                          errorWidget: (context, url, error) => Image.asset(
+                                            'assets/images/image.jpeg',
                                             fit: BoxFit.cover,
-                                            placeholder: (context, url) => const ImageSpinning(
-                                              withOpasity: true,
-                                            ),
-                                            errorWidget: (context, erorr, x) => SvgPicture.asset(
-                                                  'images/image-not-available.svg',
-                                                  color: Colors.grey,
-                                                )),
+                                          ),
+                                        ),
                                         SizedBox(
                                           width: 2.w,
                                         ),
                                         Container(
-                                          margin:const EdgeInsets.all(5),
+                                          margin: const EdgeInsets.all(5),
                                           width: 45.w,
                                           child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,16 +118,14 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                 widget.hotel.rooms[ind][i].roomTypeText == null
                                                     ? const SizedBox()
                                                     : SizedBox(height: 0.5.h),
-                                                Text(widget.hotel.rooms[ind][i].roomTypeText ??
-                                                    ''),
+                                                Text(widget.hotel.rooms[ind][i].roomTypeText ?? ''),
                                                 SizedBox(height: 0.5.h),
                                                 Text(
                                                   '${widget.hotel.rooms[ind][i].boardName}\n',
                                                   style: TextStyle(fontSize: detailsFontSize),
                                                 ),
 
-                                                Text(AppLocalizations.of(context)!
-                                                    .hotelFacilities),
+                                                Text(AppLocalizations.of(context)!.hotelFacilities),
                                                 Expanded(
                                                   child: ListView(
                                                     children: [
@@ -143,11 +141,9 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                                 fontSize: subtitleFontSize),
                                                             children: <TextSpan>[
                                                               TextSpan(
-                                                                  text:
-                                                                      widget.hotel.facilities[i],
+                                                                  text: widget.hotel.facilities[i],
                                                                   style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight.normal,
+                                                                      fontWeight: FontWeight.normal,
                                                                       fontSize: detailsFontSize)),
                                                             ],
                                                           ),
@@ -186,10 +182,8 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                                 widget.hotel.rooms[ind][0].type
                                                                     .toString(),
                                                                 style: TextStyle(
-                                                                    color: widget
-                                                                                .hotel
-                                                                                .rooms[ind][0]
-                                                                                .type
+                                                                    color: widget.hotel
+                                                                                .rooms[ind][0].type
                                                                                 .toString() ==
                                                                             '+'
                                                                         ? Colors.red
@@ -198,13 +192,10 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                                     fontWeight: FontWeight.bold),
                                                               ),
                                                               Text(
-                                                                '${widget.hotel.rooms[ind][0]
-                                                                        .amountChange}',
+                                                                '${widget.hotel.rooms[ind][0].amountChange}',
                                                                 style: TextStyle(
-                                                                    color: widget
-                                                                                .hotel
-                                                                                .rooms[ind][0]
-                                                                                .type
+                                                                    color: widget.hotel
+                                                                                .rooms[ind][0].type
                                                                                 .toString() ==
                                                                             '+'
                                                                         ? Colors.red
@@ -213,16 +204,10 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                                     fontWeight: FontWeight.bold),
                                                               ),
                                                               Text(
-                                                                ' ${localizeCurrency(widget
-                                                                        .hotel
-                                                                        .rooms[ind][0]
-                                                                        .sellingCurrency
-                                                                        .toString())}',
+                                                                ' ${localizeCurrency(widget.hotel.rooms[ind][0].sellingCurrency.toString())}',
                                                                 style: TextStyle(
-                                                                    color: widget
-                                                                                .hotel
-                                                                                .rooms[ind][0]
-                                                                                .type
+                                                                    color: widget.hotel
+                                                                                .rooms[ind][0].type
                                                                                 .toString() ==
                                                                             '+'
                                                                         ? Colors.red
@@ -240,7 +225,7 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                   alignment: Alignment.centerLeft,
                                                   child: GestureDetector(
                                                     onTap: () async {
-                                                   await AssistantMethods
+                                                      await AssistantMethods
                                                           .getCancellationPolicyForRoom(context,
                                                               cusID: context
                                                                   .read<AppData>()
@@ -273,8 +258,8 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                               widget.hotel;
 
                                                           // Map<String, dynamic> mohamed = {
-                                                            // "id": widget.hotel.id,
-                                                            // "selectedRoom": jeybin,
+                                                          // "id": widget.hotel.id,
+                                                          // "selectedRoom": jeybin,
                                                           // };
 
                                                           //  {
@@ -289,7 +274,6 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                           //  selectedHotile.selectedRoom = selectedroom;
                                                           selectedHotile.selectedRoom = jeybin;
 
-                                                     
                                                           //  print(selectedHotile.selectedRoom?.toJson());
                                                           var w = selectedHotile.toJson();
 
@@ -297,11 +281,9 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
 
                                                           splitHotelsReq.add(w);
 
-                                                
-                                                      
                                                           try {
-                                                            Map<String, dynamic>
-                                                                changesplithotel = {
+                                                            Map<String, dynamic> changesplithotel =
+                                                                {
                                                               "customizeId": Provider.of<AppData>(
                                                                       context,
                                                                       listen: false)
@@ -318,15 +300,15 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                             };
 
                                                             // Map<String, dynamic> saveddata = {
-                                                              // "customizeId": Provider.of<AppData>(
-                                                                      // context,
-                                                                      // listen: false)
-                                                                  // .packagecustomiz
-                                                                  // .result
-                                                                  // .customizeId,
-                                                              // "splitHotels": [mohamed],
-                                                              // "currency": gencurrency,
-                                                              // "language": "en"
+                                                            // "customizeId": Provider.of<AppData>(
+                                                            // context,
+                                                            // listen: false)
+                                                            // .packagecustomiz
+                                                            // .result
+                                                            // .customizeId,
+                                                            // "splitHotels": [mohamed],
+                                                            // "currency": gencurrency,
+                                                            // "language": "en"
                                                             // };
 
                                                             // String a = jsonEncode(saveddata);
@@ -336,8 +318,6 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                             await AssistantMethods.newchangehotel(
                                                                 context, changesplithotel);
 
-                                                
-
                                                             if (Provider.of<AppData>(context,
                                                                     listen: false)
                                                                 .isPreBookFailed) {
@@ -345,14 +325,14 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                               Navigator.of(context).pop();
                                                               Navigator.of(context).pop();
                                                               displayTostmessage(context, false,
-                                                                  message: AppLocalizations.of(
-                                                                          context)!
-                                                                      .hotelHasBeenChange);
+                                                                  message:
+                                                                      AppLocalizations.of(context)!
+                                                                          .hotelHasBeenChange);
                                                             } else {
                                                               displayTostmessage(context, false,
-                                                                  message: AppLocalizations.of(
-                                                                          context)!
-                                                                      .hotelHasBeenChange);
+                                                                  message:
+                                                                      AppLocalizations.of(context)!
+                                                                          .hotelHasBeenChange);
                                                               Navigator.of(context)
                                                                   .pushNamedAndRemoveUntil(
                                                                       CustomizeSlider.idScreen,
@@ -363,7 +343,8 @@ class _ChangeRoomFromHotelState extends State<ChangeRoomFromHotel> {
                                                           }
                                                         },
                                                         style: ElevatedButton.styleFrom(
-                                                            fixedSize: Size(100.w, 10.sp), backgroundColor: yellowColor),
+                                                            fixedSize: Size(100.w, 10.sp),
+                                                            backgroundColor: yellowColor),
                                                         child: Text(
                                                             AppLocalizations.of(context)!.select),
                                                       )

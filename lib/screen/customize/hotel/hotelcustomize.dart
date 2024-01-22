@@ -430,7 +430,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                               hId: customizpackage0
                                                                   .result.hotels[0].id,
                                                               star: "3");
-                                                              if (!mounted) return;
+                                                          if (!mounted) return;
                                                           Provider.of<AppData>(context,
                                                                   listen: false)
                                                               .gethotelstarefilter("3");
@@ -479,7 +479,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                               hId: customizpackage1
                                                                   .result.hotels[0].id,
                                                               star: "4");
-                                                              if (!mounted) return;
+                                                          if (!mounted) return;
                                                           Provider.of<AppData>(context,
                                                                   listen: false)
                                                               .gethotelstarefilter("4");
@@ -527,7 +527,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                               hId: customizpackage2
                                                                   .result.hotels[0].id,
                                                               star: "5");
-                                                              if (!mounted) return;
+                                                          if (!mounted) return;
                                                           Provider.of<AppData>(context,
                                                                   listen: false)
                                                               .gethotelstarefilter("5");
@@ -644,9 +644,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                     withOpasity: true,
                                                   )),
                                                   errorWidget: (context, url, error) => Image.asset(
-                                                    'assets/images/image-not-available.png',
-                                                    height: 60,
-                                                    width: 100,
+                                                    'assets/images/image.jpeg',
                                                     fit: BoxFit.cover,
                                                   ),
                                                 ),
@@ -685,10 +683,9 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                                                       height:
                                                                                           size.height *
                                                                                               0.5,
-                                                                                      placeholder:
-                                                                                          (context,
-                                                                                                  url) =>
-                                                                                              const Center(
+                                                                                      placeholder: (context,
+                                                                                              url) =>
+                                                                                          const Center(
                                                                                         child:
                                                                                             ImageSpinning(
                                                                                           withOpasity:
@@ -888,10 +885,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                        '${filtring[index].rooms[0][0].type}${filtring[index]
-                                                                .rooms[0][0]
-                                                                .amountChange} ${localizeCurrency(
-                                                                filtring[index].currency)}',
+                                                        '${filtring[index].rooms[0][0].type}${filtring[index].rooms[0][0].amountChange} ${localizeCurrency(filtring[index].currency)}',
                                                         style: TextStyle(
                                                             color:
                                                                 filtring[index].rooms[0][0].type ==
@@ -911,7 +905,8 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                       ),
                                                       ElevatedButton(
                                                         style: ElevatedButton.styleFrom(
-                                                            fixedSize: Size(45.w, 5.h), backgroundColor: yellowColor),
+                                                            fixedSize: Size(45.w, 5.h),
+                                                            backgroundColor: yellowColor),
                                                         onPressed: () async {
                                                           Navigator.of(context).push(
                                                               MaterialPageRoute(
@@ -1014,7 +1009,8 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                   imageUrl: filtring[index].image,
                                                   height: size.height * 0.10,
                                                   width: 100,
-                                                  placeholder: (context, url) => const LoadingWidgetMain(),
+                                                  placeholder: (context, url) =>
+                                                      const LoadingWidgetMain(),
                                                   errorWidget: (context, erorr, x) =>
                                                       SvgPicture.asset(
                                                         'images/image-not-available.svg',
@@ -1024,8 +1020,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                   margin: const EdgeInsets.all(5),
                                                   width: 140,
                                                   child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
                                                           filtring[index].rooms[ind][i].name,
@@ -1037,9 +1032,8 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                                   .getadaptiveTextSize(
                                                                       context, 20)),
                                                         ),
-                                                        Text('${filtring[index]
-                                                                .rooms[ind][i]
-                                                                .boardName}\n\n'),
+                                                        Text(
+                                                            '${filtring[index].rooms[ind][i].boardName}\n\n'),
                                                         //   Text('\n\n'+hotles.response[index].rooms[ind][0].rateKey+'\n\n'),
                                                       ]))
                                             ])),
@@ -1069,9 +1063,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                       fontWeight: FontWeight.bold),
                                                 ),
                                                 Text(
-                                                  ' ${filtring[index]
-                                                          .rooms[ind][0]
-                                                          .amountChange}',
+                                                  ' ${filtring[index].rooms[ind][0].amountChange}',
                                                   style: TextStyle(
                                                       color: filtring[index]
                                                                   .rooms[ind][0]
@@ -1124,12 +1116,11 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                           //  selectedHotile.selectedRoom = selectedroom;
                                           selectedHotile.selectedRoom = jeybin;
 
-                                    
                                           //  print(selectedHotile.selectedRoom?.toJson());
                                           var w = selectedHotile.toJson();
                                           List x = [];
                                           x.add(w);
-                                     
+
                                           Map<String, dynamic> saveddata = {
                                             "customizeId":
                                                 Provider.of<AppData>(context, listen: false)
@@ -1142,7 +1133,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                           };
 
                                           String a = jsonEncode(saveddata);
-                                   
+
                                           await AssistantMethods.saveHotel(a, context);
                                           // await AssistantMethods.updatethepackage(
                                           //     Provider.of<AppData>(context, listen: false)
@@ -1156,7 +1147,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                   .result
                                                   .customizeId,
                                               context);
-                                     
+
                                           // Navigator.of(context).push(
                                           //   MaterialPageRoute(
                                           //     builder: (context) => CustomizePackage(),
@@ -1164,7 +1155,8 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                           // );
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            fixedSize: const Size(160, 45), backgroundColor: yellowColor),
+                                            fixedSize: const Size(160, 45),
+                                            backgroundColor: yellowColor),
                                         child: const Text('Select'),
                                       ),
                                     ],
