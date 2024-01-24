@@ -216,10 +216,12 @@ class _ActivityListState extends State<ActivityList> {
                                               withOpasity: true,
                                             ),
                                           ),
-                                          errorWidget: (context, url, error) => Image.asset(
-                                            'assets/images/image-not-available.png',
-                                            width: size.width * 0.4,
-                                          ),
+                                          errorWidget: (context, url, error) {
+                                            return Image.asset(
+                                              'assets/images/image-not-available.png',
+                                              width: size.width * 0.4,
+                                            );
+                                          },
                                         ),
                                       ),
                                       Container(

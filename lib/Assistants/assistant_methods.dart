@@ -3186,7 +3186,7 @@ class AssistantMethods {
       'currency': 'SAR',
       'paymentType': 'DB',
       'merchantTransactionId': merchantTransactionId,
-      'testMode': 'EXTERNAL'
+      // 'testMode': 'EXTERNAL'
     };
     fields.addAll(data);
     request.bodyFields = fields;
@@ -3215,7 +3215,9 @@ class AssistantMethods {
     };
 
     var request = http.Request('GET', Uri.parse(url));
-    request.bodyFields = {'entityId': entityId[paymentBrand] ?? '', 'testMode': 'EXTERNAL'};
+    request.bodyFields = {
+      'entityId': entityId[paymentBrand] ?? '' //, 'testMode': 'EXTERNAL'
+    };
 
     request.headers.addAll(headers);
 
@@ -3285,7 +3287,7 @@ class AssistantMethods {
     request.bodyFields = {
       "entityId": entityId[paymentBrand] ?? "",
       "paymentType": "RV",
-      'testMode': testMode
+     // 'testMode': testMode
     };
 
     request.headers.addAll(headers);

@@ -70,6 +70,10 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
       _customizpackage.result.activities.forEach((key, value) {
         actvitis.addAll(value);
       });
+
+      if (actvitis.isNotEmpty) {
+        actvitis.sort(((a, b) => a.activityDate.compareTo(b.activityDate)));
+      }
     } catch (e) {
       actvitis.add(Activity(
           name: AppLocalizations.of(context)!.errorNoActivities,
@@ -94,6 +98,7 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
           prebook: 1,
           images: []));
     }
+
     if (!_customizpackage.result.nohotels) {
       DateTime checkIn = _customizpackage.result.hotels[0].checkIn;
       DateTime checkOut = _customizpackage.result.hotels[0].checkOut;
@@ -1671,109 +1676,111 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                         endIndent: 20,
                         indent: 20,
                       ),
-                      Text(
-                        AppLocalizations.of(context)!.toAirport,
-                        style: TextStyle(fontSize: titleFontSize),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CachedNetworkImage(
-                              imageUrl: _customizpackage.result.transfer[1].image,
-                              height: 120,
-                              width: 120,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => const Center(
-                                      child: ImageSpinning(
-                                    withOpasity: true,
-                                  )),
-                              errorWidget: (context, url, error) => Image.asset(
-                                    'assets/images/image-not-available.png',
-                                    height: 150,
-                                    width: 120,
-                                    fit: BoxFit.cover,
-                                  )),
-                          Container(
-                            width: 45.w,
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.type,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
-                                ),
-                                Text(
-                                  "${_customizpackage.result.transfer[1].serviceTypeName} ${_customizpackage.result.transfer[1].vehicleTypeName}",
-                                  style: TextStyle(
-                                    fontSize: detailsFontSize,
+                      if (_customizpackage.result.transfer.length > 1) ...[
+                        Text(
+                          AppLocalizations.of(context)!.toAirport,
+                          style: TextStyle(fontSize: titleFontSize),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CachedNetworkImage(
+                                imageUrl: _customizpackage.result.transfer[1].image,
+                                height: 120,
+                                width: 120,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => const Center(
+                                        child: ImageSpinning(
+                                      withOpasity: true,
+                                    )),
+                                errorWidget: (context, url, error) => Image.asset(
+                                      'assets/images/image-not-available.png',
+                                      height: 150,
+                                      width: 120,
+                                      fit: BoxFit.cover,
+                                    )),
+                            Container(
+                              width: 45.w,
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.type,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  softWrap: false,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.dates,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
-                                ),
-                                Text(
-                                  _customizpackage.result.transfer[1].date.isNotEmpty
-                                      ? _customizpackage.result.transfer[1].date
-                                      : DateFormat('y-MM-dd')
-                                          .format(_customizpackage.result.packageEnd),
-                                  style: TextStyle(fontSize: detailsFontSize),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  softWrap: false,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.pickup,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: subtitleFontSize,
+                                  Text(
+                                    "${_customizpackage.result.transfer[1].serviceTypeName} ${_customizpackage.result.transfer[1].vehicleTypeName}",
+                                    style: TextStyle(
+                                      fontSize: detailsFontSize,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    softWrap: false,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  softWrap: false,
-                                ),
-                                Text(
-                                  _customizpackage.result.transfer[1].pickUpLocation,
-                                  style: TextStyle(
-                                    fontSize: detailsFontSize,
+                                  Text(
+                                    AppLocalizations.of(context)!.dates,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  softWrap: false,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.dropOff,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: subtitleFontSize,
+                                  Text(
+                                    _customizpackage.result.transfer[1].date.isNotEmpty
+                                        ? _customizpackage.result.transfer[1].date
+                                        : DateFormat('y-MM-dd')
+                                            .format(_customizpackage.result.packageEnd),
+                                    style: TextStyle(fontSize: detailsFontSize),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    softWrap: false,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  softWrap: false,
-                                ),
-                                Text(
-                                  _customizpackage.result.transfer[1].dropOffLocation,
-                                  style: TextStyle(
-                                    fontSize: detailsFontSize,
+                                  Text(
+                                    AppLocalizations.of(context)!.pickup,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: subtitleFontSize,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    softWrap: false,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  softWrap: false,
-                                ),
-                                const SizedBox(height: 20),
-                              ],
+                                  Text(
+                                    _customizpackage.result.transfer[1].pickUpLocation,
+                                    style: TextStyle(
+                                      fontSize: detailsFontSize,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    softWrap: false,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.dropOff,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: subtitleFontSize,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    softWrap: false,
+                                  ),
+                                  Text(
+                                    _customizpackage.result.transfer[1].dropOffLocation,
+                                    style: TextStyle(
+                                      fontSize: detailsFontSize,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    softWrap: false,
+                                  ),
+                                  const SizedBox(height: 20),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ]
                     ],
                   ),
                 )

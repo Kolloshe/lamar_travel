@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:lamar_travel_packages/screen/customize/hotel/hotel_gallary.dart';
 import 'package:lamar_travel_packages/screen/individual_services/ind_packages_screen.dart';
 import 'package:lamar_travel_packages/screen/packages_screen.dart';
 
@@ -653,6 +654,19 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                   right: 0.0,
                                                   child: InkWell(
                                                     onTap: () {
+                                                      Map<int, String> gallaryImage = {};
+                                                      for (int i = 0;
+                                                          i < filtring[index].imgAll.length;
+                                                          i++) {
+                                                        gallaryImage.putIfAbsent(
+                                                            i, () => filtring[index].imgAll[i].src);
+                                                      }
+
+                                                      // Navigator.of(context).push(MaterialPageRoute(
+                                                      //     builder: (context) => HotelGallary(
+                                                      //           images: gallaryImage,
+                                                      //         )));
+
                                                       CarouselController buttonCarouselController =
                                                           CarouselController();
                                                       showDialog(
@@ -884,24 +898,33 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                     mainAxisAlignment: MainAxisAlignment.end,
                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
-                                                      Text(
-                                                        '${filtring[index].rooms[0][0].type}${filtring[index].rooms[0][0].amountChange} ${localizeCurrency(filtring[index].currency)}',
-                                                        style: TextStyle(
-                                                            color:
-                                                                filtring[index].rooms[0][0].type ==
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            AppLocalizations.of(context)!
+                                                                .packagePriceDifference,
+                                                            style: TextStyle(
+                                                                color: footerbuttoncolor,
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: detailsFontSize),
+                                                          ),
+                                                          Text(
+                                                            '${filtring[index].rooms[0][0].type}${filtring[index].rooms[0][0].amountChange} ${localizeCurrency(filtring[index].currency)}',
+                                                            style: TextStyle(
+                                                                color: filtring[index]
+                                                                            .rooms[0][0]
+                                                                            .type ==
                                                                         '-'
                                                                     ? greencolor
                                                                     : Colors.redAccent,
-                                                            fontSize: subtitleFontSize,
-                                                            fontWeight: FontWeight.bold),
-                                                      ),
-                                                      Text(
-                                                        AppLocalizations.of(context)!
-                                                            .packagePriceDifference,
-                                                        style: TextStyle(
-                                                            color: footerbuttoncolor,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: detailsFontSize),
+                                                                fontSize: subtitleFontSize,
+                                                                fontWeight: FontWeight.bold),
+                                                          ),
+                                                        ],
                                                       ),
                                                       ElevatedButton(
                                                         style: ElevatedButton.styleFrom(
