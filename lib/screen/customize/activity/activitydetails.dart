@@ -87,7 +87,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
             ),
             SizedBox(height: 1.h),
             SizedBox(
-                height: 65.h,
+                height: 60.h,
                 child: SingleChildScrollView(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   const SizedBox(height: 10),
