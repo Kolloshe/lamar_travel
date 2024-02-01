@@ -73,14 +73,14 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
       if (context.read<AppData>().searchMode.contains('activity')) {
       } else if (dateRangePickerController.selectedRange!.startDate!
           .isAtSameMomentAs(dateRangePickerController.selectedRange!.endDate!)) {
-         displayTostmessage(context, true,
+        displayTostmessage(context, true,
             message: AppLocalizations.of(context)!.errorSelectAtLeastNumOfDays("3"),
             isInformation: true);
       }
       setState(() {
         if (args.value is PickerDateRange) {
-          _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} - ${DateFormat('dd/MM/yyyy')
-                  .format(args.value.endDate ?? args.value.startDate)}';
+          _range =
+              '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} - ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
         } else if (args.value is DateTime) {
           _selectedDate = args.value.toString();
         } else if (args.value is List<DateTime>) {
@@ -133,9 +133,10 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
     getPreDataForPrivetJet();
 
     _locale = Provider.of<AppData>(context, listen: false).locale;
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-    _animation =
-        Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0)).animate(_animationController);
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    _animation = Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
+        .animate(_animationController);
 
     if (searchMode.isEmpty &&
         context.read<AppData>().newSearchFirstDate != null &&
@@ -492,8 +493,7 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
           controller: dateRangePickerController,
 
           //    enableMultiView: true,
-          onViewChanged: (v) {
-          },
+          onViewChanged: (v) {},
           onSubmit: (v) {
             //
           },
@@ -507,7 +507,8 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
           selectionShape: DateRangePickerSelectionShape.circle,
           headerStyle: DateRangePickerHeaderStyle(
               textStyle: TextStyle(
-                  color: Colors.black, fontFamily: _locale == const Locale('en') ? 'Lato' : 'Bhaijaan')),
+                  color: Colors.black,
+                  fontFamily: _locale == const Locale('en') ? 'Lato' : 'Bhaijaan')),
           monthCellStyle: DateRangePickerMonthCellStyle(
               textStyle: const TextStyle(
                 color: Colors.black,
@@ -704,6 +705,7 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
 
               if (date != null) {
                 roundTripDepartureDate = date;
+
                 setState(() {});
               }
             },
@@ -781,7 +783,8 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           GestureDetector(
             onTap: () async {
-              final date = await _showRoundDatePicker(roundTripDepartureDate, roundTripReturnDate);
+              final date = await _showRoundDatePicker(roundTripDepartureDate, roundTripReturnDate,
+                  newInitialDate: roundTripDepartureDate);
 
               if (date != null) {
                 roundTripReturnDate = date;
@@ -900,7 +903,8 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
     }
   }
 
-  Future<DateTime?> _showRoundDatePicker(DateTime limit, DateTime initialDate) async {
+  Future<DateTime?> _showRoundDatePicker(DateTime limit, DateTime initialDate,
+      {DateTime? newInitialDate}) async {
     final DateTime? data = await showDatePicker(
         context: context,
         selectableDayPredicate: (date) {
@@ -910,7 +914,7 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
             return false;
           }
         },
-        initialDate: initialDate,
+        initialDate: newInitialDate ?? initialDate,
         firstDate: DateTime.now(),
         lastDate: DateTime(DateTime.now().year + 10));
     if (data != null) {

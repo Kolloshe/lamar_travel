@@ -223,7 +223,7 @@ class _CitiesPayloadState extends State<CitiesPayload> with SingleTickerProvider
                                                         overflow: TextOverflow.ellipsis,
                                                         style: TextStyle(
                                                             fontWeight: FontWeight.w500,
-                                                            fontSize: 12.sp),
+                                                            fontSize: 11.sp),
                                                       ),
                                                     ),
                                                     Text(
@@ -719,7 +719,7 @@ class _RechagethefromCitiyState extends State<RechagethefromCitiy>
                                                     overflow: TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                         fontWeight: FontWeight.w500,
-                                                        fontSize: 12.sp),
+                                                        fontSize: 11.sp),
                                                   ),
                                                 ),
                                                 Text(

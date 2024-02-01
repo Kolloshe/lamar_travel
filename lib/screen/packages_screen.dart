@@ -958,14 +958,19 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                                   const SizedBox(
                                                                     width: 2,
                                                                   ),
-                                                                  Text(
-                                                                    ' ${packagesList[index].flights!.name}',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            const AdaptiveTextSize()
-                                                                                .getadaptiveTextSize(
-                                                                                    context, 24)),
-                                                                    maxLines: 1,
+                                                                  SizedBox(
+                                                                    width: 40.w,
+                                                                    child: Text(
+                                                                      ' ${packagesList[index].flights!.name}',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              const AdaptiveTextSize()
+                                                                                  .getadaptiveTextSize(
+                                                                                      context, 24)),
+                                                                      maxLines: 1,
+                                                                      overflow:
+                                                                          TextOverflow.ellipsis,
+                                                                    ),
                                                                   )
                                                                 ],
                                                               )

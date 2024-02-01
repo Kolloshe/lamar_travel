@@ -28,7 +28,7 @@ class _HotelGallaryState extends State<HotelGallary> {
                 onPageChanged: (value) {
                   index = value;
                   bottonController.animateTo(index.toDouble() * 83,
-                      duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+                      duration:const Duration(seconds: 1), curve: Curves.fastOutSlowIn);
                   setState(() {});
                 },
                 children: [

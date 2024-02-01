@@ -2,8 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:lamar_travel_packages/Assistants/assistant_methods.dart';
+ import 'package:lamar_travel_packages/Assistants/assistant_methods.dart';
 import 'package:lamar_travel_packages/Datahandler/app_data.dart';
 import 'package:lamar_travel_packages/Model/changehotel.dart' as model;
 import 'package:lamar_travel_packages/screen/customize/new-customize/new_customize_slider.dart';

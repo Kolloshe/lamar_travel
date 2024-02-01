@@ -1000,7 +1000,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
               children: [
                 Text(
                   "${data.name} ${data.serviceTypeName}",
-                  style: TextStyle(fontSize: subtitleFontSize.sp - 1, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: subtitleFontSize.sp - 2, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
@@ -1030,7 +1030,7 @@ class _TransferCustomizeState extends State<TransferCustomize> {
                 "${data.totalAmount} ${data.currency}",
                 style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    color: greencolor,
+                    color: blackTextColor,
                     fontSize: subtitleFontSize.sp - 2),
               ),
             ),

@@ -1166,7 +1166,7 @@ displayTostmessage(BuildContext context, bool isError,
           alignment: Alignment.topCenter,
           duration: const Duration(seconds: 3),
           isCircle: false,
-        )
+        ).show(context)
       : !isError
           ? AchievementView(
               title: '',
@@ -1182,7 +1182,7 @@ displayTostmessage(BuildContext context, bool isError,
               alignment: Alignment.topCenter,
               duration: const Duration(seconds: 3),
               isCircle: false,
-            )
+            ).show(context)
           : AchievementView(
               title: "",
               subTitle: message,

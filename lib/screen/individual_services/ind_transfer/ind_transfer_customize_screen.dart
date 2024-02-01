@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lamar_travel_packages/Assistants/assistant_methods.dart';
@@ -131,6 +132,8 @@ class _IndTransferCustomizeScreenState extends State<IndTransferCustomizeScreen>
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            CachedNetworkImage(imageUrl: data.image),
+            SizedBox(height: 1.h),
             SizedBox(
                 width: 100.w,
                 child: Row(
@@ -172,26 +175,28 @@ class _IndTransferCustomizeScreenState extends State<IndTransferCustomizeScreen>
             SizedBox(height: 1.h),
             const Divider(),
             SizedBox(height: 1.h),
+            _buildTitle(AppLocalizations.of(context)!.carDetails),
+            SizedBox(height: 0.5.h),
+            SizedBox(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text("${data.serviceTypeName} ${data.productTypeName} ${data.vehicleTypeName}"),
+              ]),
+            ),
+            SizedBox(height: 1.h),
             _buildTitle(AppLocalizations.of(context)!.pickupInformation),
             SizedBox(height: 0.5.h),
             ReadMoreText(
-              data.pickupInformation,
+              data.pickupInformation.startsWith('\n')
+                  ? data.pickupInformation.replaceFirst('\n', '')
+                  : data.pickupInformation,
               style: const TextStyle(color: Colors.black),
               trimLines: 2,
               colorClickableText: Colors.pink,
               trimMode: TrimMode.Line,
               trimCollapsedText: AppLocalizations.of(context)!.showMore,
               trimExpandedText: AppLocalizations.of(context)!.showLess,
-              moreStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-            ),
-            SizedBox(height: 1.h),
-            _buildTitle(AppLocalizations.of(context)!.carDetails),
-            SizedBox(height: 0.5.h),
-            SizedBox(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                    "${data.serviceTypeName} ${data.productTypeName} ${data.vehicleTypeName}"),
-              ]),
+              moreStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: primaryblue),
+              lessStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: primaryblue),
             ),
             SizedBox(height: 1.h),
             data.waitingInfo.isNotEmpty
@@ -210,7 +215,7 @@ class _IndTransferCustomizeScreenState extends State<IndTransferCustomizeScreen>
                     ],
                   )
                 : const SizedBox(),
-            data.waitingInfo.isNotEmpty
+            data.generalInformation.isNotEmpty
                 ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     SizedBox(height: 1.h),
                     _buildTitle(AppLocalizations.of(context)!.generalInformation),

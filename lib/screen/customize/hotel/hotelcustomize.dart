@@ -6,8 +6,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:lamar_travel_packages/screen/customize/hotel/hotel_gallary.dart';
-import 'package:lamar_travel_packages/screen/individual_services/ind_packages_screen.dart';
+ import 'package:lamar_travel_packages/screen/individual_services/ind_packages_screen.dart';
 import 'package:lamar_travel_packages/screen/packages_screen.dart';
 
 import 'package:sizer/sizer.dart';

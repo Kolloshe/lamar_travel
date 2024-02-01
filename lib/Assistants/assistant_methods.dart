@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:lamar_travel_packages/Assistants/assistant_data.dart';
@@ -2703,7 +2704,7 @@ class AssistantMethods {
 
   static Future<bool> makeTransferSearch(BuildContext context, String data) async {
     String url = '${baseUrl.replaceFirst('v1', 'v2')}transfer/search';
-
+    print(url);
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -2728,7 +2729,7 @@ class AssistantMethods {
   }
 
   static Future<IndTransferCustomizeModel?> indTransferCustomize(String id) async {
-    String url = baseUrl + 'holiday/customize?package_id=$id';
+    String url = baseUrl + 'holiday/customize?package_id=$id&currency=$gencurrency';
 
     var request = http.Request('GET', Uri.parse(url));
 
@@ -3287,7 +3288,7 @@ class AssistantMethods {
     request.bodyFields = {
       "entityId": entityId[paymentBrand] ?? "",
       "paymentType": "RV",
-     // 'testMode': testMode
+      // 'testMode': testMode
     };
 
     request.headers.addAll(headers);
