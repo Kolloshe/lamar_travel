@@ -137,6 +137,7 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
                               style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w600)),
                         ],
                       )),
+                  SizedBox(height: 1.h),
                   Wrap(
                     children: [
                       for (int i = 0; i < defaultSelectedRoom.length; i++)
@@ -269,10 +270,14 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
           }
         },
         child: Container(
-          width: 20.w,
+          padding: const EdgeInsets.all(5),
+          width: 30.w,
           // height: 25.w,
           margin: const EdgeInsets.all(5),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: primaryblue),
+          ),
           child: Column(
             children: [
               ClipRRect(
@@ -282,10 +287,12 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
+              SizedBox(height: 0.5.h),
               SizedBox(
                 child: Text(
                   '${room.name} ${room.boardName}',
-                  style: TextStyle(fontSize: 8.sp),
+                  style: TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
                 ),
               )
             ],
@@ -396,10 +403,15 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
                                       if (result != null) {
                                       } else {
                                         if (!mounted) return;
-                                        displayTostmessage(context, false, message: '');
+                                        displayTostmessage(context, false,
+                                            message:
+                                                "Canclation information is't available right now");
                                       }
                                     },
-                                    child: const Text('Cancellation policy'),
+                                    child: Text(
+                                      'Cancellation policy',
+                                      style: TextStyle(fontSize: 10.sp),
+                                    ),
                                   ),
                                 )
                               ],
@@ -613,8 +625,11 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
                   placeholder: (context, url) => const ImageSpinning(
                     withOpasity: true,
                   ),
-                  errorWidget: (context, erorr, x) => Image.asset('assets/images/image.jpeg',
-                      fit: BoxFit.cover, width: 100.w, height: 40.h),
+                  errorWidget: (context, erorr, x) => ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset('assets/images/image.jpeg',
+                        fit: BoxFit.cover, width: 100.w, height: 40.h),
+                  ),
                 ),
               )
               .toList(),

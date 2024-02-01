@@ -1,4 +1,3 @@
-
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, unused_local_variable
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -89,7 +88,7 @@ class _IndActivityItemsState extends State<IndActivityItems> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(5).copyWith(top: 0),
+             
               width: size.width,
               color: cardcolor,
               child: Row(
@@ -103,7 +102,7 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                         ? CachedNetworkImage(
                             imageUrl: widget.list[widget.index]!.image,
                             fit: BoxFit.cover,
-                            width: size.width * 0.4,
+                            width: size.width / 2.4,
                             height: activityList.length == 1 ? 20.h : 25.h,
                             placeholder: (context, url) => const Center(
                               child: ImageSpinning(
@@ -130,8 +129,7 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                           width: size.width / 2.4,
                           child: Text(
                             widget.list[widget.index]!.name == 'No Avtivity'
-                                ? AppLocalizations.of(context)!
-                                    .pressAddActivityButtonToAddActivity
+                                ? AppLocalizations.of(context)!.pressAddActivityButtonToAddActivity
                                 : widget.list[widget.index]!.name,
 
                             // widget.index == 0
@@ -145,8 +143,8 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                             overflow: TextOverflow.ellipsis,
                             softWrap: false,
                             maxLines: 5,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
+                            style:
+                                TextStyle(fontWeight: FontWeight.w600, fontSize: subtitleFontSize),
                           ),
                         ),
                         SizedBox(
@@ -176,17 +174,15 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                           ),
                                           ElevatedButton(
                                             onPressed: () async {
-                                                                                pressIndcatorDialog(context);
+                                              pressIndcatorDialog(context);
 
                                               // Navigator.of(context)
                                               //     .pushNamed(MiniLoader.idScreen);
                                               Provider.of<AppData>(context, listen: false)
-                                                  .getActivityDat(
-                                                      widget.list[widget.index]!.day);
+                                                  .getActivityDat(widget.list[widget.index]!.day);
                                               await AssistantMethods.getActivityList(context,
                                                   searchId: widget.activitys.result.searchId,
-                                                  customizeId:
-                                                      widget.activitys.result.customizeId,
+                                                  customizeId: widget.activitys.result.customizeId,
                                                   activityDay: widget.list[widget.index]!.day,
                                                   currency: gencurrency);
                                               Navigator.of(context)
@@ -209,10 +205,9 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                           activityList.length == 1
                                               ? ElevatedButton(
                                                   onPressed: () async {
-                                                    String date =
-                                                        DateFormat('yyyy-MM-dd', genlang)
-                                                            .format(widget.list[widget.index]!
-                                                                .activityDate);
+                                                    String date = DateFormat('yyyy-MM-dd', genlang)
+                                                        .format(widget
+                                                            .list[widget.index]!.activityDate);
 
                                                     await AssistantMethods.removeOneActivity(
                                                         context,
@@ -236,8 +231,7 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                                         rateKey: "rateKey",
                                                         day: widget.index,
                                                         activityDateDisplay: '',
-                                                        activityDestination:
-                                                            "activityDestination",
+                                                        activityDestination: "activityDestination",
                                                         image: "image",
                                                         description: "description",
                                                         prebook: 1,
@@ -248,8 +242,7 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                                     backgroundColor: yellowColor,
                                                   ),
                                                   child: Text(
-                                                      AppLocalizations.of(context)!
-                                                          .removeActivity,
+                                                      AppLocalizations.of(context)!.removeActivity,
                                                       style: const TextStyle(
                                                           color: Colors.black,
                                                           fontWeight: FontWeight.normal)),
@@ -259,9 +252,9 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                       )
                                     : ElevatedButton(
                                         onPressed: () async {
-                                                                            pressIndcatorDialog(context);
+                                          pressIndcatorDialog(context);
 
-                                       //   Navigator.of(context).pushNamed(MiniLoader.idScreen);
+                                          //   Navigator.of(context).pushNamed(MiniLoader.idScreen);
                                           Provider.of<AppData>(context, listen: false)
                                               .getActivityDat(widget.list[widget.index]!.day);
 
@@ -358,15 +351,14 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                         onPressed: () async {
                                           Provider.of<AppData>(context, listen: false)
                                               .getActivityDat(widget.list[widget.index]!.day);
-                                                                      pressIndcatorDialog(context);
+                                          pressIndcatorDialog(context);
 
-                                       //   Navigator.pushNamed(context, MiniLoader.idScreen);
+                                          //   Navigator.pushNamed(context, MiniLoader.idScreen);
 
                                           try {
                                             await AssistantMethods.getActivityList(context,
                                                 searchId: widget.activitys.result.searchId,
-                                                customizeId:
-                                                    widget.activitys.result.customizeId,
+                                                customizeId: widget.activitys.result.customizeId,
                                                 activityDay: widget.list[widget.index]!.day,
                                                 currency: gencurrency);
                                             Navigator.pop(context);
@@ -384,15 +376,13 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                                 context: context,
                                                 builder: (context) => const Errordislog().error(
                                                     context,
-                                                    AppLocalizations.of(context)!
-                                                        .errorHappened));
+                                                    AppLocalizations.of(context)!.errorHappened));
                                           }
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: yellowColor,
                                         ),
-                                        child: Text(
-                                            AppLocalizations.of(context)!.changeActivity,
+                                        child: Text(AppLocalizations.of(context)!.changeActivity,
                                             style: TextStyle(
                                                 color: Colors.black.withAlpha(195),
                                                 fontWeight: FontWeight.normal)),
@@ -444,8 +434,7 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: yellowColor,
                                         ),
-                                        child: Text(
-                                            AppLocalizations.of(context)!.removeActivity,
+                                        child: Text(AppLocalizations.of(context)!.removeActivity,
                                             style: TextStyle(
                                                 color: Colors.black.withAlpha(195),
                                                 fontWeight: FontWeight.normal)),
@@ -466,10 +455,8 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                                   Provider.of<AppData>(context, listen: false)
                                                       .getActivityDat(
                                                           widget.list[widget.index]!.day);
-                                                  await AssistantMethods.getActivityList(
-                                                      context,
-                                                      searchId:
-                                                          widget.activitys.result.searchId,
+                                                  await AssistantMethods.getActivityList(context,
+                                                      searchId: widget.activitys.result.searchId,
                                                       customizeId:
                                                           widget.activitys.result.customizeId,
                                                       activityDay: widget.index,
@@ -485,15 +472,15 @@ class _IndActivityItemsState extends State<IndActivityItems> {
                                                 ),
                                                 child: Text(
                                                   AppLocalizations.of(context)!.addActivity,
-                                                  style: TextStyle(
-                                                      color: Colors.black.withAlpha(195)),
+                                                  style:
+                                                      TextStyle(color: Colors.black.withAlpha(195)),
                                                 ),
                                               )
                                     : ElevatedButton(
                                         onPressed: () async {
-                                                                            pressIndcatorDialog(context);
+                                          pressIndcatorDialog(context);
 
-                                       //   Navigator.of(context).pushNamed(MiniLoader.idScreen);
+                                          //   Navigator.of(context).pushNamed(MiniLoader.idScreen);
                                           Provider.of<AppData>(context, listen: false)
                                               .getActivityDat(widget.list[widget.index]!.day);
                                           await AssistantMethods.getActivityList(context,
@@ -601,14 +588,15 @@ class _IndActivityItemsState extends State<IndActivityItems> {
     if (widget.activitys.result.flight != null) {
       int maxAllowedtime = 17;
 
-      int time = int.parse(widget.activitys.result.flight!.to?.departureTime??'00'.substring(0, 2));
+      int time =
+          int.parse(widget.activitys.result.flight!.to?.departureTime ?? '00'.substring(0, 2));
       if (time < maxAllowedtime) {
         text =
-            "${AppLocalizations.of(context)!.estimatedDepartureTime} ${widget.activitys.result.flight!.to?.departureTime??0}  Hrs  ${AppLocalizations.of(context)!.wouldYouLikeToBookAnyActivity}  ";
+            "${AppLocalizations.of(context)!.estimatedDepartureTime} ${widget.activitys.result.flight!.to?.departureTime ?? 0}  Hrs  ${AppLocalizations.of(context)!.wouldYouLikeToBookAnyActivity}  ";
         return true;
       } else {
         text =
-            "${AppLocalizations.of(context)!.estimatedDepartureTime}  ${widget.activitys.result.flight!.to?.departureTime??0}   Hrs ${AppLocalizations.of(context)!.youWonBeAbleAnyActivityDay} ";
+            "${AppLocalizations.of(context)!.estimatedDepartureTime}  ${widget.activitys.result.flight!.to?.departureTime ?? 0}   Hrs ${AppLocalizations.of(context)!.youWonBeAbleAnyActivityDay} ";
         return false;
       }
     } else {
@@ -622,7 +610,8 @@ class _IndActivityItemsState extends State<IndActivityItems> {
     if (widget.activitys.result.flight != null) {
       int maxAllowedtime = 16;
 
-      int time = int.parse(widget.activitys.result.flight!.to?.departureTime??"00".substring(0, 2));
+      int time =
+          int.parse(widget.activitys.result.flight!.to?.departureTime ?? "00".substring(0, 2));
       if (time > maxAllowedtime) {
         if (widget.list.last!.name == 'No Avtivity') {
           text =
@@ -631,11 +620,11 @@ class _IndActivityItemsState extends State<IndActivityItems> {
           text = widget.list.last!.name;
         }
         text =
-            "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime??"00"}  Hrs Would you like to book any activity on that day? ";
+            "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime ?? "00"}  Hrs Would you like to book any activity on that day? ";
         return text;
       } else {
         text =
-            "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime??'0'}   Hrs You won't be able to book any activity on that day.";
+            "Your estimated departure time is on ${widget.activitys.result.flight!.to?.departureTime ?? '0'}   Hrs You won't be able to book any activity on that day.";
         return text;
       }
     } else {

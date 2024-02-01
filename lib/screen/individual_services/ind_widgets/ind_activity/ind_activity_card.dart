@@ -144,9 +144,9 @@ class _IndManageActivityState extends State<IndManageActivity> {
                         children: const [
                           // currentState(
                           //     'Customize', context, ManageActivity.idScreen),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
                           // Text(
                           //   'Manage your daily activities',
                           //   style: TextStyle(
@@ -162,9 +162,9 @@ class _IndManageActivityState extends State<IndManageActivity> {
                     ),
                     ////+++++++++++++++++++++++++++++++++++++++ACTIVITY CONTANT+++++++++++++++++++++++++++++++++++++++++
 
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
 
                     InkWell(
                       child: Container(
@@ -216,7 +216,7 @@ class _IndManageActivityState extends State<IndManageActivity> {
                           context.read<AppData>().toggleHasQuestions(
                               await AssistantMethods.getActivityQuestions(
                                   context, _activitys.result.customizeId));
-                                     if (!mounted) return;
+                          if (!mounted) return;
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => PreBookStepper(
                                     isFromNavBar: true,
@@ -269,7 +269,8 @@ class _IndManageActivityState extends State<IndManageActivity> {
         print(formattedDate);
       }
       for (var i = 0; i <= daysBetween(); i++) {
-        nameDayList.add('${fir.add(Duration(days: i)).day} ${DateFormat('MMM', genlang).format(fir.add(Duration(days: i)))}');
+        nameDayList.add(
+            '${fir.add(Duration(days: i)).day} ${DateFormat('MMM', genlang).format(fir.add(Duration(days: i)))}');
         activityDaysList.add(numberofday);
         numberofday++;
       }
@@ -280,7 +281,8 @@ class _IndManageActivityState extends State<IndManageActivity> {
         print(formattedDate);
       }
       for (var i = 0; i <= _activitys.result.packageDays; i++) {
-        nameDayList.add('${DateFormat('MMM', genlang).format(fir.add(Duration(days: i)))} ${fir.add(Duration(days: i)).day}');
+        nameDayList.add(
+            '${DateFormat('MMM', genlang).format(fir.add(Duration(days: i)))} ${fir.add(Duration(days: i)).day}');
         activityDaysList.add(numberofday);
         numberofday++;
       }

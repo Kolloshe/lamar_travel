@@ -64,6 +64,7 @@ import 'package:lamar_travel_packages/widget/maintnancmode.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import '../Model/change_transfer.dart';
 import '../Model/individual_services_model/indv_packages_listing_model.dart';
@@ -2969,17 +2970,22 @@ class AssistantMethods {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).maybePop();
-                              },
-                              child: Icon(Icons.cancel, color: primaryblue))),
-                      Text(
-                        'Cancellation Policy',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 16, color: primaryblue),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Cancellation Policy',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 11.sp, color: primaryblue),
+                          ),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).maybePop();
+                                  },
+                                  child: Icon(Icons.cancel, color: primaryblue))),
+                        ],
                       ),
                       const SizedBox(height: 10),
                       for (int k = 0; k < roomCancellationPolicy.data.length; k++)

@@ -974,15 +974,14 @@ class _SumAndPayState extends State<SumAndPay> {
             showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.cancellationPolicy
-                          //   'Current cancellation amount is $gencurrency ${canceliation!.data.total}'
-                          ),
+                      title: Text(
+                        AppLocalizations.of(context)!.cancellationPolicy,
+                        style: TextStyle(fontSize: subtitleFontSize.sp),
+                      ),
                       content: Text(
                         AppLocalizations.of(context)!.currentRefundableAmount(
                             canceliation!.data.total.toString(),
                             localizeCurrency(canceliation.data.currency.toString())),
-                        //  'Current Refundable amount is ${canceliation!.data.total}  ${canceliation.data.currency}  and it mat change depending on the time of cancellation'
-                        //   'Above cancellation charge is applicable now and it may vary depending on the time of cancellation.',
                         textAlign: TextAlign.start,
                       ),
                       actions: [
@@ -992,7 +991,10 @@ class _SumAndPayState extends State<SumAndPay> {
                             },
                             child: Text(
                               AppLocalizations.of(context)!.close,
-                              style: TextStyle(color: primaryblue, fontSize: titleFontSize),
+                              style: TextStyle(
+                                  color: primaryblue,
+                                  fontSize: subtitleFontSize.sp - 2,
+                                  fontWeight: FontWeight.w600),
                             ))
                       ],
                     ));
@@ -1246,7 +1248,7 @@ class _SumAndPayState extends State<SumAndPay> {
                             width: 80.w,
                             child: Text(
                               package.result.transfer.isNotEmpty
-                                  ? package.result.transfer[0].serviceTypeName
+                                  ? "${package.result.transfer[0].productTypeName} ${package.result.transfer[0].serviceTypeName} ${package.result.transfer[0].vehicleTypeName}"
                                   : '',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,

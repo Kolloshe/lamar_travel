@@ -83,7 +83,6 @@ class _IndividualPackagesScreenState extends State<IndividualPackagesScreen>
     super.initState();
     getData();
     containtHeight = 75.h;
-
   }
 
   double searchHeight = 0.0;
@@ -185,9 +184,7 @@ class _IndividualPackagesScreenState extends State<IndividualPackagesScreen>
               child: Column(
                 children: [
                   Text(
-                    '${DateFormat('EEE, dd MMM').format(
-                            DateFormat('dd/MM/y').parse(indvData!.data.searchData.packageStart))} - ${DateFormat('EEE, dd MMM').format(
-                            DateFormat('dd/MM/y').parse(indvData!.data.searchData.packageEnd))}',
+                    '${DateFormat('EEE, dd MMM').format(DateFormat('dd/MM/y').parse(indvData!.data.searchData.packageStart))} - ${DateFormat('EEE, dd MMM').format(DateFormat('dd/MM/y').parse(indvData!.data.searchData.packageEnd))}',
                     style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.w600),
                   ),
                   indvData!.data.searchMode.contains('flight')
@@ -213,6 +210,7 @@ class _IndividualPackagesScreenState extends State<IndividualPackagesScreen>
                   child: indvData?.data.activityOnly ?? false
                       ? hundelView(indvData!.data.searchMode, 0)
                       : ListView.builder(
+                          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                           itemCount: indvData != null && indvData!.data.packages.isNotEmpty
                               ? indvData?.data.packages.length ?? 1
                               : 1,
@@ -374,9 +372,9 @@ class _IndividualPackagesScreenState extends State<IndividualPackagesScreen>
                         onTap: () async {
                           gencurrency = currencyapi[i];
                           try {
-                                                              pressIndcatorDialog(context);
+                            pressIndcatorDialog(context);
 
-                          //  Navigator.pushNamed(context, MiniLoader.idScreen);
+                            //  Navigator.pushNamed(context, MiniLoader.idScreen);
                             await AssistantMethods.changeCurranceylanguage(
                                 context, {"currency": gencurrency}, 'currency');
 
@@ -388,9 +386,9 @@ class _IndividualPackagesScreenState extends State<IndividualPackagesScreen>
                                 context);
                             Navigator.of(context).pushReplacementNamed(PackagesScreen.idScreen);
                           } catch (e) {
-                                                              pressIndcatorDialog(context);
+                            pressIndcatorDialog(context);
 
-                          //  Navigator.pushNamed(context, MiniLoader.idScreen);
+                            //  Navigator.pushNamed(context, MiniLoader.idScreen);
                             await AssistantMethods.updatePakagewithcurruncy(
                                 Provider.of<AppData>(context, listen: false)
                                     .mainsarchForPackage
@@ -535,16 +533,14 @@ class _IndividualPackagesScreenState extends State<IndividualPackagesScreen>
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
                 ),
-                child: Text(
-                    '${AppLocalizations.of(context)!.min}\n${_lowerValue.round()}'),
+                child: Text('${AppLocalizations.of(context)!.min}\n${_lowerValue.round()}'),
               ),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
                 ),
-                child: Text(
-                    '${AppLocalizations.of(context)!.max}\n${_upperValue.round()}'),
+                child: Text('${AppLocalizations.of(context)!.max}\n${_upperValue.round()}'),
               ),
             ],
           ),
@@ -854,16 +850,14 @@ class _IndividualPackagesScreenState extends State<IndividualPackagesScreen>
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
                   ),
-                  child: Text(
-                      '${AppLocalizations.of(context)!.min}\n${_lowerValue.round()}'),
+                  child: Text('${AppLocalizations.of(context)!.min}\n${_lowerValue.round()}'),
                 ),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
                   ),
-                  child: Text(
-                      '${AppLocalizations.of(context)!.max}\n${_upperValue.round()}'),
+                  child: Text('${AppLocalizations.of(context)!.max}\n${_upperValue.round()}'),
                 ),
               ],
             ),

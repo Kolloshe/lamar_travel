@@ -33,20 +33,21 @@ class _IndHotelCardState extends State<IndHotelCard> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(boxShadow: [
-        BoxShadow(color: Colors.grey.shade200, offset: const Offset(3, 3), spreadRadius: 2, blurRadius: 5)
+        BoxShadow(
+            color: Colors.grey.shade200, offset: const Offset(3, 3), spreadRadius: 2, blurRadius: 5)
       ], borderRadius: BorderRadius.circular(10), color: Colors.white),
       width: 100.w,
-      height: 38.h,
+      height: 40.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: 100.w,
-            height: 15.h,
+            height: 22.h,
             child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               child: CachedNetworkImage(
                 imageUrl: data!.image,
                 fit: BoxFit.cover,
@@ -156,7 +157,7 @@ class _IndHotelCardState extends State<IndHotelCard> {
                           onPressed: () async {
                             await AssistantMethods.customizingPackage(
                                 context, widget.packageIndv.id);
-   if (!mounted) return;
+                            if (!mounted) return;
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => IndHotelDetailsScreen(
                                     data: data,

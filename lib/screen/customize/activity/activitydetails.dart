@@ -65,31 +65,25 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(2),
-              height: 19.h,
-              width: 100.w,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  imageUrl: widget.activity != null ? activity.image : activityListData.image,
-                  placeholder: (context, url) => const Center(
-                    child: LoadingWidgetMain(),
+        child: ListView(
+           children: [
+             Container(
+                    padding: const EdgeInsets.all(2),
+                    height: 25.h,
+                    width: 100.w,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: widget.activity != null ? activity.image : activityListData.image,
+                        placeholder: (context, url) => const Center(
+                          child: LoadingWidgetMain(),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            Image.asset('assets/images/image-not-available.png'),
+                      ),
+                    ),
                   ),
-                  errorWidget: (context, url, error) =>
-                      Image.asset('assets/images/image-not-available.png'),
-                ),
-              ),
-            ),
-            SizedBox(height: 1.h),
-            SizedBox(
-                height: 60.h,
-                child: SingleChildScrollView(
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   const SizedBox(height: 10),
                   RichText(
                     // textAlign: TextAlign.left,
@@ -175,8 +169,118 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
                     ),
                   ),
                   SizedBox(height: 3.h)
-                ]))),
-          ],
+                
+            // SizedBox(
+            //     height: 95.h,
+            //     child: SingleChildScrollView(
+            //         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            //          children: [
+            //       Container(
+            //         padding: const EdgeInsets.all(2),
+            //         height: 25.h,
+            //         width: 100.w,
+            //         child: ClipRRect(
+            //           borderRadius: BorderRadius.circular(8),
+            //           child: CachedNetworkImage(
+            //             fit: BoxFit.cover,
+            //             imageUrl: widget.activity != null ? activity.image : activityListData.image,
+            //             placeholder: (context, url) => const Center(
+            //               child: LoadingWidgetMain(),
+            //             ),
+            //             errorWidget: (context, url, error) =>
+            //                 Image.asset('assets/images/image-not-available.png'),
+            //           ),
+            //         ),
+            //       ),
+            //       const SizedBox(height: 10),
+            //       RichText(
+            //         // textAlign: TextAlign.left,
+            //         text: TextSpan(
+            //           text: '${AppLocalizations.of(context)!.activityName} : ',
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.bold,
+            //             color: blackTextColor,
+            //             fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+            //                     const Locale('en')
+            //                 ? 'Lato'
+            //                 : 'Bhaijaan',
+            //           ),
+            //           children: <TextSpan>[
+            //             TextSpan(
+            //                 text: widget.activity != null
+            //                     ? "${activity.name}\n"
+            //                     : '${activityListData.name}\n',
+            //                 style: TextStyle(
+            //                   fontWeight: FontWeight.normal,
+            //                   fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+            //                           const Locale('en')
+            //                       ? 'Lato'
+            //                       : 'Bhaijaan',
+            //                 )),
+            //           ],
+            //         ),
+            //       ),
+            //       widget.activity != null
+            //           ? RichText(
+            //               textAlign: TextAlign.justify,
+            //               text: TextSpan(
+            //                 text: '${AppLocalizations.of(context)!.activityDate} : ',
+            //                 style: TextStyle(
+            //                   fontWeight: FontWeight.bold,
+            //                   color: blackTextColor,
+            //                   fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+            //                           const Locale('en')
+            //                       ? 'Lato'
+            //                       : 'Bhaijaan',
+            //                 ),
+            //                 children: <TextSpan>[
+            //                   TextSpan(
+            //                       text: '${activity.activityDateDisplay}\n',
+            //                       style: TextStyle(
+            //                         fontWeight: FontWeight.normal,
+            //                         fontFamily:
+            //                             Provider.of<AppData>(context, listen: false).locale ==
+            //                                     const Locale('en')
+            //                                 ? 'Lato'
+            //                                 : 'Bhaijaan',
+            //                       )),
+            //                 ],
+            //               ),
+            //             )
+            //           : const SizedBox(),
+            //       RichText(
+            //         textAlign: TextAlign.left,
+            //         text: TextSpan(
+            //           text: '${AppLocalizations.of(context)!.description}:',
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.bold,
+            //             color: blackTextColor,
+            //             fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+            //                     const Locale('en')
+            //                 ? 'Lato'
+            //                 : 'Bhaijaan',
+            //           ),
+            //           children: <TextSpan>[
+            //             TextSpan(
+            //                 text: widget.activity != null
+            //                     ? " ${activity.description}"
+            //                     : "  ${activityListData.content}\n",
+            //                 style: TextStyle(
+            //                   height: 1.5,
+            //                   fontWeight: FontWeight.normal,
+            //                   fontFamily: Provider.of<AppData>(context, listen: false).locale ==
+            //                           const Locale('en')
+            //                       ? 'Lato'
+            //                       : 'Bhaijaan',
+            //                 )),
+            //           ],
+            //         ),
+            //       ),
+            //       SizedBox(height: 3.h)
+            //     ]))),
+         
+         
+         ],
         ),
       ),
     );
