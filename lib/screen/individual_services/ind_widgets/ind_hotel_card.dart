@@ -14,8 +14,8 @@ import 'package:lamar_travel_packages/widget/googlemap-dialog.dart';
 import 'package:lamar_travel_packages/widget/image_spinnig.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-import '../../../widget/street_view.dart' as street;
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
+ import '../../../widget/street_view.dart' as street;
 
 class IndHotelCard extends StatefulWidget {
   const IndHotelCard({Key? key, required this.packageIndv, required this.id}) : super(key: key);
@@ -146,12 +146,13 @@ class _IndHotelCardState extends State<IndHotelCard> {
                           style: TextStyle(color: Colors.grey, fontSize: 10.sp),
                         ),
                         Consumer<AppData>(
-                            builder: (context, val, child) => SmoothStarRating(
-                                isReadOnly: true,
-                                rating: widget.packageIndv.hotelStar.toDouble(),
-                                size: 15,
-                                color: yellowColor,
-                                borderColor: yellowColor))
+                            builder: (context, val, child) => IgnorePointer(
+                              child: SmoothStarRating(
+                                   rating: widget.packageIndv.hotelStar.toDouble(),
+                                  size: 15,
+                                  color: yellowColor,
+                                  borderColor: yellowColor),
+                            ))
                       ]),
                       ElevatedButton(
                           onPressed: () async {

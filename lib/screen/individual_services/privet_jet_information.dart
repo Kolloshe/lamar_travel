@@ -13,6 +13,7 @@ import 'package:lamar_travel_packages/screen/customize/new-customize/new_customi
 import 'package:lamar_travel_packages/screen/main_screen1.dart';
 import 'package:lamar_travel_packages/widget/individual_products/ind_user_input_field.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:provider/provider.dart';

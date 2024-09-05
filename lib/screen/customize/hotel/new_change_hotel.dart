@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lamar_travel_packages/Model/newchangehotel.dart';
 import 'package:lamar_travel_packages/screen/customize/hotel/new_change_room.dart';
 
@@ -10,8 +11,8 @@ import 'package:sizer/sizer.dart';
 
 import 'package:lamar_travel_packages/screen/customize/new-customize/new_customize_slider.dart';
 import 'package:intl/intl.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
+ 
 import '../../../Assistants/assistant_methods.dart';
 import '../../../Datahandler/app_data.dart';
 import '../../../config.dart';
@@ -703,12 +704,13 @@ class _NewHotelCustomizeState extends State<NewHotelCustomize> {
                                               maxLines: 2,
                                             ),
                                           ),
-                                          SmoothStarRating(
-                                            isReadOnly: true,
-                                            allowHalfRating: false,
-                                            rating: double.parse(filtring[index].starRating),
-                                            borderColor: yellowColor,
-                                            color: yellowColor,
+                                          IgnorePointer(
+                                            child: SmoothStarRating(
+                                               allowHalfRating: false,
+                                              rating: double.parse(filtring[index].starRating),
+                                              borderColor: yellowColor,
+                                              color: yellowColor,
+                                            ),
                                           ),
                                           SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.5,

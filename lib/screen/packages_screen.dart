@@ -17,7 +17,7 @@ import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 
 //import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+ import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
 import '../Assistants/assistant_methods.dart';
 
@@ -814,19 +814,20 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                         ),
                                                         const SizedBox(height: 3),
                                                         packagesList[index].hotelName != ''
-                                                            ? SmoothStarRating(
-                                                                isReadOnly: true,
-                                                                borderColor: yellowColor,
-                                                                allowHalfRating: true,
-                                                                starCount: 5,
-                                                                size: 16,
-                                                                filledIconData: Icons.star_rate,
-                                                                defaultIconData: Icons.star_outline,
-                                                                color: yellowColor,
-                                                                rating: packagesList[index]
-                                                                    .hotelStar
-                                                                    .toDouble(),
-                                                              )
+                                                            ? IgnorePointer(
+                                                              child: SmoothStarRating(
+                                                                   borderColor: yellowColor,
+                                                                  allowHalfRating: true,
+                                                                  starCount: 5,
+                                                                  size: 16,
+                                                                  filledIconData: Icons.star_rate,
+                                                                  defaultIconData: Icons.star_outline,
+                                                                  color: yellowColor,
+                                                                  rating: packagesList[index]
+                                                                      .hotelStar
+                                                                      .toDouble(),
+                                                                ),
+                                                            )
                                                             : const SizedBox(),
                                                         const SizedBox(height: 3),
                                                         packagesList[index].hotelName != ''
@@ -1033,11 +1034,11 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                                                         Row(
                                                           children: [
                                                             packagesList[index].transfer.isNotEmpty
-                                                                ? const Icon(MdiIcons.car, size: 18)
+                                                                ?   Icon(MdiIcons.car, size: 18)
                                                                 : packagesList[index]
                                                                             .responseFrom ==
                                                                         'inital_request'
-                                                                    ? const Icon(MdiIcons.car,
+                                                                    ?   Icon(MdiIcons.car,
                                                                         size: 18)
                                                                     : const SizedBox(),
                                                             const SizedBox(width: 2),
@@ -2297,7 +2298,7 @@ class _PackagesScreenState extends State<PackagesScreen> with SingleTickerProvid
                       //CHILD
                       Row(
                         children: [
-                          const Icon(
+                            Icon(
                             MdiIcons.humanFemaleBoy,
                             color: Colors.grey,
                           ),

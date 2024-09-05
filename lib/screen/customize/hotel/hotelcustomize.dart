@@ -18,8 +18,8 @@ import 'package:lamar_travel_packages/screen/customize/new-customize/new_customi
 import 'package:intl/intl.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
+ 
 import '../../../Assistants/assistant_methods.dart';
 import '../../../Datahandler/adaptive_texts_size.dart';
 import '../../../Datahandler/app_data.dart';
@@ -824,8 +824,7 @@ class _HotelCustomizeState extends State<HotelCustomize> {
                                                   ),
                                                 ),
                                                 SmoothStarRating(
-                                                  isReadOnly: true,
-                                                  allowHalfRating: false,
+                                                   allowHalfRating: false,
                                                   rating: double.parse(filtring[index].starRating),
                                                   borderColor: yellowColor,
                                                   color: yellowColor,

@@ -159,6 +159,7 @@ class AssistantMethods {
 
     if (response.statusCode != 200) {
     } else {
+      log(response.body);
       payload = payloadFromJson(response.body);
       //
       Provider.of<AppData>(context, listen: false).gitcities(payload.payload);
@@ -2702,6 +2703,7 @@ class AssistantMethods {
       return null;
     }
   }
+
 
   static Future<bool> makeTransferSearch(BuildContext context, String data) async {
     String url = '${baseUrl.replaceFirst('v1', 'v2')}transfer/search';

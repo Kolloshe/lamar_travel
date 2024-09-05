@@ -1,6 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/tooltip/tooltip.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:lamar_travel_packages/Datahandler/app_data.dart';
 import 'package:lamar_travel_packages/Model/mainsearch.dart';

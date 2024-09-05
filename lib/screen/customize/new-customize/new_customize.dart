@@ -5,6 +5,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lamar_travel_packages/Assistants/assistant_methods.dart';
 import 'package:lamar_travel_packages/Datahandler/app_data.dart';
 import 'package:lamar_travel_packages/Model/customizpackage.dart';
@@ -34,8 +35,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
+ 
 import '../../main_screen1.dart';
 
 class NewCustomizePage extends StatefulWidget {
@@ -1345,12 +1346,13 @@ class _NewCustomizePageState extends State<NewCustomizePage> {
                       maxLines: 5,
                     ),
                     const SizedBox(height: 5),
-                    SmoothStarRating(
-                      isReadOnly: true,
-                      rating: double.parse(hotel.starRating),
-                      color: yellowColor,
-                      allowHalfRating: false,
-                      borderColor: yellowColor,
+                    IgnorePointer(
+                      child: SmoothStarRating(
+                         rating: double.parse(hotel.starRating),
+                        color: yellowColor,
+                        allowHalfRating: false,
+                        borderColor: yellowColor,
+                      ),
                     ),
                     const SizedBox(height: 5),
                     InkWell(

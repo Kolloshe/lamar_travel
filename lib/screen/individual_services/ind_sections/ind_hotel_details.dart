@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -23,7 +24,7 @@ import 'package:provider/src/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+ import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
 import '../../main_screen1.dart';
 
@@ -101,12 +102,14 @@ class _IndHotelDetailsScreenState extends State<IndHotelDetailsScreen> {
                           data!.name,
                           style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w600),
                         ),
-                        SmoothStarRating(
-                            rating: double.parse(data?.starRating ?? '0'),
-                            isReadOnly: true,
-                            borderColor: yellowColor,
-                            color: yellowColor,
-                            size: 15),
+                        IgnorePointer(
+                          child: SmoothStarRating(
+                              rating: double.parse(data?.starRating ?? '0'),
+                           
+                              borderColor: yellowColor,
+                              color: yellowColor,
+                              size: 15),
+                        ),
                       ],
                     ),
                   ),

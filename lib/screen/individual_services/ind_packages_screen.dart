@@ -3,6 +3,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/tooltip/tooltip.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:lamar_travel_packages/tab_screen_controller.dart';
 import 'package:intl/intl.dart';

@@ -17,25 +17,26 @@ class Payload {
     required this.code,
   });
 
-  bool status;
+  bool? status;
   List<PayloadElement> payload;
   String message;
-  DateTime completedAt;
-  int code;
+  DateTime? completedAt;
+  int? code;
 
   factory Payload.fromJson(Map<String, dynamic> json) => Payload(
-        status: json["status"],
+        status: json["status"] ?? true,
         payload: List<PayloadElement>.from(json["payload"].map((x) => PayloadElement.fromJson(x))),
-        message: json["message"],
-        completedAt: DateTime.parse(json["completed_at"]),
-        code: json["code"],
+        message: json["message"] ?? "",
+        completedAt:
+            json.containsKey('completed_at') ? DateTime.tryParse(json["completed_at"]) : null,
+        code: json["code"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "payload": List<dynamic>.from(payload.map((x) => x.toJson())),
         "message": message,
-        "completed_at": completedAt.toIso8601String(),
+        "completed_at": completedAt?.toIso8601String(),
         "code": code,
       };
 }

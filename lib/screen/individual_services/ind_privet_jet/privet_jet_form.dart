@@ -1,5 +1,6 @@
 // ignore_for_file: implementation_imports, library_private_types_in_public_api
 
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_number_picker/flutter_number_picker.dart';
@@ -12,8 +13,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:time_picker_sheet/widget/sheet.dart';
-import 'package:time_picker_sheet/widget/time_picker.dart';
 
 import '../../../config.dart';
 import '../../main_screen1.dart';
@@ -30,6 +29,8 @@ class _PrivetJetFormState extends State<PrivetJetForm> {
   TripType? _tripType = TripType.one;
   int pax = 1;
   PrivetJetCategoryModel? privetJetCategories;
+
+  Time _time = Time(hour: 12, minute: 00);
 
   @override
   void initState() {
@@ -100,25 +101,42 @@ class _PrivetJetFormState extends State<PrivetJetForm> {
               SizedBox(height: 2.h),
               SizedBox(child: Text('Departure Time', style: TextStyle(fontSize: 12.sp))),
               InkWell(
-                onTap: () async {
-                  final data = await TimePicker.show(
-                    context: context,
-                    sheet: TimePickerSheet(
-                      sheetTitle: 'Select departure Time',
-                      hourTitle: 'Hour',
-                      minuteTitle: 'Minute',
-                      saveButtonText: 'Save',
-                      minuteInterval: 1,
-                      sheetCloseIconColor: primaryblue,
-                      minuteTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-                      hourTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-                      wheelNumberSelectedStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-                      saveButtonColor: primaryblue,
+                onTap: () {
+                  DateTime? data;
+                  Navigator.of(context).push(
+                    showPicker(
+                      context: context,
+                      value: _time,
+                      sunrise: const TimeOfDay(hour: 6, minute: 0), // optional
+                      sunset: const TimeOfDay(hour: 18, minute: 0), // optional
+                      duskSpanInMinutes: 120, // optional
+                      onChange: (v) {},
+                      onChangeDateTime: (time) {
+                        data = time;
+                      },
                     ),
                   );
-                  if (kDebugMode) {
-                    print(data);
-                  }
+
+                  setState(() {});
+
+                  // final data = await TimePicker.show(
+                  //   context: context,
+                  //   sheet: TimePickerSheet(
+                  //     sheetTitle: 'Select departure Time',
+                  //     hourTitle: 'Hour',
+                  //     minuteTitle: 'Minute',
+                  //     saveButtonText: 'Save',
+                  //     minuteInterval: 1,
+                  //     sheetCloseIconColor: primaryblue,
+                  //     minuteTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+                  //     hourTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+                  //     wheelNumberSelectedStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+                  //     saveButtonColor: primaryblue,
+                  //   ),
+                  // );
+                  // if (kDebugMode) {
+                  //   print(data);
+                  // }
                   //showTimePicker(context: context, initialTime: TimeOfDay.now());
                   // showDatePicker(context: context,
                   //     initialDate: DateTime.now(),

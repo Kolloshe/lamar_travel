@@ -38,18 +38,18 @@ dependencies:
   flutter_localizations:
    sdk: flutter
   flutter_number_picker: ^1.0.4
-  intl: ^0.17.0
-  http: ^0.13.3
+  intl: ^0.18.1
+  http: ^1.2.1
   provider: ^6.0.1
-  smooth_star_rating: 1.1.1
-  cached_network_image: ^3.1.0
+  smooth_star_rating_null_safety: ^1.0.4+2
+  cached_network_image: ^3.3.1
   carousel_slider: ^4.1.1
   url_launcher: ^6.0.9
-  lottie: ^1.4.3
+  lottie: ^2.7.0
   webview_flutter: ^2.0.10
   flutter_html: ^2.1.1
   flutter_svg: ^0.22.0
-  flutter_form_builder: ^7.7.0
+  flutter_form_builder: ^9.2.1
   material_dialogs: ^1.1.3
   font_awesome_flutter: ^9.1.0
   flutter_settings_screens: ^0.3.2-null-safety
@@ -60,42 +60,42 @@ dependencies:
   #flutter_mrz_scanner: any
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  material_design_icons_flutter: ^5.0.6295
-  permission_handler: ^10.2.0
+  material_design_icons_flutter: ^7.0.7296
+  permission_handler: ^11.3.0
   shared_preferences: ^2.0.7
   flutter_google_street_view: ^3.1.1
   google_maps_flutter: ^2.0.9
-  syncfusion_flutter_pdfviewer: ^20.3.50
+  syncfusion_flutter_pdfviewer: ^24.2.8
   readmore: ^2.1.0
-  rive: ^0.9.1
-  country_code_picker: ^2.0.2
-  data_connection_checker: ^0.3.4
-  syncfusion_flutter_datepicker: ^20.3.50
+  rive: ^0.12.4
+  country_code_picker: ^3.0.0
+  internet_connection_checker: ^1.0.0+1
+  syncfusion_flutter_datepicker: ^24.2.8
   google_nav_bar: ^5.0.5
   custom_navigation_bar: ^0.8.2
-  flutter_icons: ^1.1.0
+ # flutter_icons: ^1.1.0
   dotted_border: ^2.0.0+1
   pull_to_refresh: ^2.0.0
   flutter_styled_toast: ^2.1.3
-  onesignal_flutter: ^3.4.1
+  #onesignal_flutter: ^5.1.0
   flutter_signin_button: ^2.0.0
   #flutter_facebook_auth: ^4.4.1+1
   #facebook_app_events: ^0.17.1
-  sign_in_with_apple: ^4.1.0
-  google_sign_in: ^5.1.0
+  sign_in_with_apple: ^5.0.0
+  google_sign_in: ^6.2.1
   achievement_view: ^1.0.0
   firebase_dynamic_links: ^5.0.1
   firebase_core: ^2.0.0
   share_plus: ^7.0.2
   flutter_screenshot_callback: ^0.0.8
-  slide_countdown: ^0.3.4
-  time_picker_sheet: 0.0.2+1
+  slide_countdown: ^1.5.2
   email_validator: ^2.0.1
-  package_info_plus: ^3.0.1
-  syncfusion_flutter_sliders: ^20.3.50
-  another_xlider: ^1.1.2
+  package_info_plus: ^4.2.0
+  syncfusion_flutter_sliders: ^24.2.8
+  another_xlider: ^3.0.2
   palette_generator: ^0.3.3
   hyperpay_plugin: ^2.0.3
+  day_night_time_picker: ^1.3.0+1
 
 
 dev_dependencies:
@@ -107,8 +107,8 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
-  flutter_launcher_icons: ^0.10.0
+  flutter_lints: ^3.0.1
+  flutter_launcher_icons: ^0.11.0
 
 
 flutter_icons:

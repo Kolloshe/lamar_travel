@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:firebase_core/firebase_core.dart';
@@ -30,7 +28,6 @@ import 'package:lamar_travel_packages/widget/flight_details_from_customize.dart'
 import 'package:lamar_travel_packages/widget/loading.dart';
 import 'package:lamar_travel_packages/widget/mini_loader_widget.dart';
 import 'package:lamar_travel_packages/widget/pdfpage.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:provider/provider.dart';
@@ -51,17 +48,14 @@ void main() async {
     genlang = loclaFromLocal;
   }
   packageInfo = await PackageInfo.fromPlatform();
-  runApp(
-    
-    
-    const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-   _MyAppState createState() => _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -84,7 +78,7 @@ class _MyAppState extends State<MyApp> {
         create: (context) => appData,
         child: Consumer<AppData>(builder: (context, locale, child) {
           return MaterialApp(
-            title: 'I Book Holiday',
+            title: 'Lamar travel',
             supportedLocales: L10n.all,
             locale: Provider.of<AppData>(context, listen: false).locale,
             localizationsDelegates: const [
@@ -94,6 +88,7 @@ class _MyAppState extends State<MyApp> {
               GlobalWidgetsLocalizations.delegate,
             ],
             theme: ThemeData(
+              useMaterial3: false,
               fontFamily: Provider.of<AppData>(context, listen: false).locale == const Locale('en')
                   ? 'Lato'
                   : 'Bhaijaan',
@@ -109,7 +104,7 @@ class _MyAppState extends State<MyApp> {
             // LoginScreen.idscreen,
             routes: {
               PreBookTodo.idScreen: (context) => const PreBookTodo(
-                    isIndv: null,
+                    isIndv: false,
                   ),
               NewLogin.idScreen: (context) => const NewLogin(),
               MainScreen.idScreen: (context) => const MainScreen(),
@@ -132,16 +127,16 @@ class _MyAppState extends State<MyApp> {
               CheckoutInformation.idScreen: (context) => const CheckoutInformation(),
               CheckoutInformation.idScreen: (context) => const CheckoutInformation(),
               SumAndPay.idScreen: (context) => const SumAndPay(
-                    isIndv: null,
+                    isIndv: false,
                   ),
               SplashScreen.idScreen: (context) => const SplashScreen(),
               PdfScreen.idScreen: (context) => const PdfScreen(
                     path: '',
                     title: '',
-                    isPDF: null,
+                    isPDF: false,
                   ),
               MiniLoader.idScreen: (context) => const MiniLoader(),
-              TabPage.idScreen: (context) =>const TabPage(),
+              TabPage.idScreen: (context) => const TabPage(),
               SearchStepper.idScreen: (context) => SearchStepper(
                     section: -1,
                     isFromNavBar: false,
@@ -150,10 +145,10 @@ class _MyAppState extends State<MyApp> {
               PreBookStepper.idScreen: (context) => PreBookStepper(
                     isFromNavBar: false,
                   ),
-              FlightDetial.idScreen: (context) =>const FlightDetial(),
+              FlightDetial.idScreen: (context) => const FlightDetial(),
               NewCustomizePage.idScreen: (context) => const NewCustomizePage(),
-              CustomizeSlider.idScreen: (context) =>const CustomizeSlider(),
-              SplitHotel.idScreen: (context) =>const SplitHotel(
+              CustomizeSlider.idScreen: (context) => const CustomizeSlider(),
+              SplitHotel.idScreen: (context) => const SplitHotel(
                     hotels: null,
                   ),
             },
@@ -162,13 +157,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> initPlatformState() async {
-    OneSignal.shared.setAppId(onSignalAppId);
-    OneSignal.shared.getDeviceState().then((value) {});
-    OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-    });
-
-    OneSignal.shared.setNotificationOpenedHandler((openedResult) {});
-    OneSignal.shared.setNotificationWillShowInForegroundHandler((event) {});
+//      OneSignal.initialize(onSignalAppId);
+//  OneSignal.Notifications.permissionNative().then((accepted) {
+//    print("Accepted permission: $accepted");
+//  });
+//  OneSignal.Notifications.addClickListener((event) {});
+//  OneSignal.Notifications.addForegroundWillDisplayListener((event) {});
+    // OneSignal.shared.setAppId(onSignalAppId);
+    // OneSignal.shared.getDeviceState().then((value) {});
+    // OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {});
+    // OneSignal.shared.setNotificationOpenedHandler((openedResult) {});
+    // OneSignal.shared.setNotificationWillShowInForegroundHandler((event) {});
   }
 }
- 

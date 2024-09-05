@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:lamar_travel_packages/screen/auth/new_login.dart';
 import 'package:lamar_travel_packages/screen/booking/prebooking_steper.dart';
 import 'package:lamar_travel_packages/screen/customize/new-customize/new_customize_slider.dart';
+import 'package:lottie/lottie.dart';
 import '../../Assistants/assistant_methods.dart';
 import '../../Datahandler/adaptive_texts_size.dart';
 

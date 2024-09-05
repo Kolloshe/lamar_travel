@@ -3,9 +3,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lamar_travel_packages/tab_screen_controller.dart';
 import 'package:lamar_travel_packages/widget/check_connection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -34,8 +34,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   bool isFromdeep = false;
 
-  DataConnectionStatus? internet;
-
   // void initDynamicLinks() async {
   //   FirebaseDynamicLinks.instance.onLink(
   //       onSuccess: (PendingDynamicLinkData? dynamicLink) async {
@@ -53,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void initState() {
     // initDynamicLinks();
-     startapp();
+    startapp();
     super.initState();
   }
 
@@ -204,8 +202,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   getUserFromLocal() async {
-    internet = await CheckInternet().checkConnection(context);
-    if (internet == DataConnectionStatus.connected) {
+    final internet = await CheckInternet().checkConnection(context);
+
+   
+    if (internet == InternetConnectionStatus.connected) {
       await AssistantMethods.getTrendsAndOffers(
           context, Provider.of<AppData>(context, listen: false).citinameFormApi);
       print('currency start');
@@ -256,7 +256,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       print('dynamic start');
       await ddynamicLink();
       print('dynamic end');
-    
+
       if (!isFromdeep) {
         Navigator.pushNamedAndRemoveUntil(context, TabPage.idScreen, (route) => false);
       }

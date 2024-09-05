@@ -96,7 +96,7 @@ class _IndTransferSearchForHotelState extends State<IndTransferSearchForHotel> {
                     controller: fromController,
                     readOnly: true,
                     onTap: () async {
-                      SearchController().getInitData(context);
+                   //   SearchController().getInitData(context);
                       var result =
                           await showSearch(context: context, delegate: IndTransferSearchTo())
                               as IndTransferSearchResultData?;
@@ -133,7 +133,7 @@ class _IndTransferSearchForHotelState extends State<IndTransferSearchForHotel> {
                     controller: toController,
                     readOnly: true,
                     onTap: () async {
-                      SearchController().getInitData(context);
+                   //   SearchController().getInitData(context);
                       var result =
                           await showSearch(context: context, delegate: IndTransferSearchTo())
                               as IndTransferSearchResultData?;

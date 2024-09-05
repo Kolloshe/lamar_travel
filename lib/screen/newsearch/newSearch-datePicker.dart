@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, must_be_immutable, library_private_types_in_public_api, empty_catches
 
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lamar_travel_packages/Datahandler/app_data.dart';
@@ -10,8 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:time_picker_sheet/widget/sheet.dart';
-import 'package:time_picker_sheet/widget/time_picker.dart';
+ 
 
 import '../../config.dart';
 
@@ -858,29 +858,44 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
     ));
   }
 
+  Time _time = Time(hour: 12, minute: 00);
   _showOneTimePicker() async {
-    final DateTime? data = await TimePicker.show(
-      context: context,
-      sheet: TimePickerSheet(
-        initialDateTime: DateTime.now(),
-        sheetTitle: AppLocalizations.of(context)!.selectDepartureTimes,
-        hourTitle: AppLocalizations.of(context)!.hour,
-        minuteTitle: AppLocalizations.of(context)!.minute,
-        saveButtonText: AppLocalizations.of(context)!.save,
-        minuteInterval: 1,
-        sheetCloseIconColor: primaryblue,
-        minuteTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-        hourTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-        wheelNumberSelectedStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-        saveButtonColor: primaryblue,
+    DateTime? data;
+    Navigator.of(context).push(
+      showPicker(
+        context: context,
+        value: _time,
+        sunrise: const TimeOfDay(hour: 6, minute: 0), // optional
+        sunset: const TimeOfDay(hour: 18, minute: 0), // optional
+        duskSpanInMinutes: 120, // optional
+        onChange: (v) {},
+        onChangeDateTime: (time) {
+          oneTripTime = DateFormat('HH:mm').format(time);
+          data = time;
+        },
       ),
     );
-    if (data != null) {
-      oneTripTime = DateFormat('HH:mm').format(data);
 
-      setState(() {});
-    }
-
+    // final DateTime? data = await TimePicker.show(
+    //   context: context,
+    //   sheet: TimePickerSheet(
+    //     initialDateTime: DateTime.now(),
+    //     sheetTitle: AppLocalizations.of(context)!.selectDepartureTimes,
+    //     hourTitle: AppLocalizations.of(context)!.hour,
+    //     minuteTitle: AppLocalizations.of(context)!.minute,
+    //     saveButtonText: AppLocalizations.of(context)!.save,
+    //     minuteInterval: 1,
+    //     sheetCloseIconColor: primaryblue,
+    //     minuteTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+    //     hourTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+    //     wheelNumberSelectedStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+    //     saveButtonColor: primaryblue,
+    //   ),
+    // );
+    // if (data != null) {
+    //   oneTripTime = DateFormat('HH:mm').format(data);
+    // }
+    setState(() {});
     return data;
   }
 
@@ -923,30 +938,55 @@ class _DateRangePickersState extends State<DateRangePickers> with SingleTickerPr
     return null;
   }
 
-  _showRoundTimePicker(DateTime initialDateTime) async {
+  _showRoundTimePicker(DateTime initialDateTime,  ) async {
     String formattedTime = '';
-    DateTime? data = await TimePicker.show(
-      context: context,
-      sheet: TimePickerSheet(
-        initialDateTime: initialDateTime,
-        sheetTitle: AppLocalizations.of(context)!.selectReturnTimes,
-        hourTitle: AppLocalizations.of(context)!.hour,
-        minuteTitle: AppLocalizations.of(context)!.minute,
-        saveButtonText: AppLocalizations.of(context)!.save,
-        minuteInterval: 1,
-        sheetCloseIconColor: primaryblue,
-        minuteTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-        hourTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-        wheelNumberSelectedStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
-        saveButtonColor: primaryblue,
+
+
+
+
+ DateTime? data;
+    Navigator.of(context).push(
+      showPicker(
+        context: context,
+        value: _time,
+        sunrise: const TimeOfDay(hour: 6, minute: 0), // optional
+        sunset: const TimeOfDay(hour: 18, minute: 0), // optional
+        duskSpanInMinutes: 120, // optional
+        onChange: (v) {},
+        onChangeDateTime: (time) {
+          formattedTime = DateFormat('HH:mm').format(time);
+             formattedTime = DateFormat('HH:mm').format(DateTime.now());
+          data = time;
+        },
       ),
     );
-    if (data != null) {
-      formattedTime = DateFormat('HH:mm').format(data);
-    } else {
-      formattedTime = DateFormat('HH:mm').format(DateTime.now());
-    }
-
+ 
+    setState(() {});
     return formattedTime;
+
+
+  //   DateTime? data = await TimePicker.show(
+  //     context: context,
+  //     sheet: TimePickerSheet(
+  //       initialDateTime: initialDateTime,
+  //       sheetTitle: AppLocalizations.of(context)!.selectReturnTimes,
+  //       hourTitle: AppLocalizations.of(context)!.hour,
+  //       minuteTitle: AppLocalizations.of(context)!.minute,
+  //       saveButtonText: AppLocalizations.of(context)!.save,
+  //       minuteInterval: 1,
+  //       sheetCloseIconColor: primaryblue,
+  //       minuteTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+  //       hourTitleStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+  //       wheelNumberSelectedStyle: TextStyle(color: primaryblue, fontSize: 12.sp),
+  //       saveButtonColor: primaryblue,
+  //     ),
+  //   );
+  //   if (data != null) {
+  //     formattedTime = DateFormat('HH:mm').format(data);
+  //   } else {
+  //     formattedTime = DateFormat('HH:mm').format(DateTime.now());
+  //   }
+
+  //   return formattedTime;
   }
 }

@@ -468,7 +468,7 @@ class _CustomizeSliderState extends State<CustomizeSlider>
                     if (!await launch(url, forceSafariVC: false)) throw 'Could not launch $url';
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.grey.shade400, elevation: 0.0, fixedSize: Size(35.w, 5.h)),
+                      backgroundColor: Colors.grey.shade400, elevation: 0.0, fixedSize: Size(35.w, 5.h)),
                   child: Text(
                     AppLocalizations.of(context)!.needHelp,
                     style: TextStyle(

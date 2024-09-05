@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lamar_travel_packages/core/payment_core.dart';
 import 'package:lamar_travel_packages/screen/individual_services/ind_packages_screen.dart';
 import 'package:lamar_travel_packages/screen/newsearch/new_search_room_passinger.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:slide_countdown/slide_countdown.dart';

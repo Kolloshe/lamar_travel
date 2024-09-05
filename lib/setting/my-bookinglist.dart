@@ -235,7 +235,7 @@ class _MyBookingScreenState extends State<MyBookingScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      const Icon(MdiIcons.car),
+                                        Icon(MdiIcons.car),
                                       SizedBox(
                                         width: 2.w,
                                       ),

@@ -14,6 +14,7 @@ import 'package:lamar_travel_packages/screen/customize/new-customize/new_customi
 import 'package:lamar_travel_packages/screen/individual_services/ind_packages_screen.dart';
 import 'package:lamar_travel_packages/screen/main_screen1.dart';
 import 'package:lamar_travel_packages/setting/my-bookinglist.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:provider/provider.dart';
